@@ -10,4 +10,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "mark")
 public class Mark extends BaseEntity {
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
 }
