@@ -7,8 +7,8 @@ import javax.persistence.Entity;
  * <florian.lopes@outlook.com>
  */
 @Entity(name = "teacher")
-public class Teacher {
-    private int id;
+public class Teacher extends BaseEntity{
+
     private String firstname;
     private String lastname;
     private String email;
@@ -34,13 +34,5 @@ public class Teacher {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 }
