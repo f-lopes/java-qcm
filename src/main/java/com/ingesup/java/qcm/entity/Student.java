@@ -6,7 +6,7 @@ import javax.persistence.Entity;
  * Created by lopes_f on 1/8/2015.
  * <florian.lopes@outlook.com>
  */
-@Entity(name = "Student")
+@Entity(name = "student")
 public class Student extends BaseEntity {
 
 	private String name;
