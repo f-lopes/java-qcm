@@ -5,4 +5,14 @@ package com.ingesup.java.qcm.entity;
  * <florian.lopes@outlook.com>
  */
 public class Mark extends BaseEntity {
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
+
 }
