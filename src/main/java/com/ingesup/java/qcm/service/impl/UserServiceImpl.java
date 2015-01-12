@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by lopes_f on 1/8/2015.
  * <florian.lopes@outlook.com>
  */
+@Service
 public class UserServiceImpl implements UserDetailsService {
 
 	private UserRepository userRepository;
