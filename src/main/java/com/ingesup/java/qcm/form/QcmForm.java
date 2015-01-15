@@ -13,4 +13,13 @@ public class QcmForm {
 	public Qcm getQcm() {
 		return new Qcm(qcmName);
 	}
+
+
+	public String getQcmName() {
+		return qcmName;
+	}
+
+	public void setQcmName(String qcmName) {
+		this.qcmName = qcmName;
+	}
 }

@@ -64,7 +64,7 @@ public class QcmController {
 
 		qcmService.add(qcmForm.getQcm());
 
-		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + ADD_QCM_VIEW;
