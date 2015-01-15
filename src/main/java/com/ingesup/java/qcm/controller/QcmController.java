@@ -4,8 +4,10 @@ import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.form.QcmForm;
+import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
+import com.sun.javafx.sg.PGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -33,6 +35,7 @@ public class QcmController {
 	private static final String ALL_QCM_URL = "/qcm/";
 
 	private static final String ADD_QCM_VIEW = "/qcm/create";
+	private static final String VIEW_QCM_VIEW = "/qcm/view";
 	private static final String ALL_QCM_VIEW = "/qcm/list";
 	private static final String QCM_VIEW = "/qcm/view";
 	private static final String QCM_QUESTIONS_VIEW = "/questions/list";
@@ -68,6 +71,13 @@ public class QcmController {
 		model.addAttribute("qcmForm", new QcmForm());
 
 		return ADD_QCM_VIEW;
+	}
+
+	@RequestMapping(value = "validate", method = RequestMethod.POST)
+	public String validateForm(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+
+
+		return "redirect" + VIEW_QCM_VIEW;
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
