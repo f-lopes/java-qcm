@@ -1,8 +1,6 @@
 package com.ingesup.java.qcm.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.LinkedList;
 import java.util.Set;
 
@@ -11,12 +9,21 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "qcm")
-public class QCM extends BaseEntity {
+public class Qcm extends BaseEntity {
 
     private String name;
 
-    @ManyToOne()
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "qcm_id")
     private Set<Question> questions;
+
+    public Qcm() {
+
+    }
+
+    public Qcm(String qcmName) {
+        this.name = qcmName;
+    }
 
     public String getName() {
         return name;

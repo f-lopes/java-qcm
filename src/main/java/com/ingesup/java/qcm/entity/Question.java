@@ -1,9 +1,6 @@
 package com.ingesup.java.qcm.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import java.util.LinkedList;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -15,8 +12,20 @@ public class Question extends BaseEntity {
     private int points;
     private String label;
 
-    @ManyToOne()
+    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "question_id")
     private Set<Answer> answers;
+
+    @ManyToOne
+    private Qcm qcm;
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
 
     public String getLabel() {
         return label;
@@ -26,18 +35,19 @@ public class Question extends BaseEntity {
         this.label = label;
     }
 
-    public int getPoints() {
-        return points;
-    }
-    public void setPoints(int points) {
-        this.points = points;
-    }
-
     public Set<Answer> getAnswers() {
         return answers;
     }
 
     public void setAnswers(Set<Answer> answers) {
         this.answers = answers;
+    }
+
+    public Qcm getQcm() {
+        return qcm;
+    }
+
+    public void setQcm(Qcm qcm) {
+        this.qcm = qcm;
     }
 }

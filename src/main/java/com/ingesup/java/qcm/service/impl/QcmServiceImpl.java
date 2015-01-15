@@ -1,6 +1,10 @@
 package com.ingesup.java.qcm.service.impl;
 
+import com.ingesup.java.qcm.entity.Qcm;
+import com.ingesup.java.qcm.repository.BaseRepository;
+import com.ingesup.java.qcm.repository.QcmRepository;
 import com.ingesup.java.qcm.service.QcmService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -8,15 +12,13 @@ import org.springframework.stereotype.Service;
  * <florian.lopes@outlook.com>
  */
 @Service
-public class QcmServiceImpl implements QcmService {
+public class QcmServiceImpl extends BaseServiceImpl<Qcm, String> implements QcmService {
+
+	@Autowired
+	private QcmRepository qcmRepository;
 
 	@Override
-	public void add(Object entity) {
-
-	}
-
-	@Override
-	public Object get(Object primaryKey) {
-		return null;
+	public BaseRepository getRepository() {
+		return qcmRepository;
 	}
 }

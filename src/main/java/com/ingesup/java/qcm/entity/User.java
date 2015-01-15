@@ -4,11 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,16 +24,92 @@ public class User extends BaseEntity implements UserDetails {
 
 	private String email;
 
-	private Role role;
+	private String password;
+
+	@ManyToMany (fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "user_roles",
+			joinColumns = @JoinColumn(name = "userId"),
+			inverseJoinColumns = @JoinColumn(name = "roleId")
+	)
+	private Set<Role> roles = new HashSet<>();
+
+	public User() {
+
+	}
+
+	public User(String firstName, String name, String email, String password) {
+		this.firstName = firstName;
+		this.lastName = name;
+		this.email = email;
+		this.password = password;
+	}
+
+	public void addRole(RoleEnum roleEnum) {
+		if (this.roles == null) {
+			this.roles = new HashSet<>();
+		}
+
+		this.roles.add(new Role(roleEnum));
+	}
+
+	public boolean isAdmin() {
+		boolean isAdmin = false;
+
+		for (Role role : roles) {
+			if (RoleEnum.ROLE_ADMIN.name().equals(role.getName())) {
+				isAdmin = true;
+				break;
+			}
+		}
+
+		return isAdmin;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return AuthorityUtils.createAuthorityList(role.getName());
+		return this.roles;
 	}
 
 	@Override
 	public String getPassword() {
-		return null;
+		return password;
 	}
 
 	@Override

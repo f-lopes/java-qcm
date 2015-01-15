@@ -1,6 +1,7 @@
 package com.ingesup.java.qcm.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -14,6 +15,8 @@ public class Answer extends BaseEntity {
 
     private boolean correct;
 
+    @ManyToOne
+    private Question question;
 
     public String getContent() {
         return content;
