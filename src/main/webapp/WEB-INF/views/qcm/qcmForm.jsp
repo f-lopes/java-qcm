@@ -8,7 +8,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <input type="submit" value="Submit"/>
+            <input type="submit" value="Créer le QCM"/>
         </td>
     </tr>
 </table>

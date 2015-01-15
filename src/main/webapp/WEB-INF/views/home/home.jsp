@@ -11,6 +11,8 @@
     <title></title>
 </head>
 <body>
+<h1>Bienvenue !</h1>
+<p><a href="qcm/create">Créer un nouveau QCM</a></p>
 
 </body>
 </html>
