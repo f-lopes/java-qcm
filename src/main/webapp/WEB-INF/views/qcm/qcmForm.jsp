@@ -2,16 +2,10 @@
 
 
 
-<form:form method="POST" action="create" commandName="qcmForm">
-   <table>
-        <tr>
-            <td><label>Name :</label></td>
-            <td><form:input path="qcmName" /></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Créer le QCM"/>
-            </td>
-        </tr>
-    </table>
+<form:form method="POST" action="create" commandName="qcmForm" class="form">
+    <div class="form-group">
+        <label for="qcmName">Nom :</label>
+        <form:input path="qcmName" class="form-control" placeholder="Nom de votre QCM" />
+    </div>
+    <input type="submit" value="Cr&eacute;er le QCM" class="btn btn-primary"/>
 </form:form>

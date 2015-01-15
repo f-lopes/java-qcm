@@ -9,17 +9,23 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title></title>
-</head>
-<body>
+  <head>
+      <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
+      <title><spring:message code="qcm.create.title"/></title>
+      <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body>
 
-<h1><spring:message code="qcm.create.title"/></h1>
+    <div class="container">
 
-<!-- Flash -->
-<div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
+      <h1><spring:message code="qcm.create.title"/></h1>
 
-<%@include file="qcmForm.jsp"%>
+      <!-- Flash -->
+      <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
 
-</body>
+      <%@include file="qcmForm.jsp"%>
+
+    </div>
+
+  </body>
 </html>
