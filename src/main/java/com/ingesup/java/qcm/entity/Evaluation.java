@@ -5,4 +5,7 @@ package com.ingesup.java.qcm.entity;
  * <florian.lopes@outlook.com>
  */
 public class Evaluation extends BaseEntity {
+
+
+
 }

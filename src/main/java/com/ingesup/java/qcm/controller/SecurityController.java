@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * Created by lopes_f on 1/8/2015.
  * <florian.lopes@outlook.com>
- */
+		*/
 @Controller
 @RequestMapping("/secure")
 public class SecurityController {
