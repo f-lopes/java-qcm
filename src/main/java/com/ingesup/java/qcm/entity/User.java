@@ -1,6 +1,7 @@
 package com.ingesup.java.qcm.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -28,7 +30,7 @@ public class User extends BaseEntity implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+		return AuthorityUtils.createAuthorityList(role.getName());
 	}
 
 	@Override

@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com.ingesup.java.qcm")
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = "com.ingesup.java.qcm.repository")
 public class JavaQcmApplication {
