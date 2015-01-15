@@ -7,31 +7,42 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <html>
 <head>
-    <title>QCM list</title>
+    <title><spring:message code="qcm.list"/></title>
 </head>
 <body>
 
 <h1>QCM list</h1>
 
-<table>
-  <thead>
-    <tr>
-      <td>ID</td>
-      <td>Name</td>
-    </tr>
-  </thead>
-  <tbody>
-    <c:forEach items="qcmList" var="qcm">
-      <tr>
-        <td>${qcm.id}</td>
-        <td>${qcm.name}</td>
-      </tr>
-    </c:forEach>
-  </tbody>
-</table>
+<c:choose>
+  <c:when test="qcmList.size > 0">
 
+    <table>
+      <thead>
+      <tr>
+        <td><spring:message code="qcm.name"/></td>
+        <td><spring:message code="qcm.questions.number"/></td>
+      </tr>
+      </thead>
+      <tbody>
+      <c:forEach items="qcmList" var="qcm">
+        <tr>
+          <td>${qcm.name}</td>
+          <td>${qcm.questions.size}</td>
+        </tr>
+      </c:forEach>
+      </tbody>
+    </table>
+
+  </c:when>
+
+  <c:otherwise>
+    <spring:message code="no.qcm.found"/>
+  </c:otherwise>
+
+</c:choose>
 </body>
 </html>

@@ -9,10 +9,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  */
 public class QcmForm {
 
-	private String qcmName;
-
 	@NotEmpty
-	private String qcmTest;
+	private String qcmName;
 
 	public Qcm getQcm() {
 		return new Qcm(qcmName);
@@ -24,13 +22,5 @@ public class QcmForm {
 
 	public void setQcmName(String qcmName) {
 		this.qcmName = qcmName;
-	}
-
-	public String getQcmTest() {
-		return qcmTest;
-	}
-
-	public void setQcmTest(String qcmTest) {
-		this.qcmTest = qcmTest;
 	}
 }

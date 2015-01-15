@@ -1,15 +1,14 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-
-<form:form method="POST" action="create" commandName="qcmForm" class="form">
+<form:form method="POST" action="create" commandName="qcmForm">
     <div class="form-group">
-        <label for="qcmName">Nom :</label>
+        <form:label path="qcmName">Name</form:label>
         <form:input path="qcmName" class="form-control" placeholder="Nom de votre QCM" />
+        <form:errors path="qcmName" cssClass="error" />
     </div>
     <div class="form-group">
-        <form:label path="qcmTest">Test : </form:label>
-        <form:input path="qcmTest" class="form-control" />
+        <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>
     </div>
-    <input type="submit" value="Cr&eacute;er le QCM" class="btn btn-primary"/>
+</table>
 </form:form>

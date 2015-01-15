@@ -1,11 +1,11 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.form.QcmForm;
 import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.service.QcmService;
+import com.ingesup.java.qcm.service.QuestionService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import com.sun.javafx.sg.PGShape;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -43,6 +41,9 @@ public class QcmController {
 
 	@Autowired
 	private QcmService qcmService;
+
+	@Autowired
+	private QuestionService questionService;
 
 	@Autowired
 	private MessageSource messageSource;
@@ -86,9 +87,9 @@ public class QcmController {
 		if (bindingResult.hasErrors()) {
 			// handle errors
 
-			model.addAttribute("message", MessageUtil.returnDanger("qcm.create.error"));
+			model.addAttribute("flash", MessageUtil.returnDanger("qcm.create.error"));
 
-			return ALL_QCM_URL;
+			return ADD_QCM_VIEW;
 		}
 
 		qcmService.add(qcmForm.getQcm());
@@ -118,7 +119,7 @@ public class QcmController {
 	@RequestMapping(value = "/{id}/questions/{questionId}")
 	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId,
 										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
-		Question question = null;
+		Question question = questionService.get(questionId);
 
 		// TODO
 		if (question == null) {
@@ -128,7 +129,10 @@ public class QcmController {
 			return "redirect:" + ALL_QCM_VIEW;
 		}
 
-		model.addAttribute("answers", question.getAnswers());
+		if (qcmId.equals(question.getQcm().getId())) {
+
+			model.addAttribute("answers", question.getAnswers());
+		}
 
 		return QCM_QUESTION_ANSWERS_VIEW;
 	}

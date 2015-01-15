@@ -2,7 +2,9 @@ package com.ingesup.java.qcm.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by lopes_f on 1/8/2015.

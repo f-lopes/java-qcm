@@ -5,11 +5,13 @@ import com.ingesup.java.qcm.repository.BaseRepository;
 import com.ingesup.java.qcm.repository.QuestionRepository;
 import com.ingesup.java.qcm.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by lopes_f on 1/15/2015.
  * <florian.lopes@outlook.com>
  */
+@Service
 public class QuestionServiceImpl extends BaseServiceImpl<Question, String> implements QuestionService {
 
 	@Autowired

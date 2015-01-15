@@ -8,6 +8,14 @@
  * Designed and built with all the love in the world by @mdo and @fat.
  */
 
+
+/** CUSTOM CSS **/
+
+.error {
+  border: red solid thin;
+}
+
+
 .clearfix {
   *zoom: 1;
 }

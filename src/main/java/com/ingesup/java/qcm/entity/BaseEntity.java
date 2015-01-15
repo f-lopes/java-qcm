@@ -19,6 +19,14 @@ public abstract class BaseEntity implements Serializable {
 	@GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

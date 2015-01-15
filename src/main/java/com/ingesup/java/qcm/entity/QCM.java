@@ -1,7 +1,6 @@
 package com.ingesup.java.qcm.entity;
 
 import javax.persistence.*;
-import java.util.LinkedList;
 import java.util.Set;
 
 /**
