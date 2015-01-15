@@ -21,10 +21,14 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<start-class>com.ingesup.java.qcm.JavaQcmApplication</start-class>
+
+		<spring.security.taglibs.version>3.2.5.RELEASE</spring.security.taglibs.version>
+
 		<mysql.version>5.1.28</mysql.version>
 		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-lang.version>2.6</commons-lang.version>
+
 		<jstl.version>1.2</jstl.version>
 		<javax.el.version>2.2</javax.el.version>
 		<java.version>1.7</java.version>
@@ -42,6 +46,12 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring.security.taglibs.version}</version>
 		</dependency>
 
 		<!-- Mysql Connector Java -->

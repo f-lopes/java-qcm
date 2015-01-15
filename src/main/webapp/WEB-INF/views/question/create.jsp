@@ -15,12 +15,12 @@
 </head>
 <body>
 
-<h1><spring:message code="qcm.create.title"/></h1>
+<h1><spring:message code="question.create.title"/></h1>
 
 <!-- Flash -->
 <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
 
-<%@include file="qcmForm.jsp"%>
+<%@include file="questionForm.jsp"%>
 
 </body>
 </html>

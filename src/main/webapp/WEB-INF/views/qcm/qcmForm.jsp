@@ -4,14 +4,16 @@
 
 <form:form method="POST" action="create" commandName="qcmForm">
    <table>
-        <tr>
-            <td><label>Name :</label></td>
-            <td><form:input path="qcmName" /></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="submit" value="Créer le QCM"/>
-            </td>
-        </tr>
-    </table>
+    <tr>
+        <td><form:label path="qcmName">Name</form:label></td>
+        <td><form:input path="qcmName" /></td>
+        <td><form:label path="qcmTest">Name</form:label></td>
+        <td><form:input path="qcmTest" /></td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Créer le QCM"/>
+        </td>
+    </tr>
+</table>
 </form:form>
