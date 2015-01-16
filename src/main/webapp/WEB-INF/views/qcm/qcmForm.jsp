@@ -2,6 +2,7 @@
 
 
 <form:form method="POST" action="create" commandName="qcmForm">
+    <form:errors path="" />
     <div class="form-group">
         <form:label path="qcmName">Name</form:label>
         <form:input path="qcmName" class="form-control" placeholder="Nom de votre QCM" />

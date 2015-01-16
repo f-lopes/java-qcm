@@ -26,14 +26,18 @@ import java.util.Set;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, String> implements UserService, UserDetailsService {
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
 	private PasswordEncoder passwordEncoder;
+
+	@Autowired
+	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
+	}
 
 	@Override
 	public BaseRepository getRepository() {
@@ -46,11 +50,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		entity.setRoles(getDbRoles(entity.getRoles()));
 
 		super.add(entity);
-	}
-
-	@Autowired
-	public UserServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
 	}
 
 	@Override

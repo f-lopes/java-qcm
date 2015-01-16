@@ -14,8 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class QuestionServiceImpl extends BaseServiceImpl<Question, String> implements QuestionService {
 
-	@Autowired
 	private QuestionRepository questionRepository;
+
+	@Autowired
+	public QuestionServiceImpl(QuestionRepository questionRepository) {
+		this.questionRepository = questionRepository;
+	}
 
 	@Override
 	public BaseRepository getRepository() {

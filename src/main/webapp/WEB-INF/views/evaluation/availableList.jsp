@@ -15,23 +15,23 @@
 </head>
 <body>
 
-<h1><spring:message code="qcm.list"/></h1>
+<h1><spring:message code="evaluations.available"/></h1>
 
 <c:choose>
-  <c:when test="${qcmList.size > 0}">
+  <c:when test="availableEvaluations.size > 0">
 
     <table>
       <thead>
       <tr>
-        <td><spring:message code="qcm.name"/></td>
-        <td><spring:message code="qcm.questions.number"/></td>
+        <td><spring:message code="evaluation.name"/></td>
+        <td><spring:message code="evaluations.number"/></td>
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="qcmList" var="qcm">
+      <c:forEach items="availableEvaluations" var="evaluation">
         <tr>
-          <td>${qcm.name}</td>
-          <td>${qcm.questions.size}</td>
+          <td>${evaluation.name}</td>
+          <td></td>
         </tr>
       </c:forEach>
       </tbody>
@@ -40,7 +40,7 @@
   </c:when>
 
   <c:otherwise>
-    <spring:message code="no.qcm.found"/>
+    <spring:message code="no.evaluation.found"/>
   </c:otherwise>
 
 </c:choose>

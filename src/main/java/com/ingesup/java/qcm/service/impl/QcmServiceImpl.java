@@ -14,8 +14,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class QcmServiceImpl extends BaseServiceImpl<Qcm, String> implements QcmService {
 
-	@Autowired
 	private QcmRepository qcmRepository;
+
+	@Autowired
+	public QcmServiceImpl(QcmRepository qcmRepository) {
+		this.qcmRepository = qcmRepository;
+	}
 
 	@Override
 	public BaseRepository getRepository() {

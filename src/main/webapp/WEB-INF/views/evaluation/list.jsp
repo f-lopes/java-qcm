@@ -1,4 +1,4 @@
-<%--
+list.jsp<%--
   Created by IntelliJ IDEA.
   User: lopes_f
   Date: 1/15/2015
@@ -15,10 +15,10 @@
 </head>
 <body>
 
-<h1><spring:message code="qcm.list"/></h1>
+<h1>Evaluations list</h1>
 
 <c:choose>
-  <c:when test="${qcmList.size > 0}">
+  <c:when test="evaluations.size > 0">
 
     <table>
       <thead>
@@ -28,10 +28,10 @@
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="qcmList" var="qcm">
+      <c:forEach items="evaluations" var="evaluation">
         <tr>
-          <td>${qcm.name}</td>
-          <td>${qcm.questions.size}</td>
+          <td>${evaluation.name}</td>
+          <td></td>
         </tr>
       </c:forEach>
       </tbody>
