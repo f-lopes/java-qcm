@@ -12,6 +12,7 @@ import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,7 +26,8 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	private EvaluationStudentRepository evaluationStudentRepository;
 
 	@Autowired
-	public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationStudentRepository evaluationStudentRepository) {
+	public EvaluationServiceImpl(EvaluationRepository evaluationRepository,
+								 EvaluationStudentRepository evaluationStudentRepository) {
 		this.evaluationRepository = evaluationRepository;
 	}
 
@@ -33,7 +35,6 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	public BaseRepository getRepository() {
 		return evaluationRepository;
 	}
-
 
 	@Override
 	public int takeEvaluation(Evaluation evaluation, Student student, Set<Answer> answers, Date takenDate) {
@@ -48,5 +49,15 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 		evaluationStudentRepository.save(evaluationStudent);
 
 		return evaluationMark;
+	}
+
+	@Override
+	public List<EvaluationStudent> getTakenEvaluationsForStudent(String studentId) {
+		return null;
+	}
+
+	@Override
+	public List<Evaluation> getAvailableEvaluationsByGrade(String gradeId) {
+		return null;
 	}
 }

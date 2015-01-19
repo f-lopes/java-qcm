@@ -1,7 +1,11 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
+import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
+import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.QcmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -42,7 +46,9 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
-	public String availableEvaluations(Model model) {
+	public String availableEvaluations(Model model, @CurrentUser Student student) {
+		Grade studentGrade = student.getGrade();
+
 
 		return AVAILABLE_EVALUATIONS_VIEW;
 	}

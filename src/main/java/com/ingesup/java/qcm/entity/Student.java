@@ -13,6 +13,9 @@ public class Student extends User {
 
 	private String name;
 
+	@ManyToOne
+	private Grade grade;
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "student_id")
 	private List<EvaluationStudent> evaluations;
@@ -24,5 +27,29 @@ public class Student extends User {
 		this.lastName = studentName;
 		this.firstName = studentFirstname;
 		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
+	public List<EvaluationStudent> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<EvaluationStudent> evaluations) {
+		this.evaluations = evaluations;
 	}
 }

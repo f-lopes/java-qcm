@@ -22,6 +22,7 @@ import javax.validation.Valid;
  * <florian.lopes@outlook.com>
  */
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
 	private static final String ALL_USERS_VIEW = "user/list";
