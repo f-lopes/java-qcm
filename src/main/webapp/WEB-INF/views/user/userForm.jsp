@@ -9,5 +9,7 @@
     <form:label path="password"/>
     <form:input path="password" class="input-block-level" placeholder="Password"/>
     <form:errors path="password" cssClass="error" />
+    <form:label path="grade"/>
+    <form:select path="grade" itemLabel="name" itemValue="id" items="${grades}"/>
     <button class="btn btn-large btn-primary" type="submit"><spring:message code="user.add.title"/></button>
 </form:form>

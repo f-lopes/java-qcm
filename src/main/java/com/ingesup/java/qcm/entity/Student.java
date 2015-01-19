@@ -29,6 +29,10 @@ public class Student extends User {
 		this.email = email;
 	}
 
+	public Student(String firstName, String name, String email, String password) {
+		super(firstName, name, email, password);
+	}
+
 	public String getName() {
 		return name;
 	}

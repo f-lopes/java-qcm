@@ -1,5 +1,7 @@
 package com.ingesup.java.qcm.form;
 
+import com.ingesup.java.qcm.entity.Grade;
+import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.User;
 
 /**
@@ -15,6 +17,8 @@ public class AddUserForm {
 	private String email;
 
 	private String password;
+
+	private Grade grade;
 
 	public String getFirstName() {
 		return firstName;
@@ -48,7 +52,18 @@ public class AddUserForm {
 		this.password = password;
 	}
 
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
 	public User getUser() {
-		return new User(firstName, name, email, password);
+		Student student = new Student(firstName, name, email, password);
+		student.setGrade(grade);
+
+		return student;
 	}
 }

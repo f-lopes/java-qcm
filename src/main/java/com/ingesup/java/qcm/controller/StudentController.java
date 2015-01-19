@@ -1,8 +1,10 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
+import com.ingesup.java.qcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
@@ -22,9 +24,12 @@ public class StudentController {
 
     private EvaluationService evaluationService;
 
+    private UserService userService;
+
     @Autowired
-    public StudentController(EvaluationService evaluationService) {
+    public StudentController(EvaluationService evaluationService, UserService userService) {
         this.evaluationService = evaluationService;
+        this.userService = userService;
     }
 
     @Secured(value = "ROLE_STUDENT")
@@ -38,7 +43,7 @@ public class StudentController {
     @Secured(value = "ROLE_STUDENT")
     @RequestMapping(value = "/marks", method = RequestMethod.GET)
     public String studentMarks(Model model, @CurrentUser User currentUser) {
-        model.addAttribute("evaluations", evaluationService.getTakenEvaluationsForStudent(currentUser.getId()));
+        model.addAttribute("evaluations", evaluationService.getTakenEvaluationsForStudent((Student) userService.get(currentUser.getId())));
 
         return STUDENT_MARKS_VIEW;
     }

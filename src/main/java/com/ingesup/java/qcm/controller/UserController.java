@@ -1,8 +1,10 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.RoleEnum;
 import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.form.AddUserForm;
+import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +13,13 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by lopes_f on 1/15/2015.
@@ -32,7 +36,15 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
+	private GradeService gradeService;
+
+	@Autowired
 	private MessageSource messageSource;
+
+	@ModelAttribute("grades")
+	private List<Grade> populateModel() {
+		return gradeService.getAll();
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String allUsers(Model model) {
