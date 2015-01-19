@@ -17,13 +17,13 @@ import java.util.Set;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class User extends BaseEntity implements UserDetails {
 
-	private String firstName;
+	protected String firstName;
 
-	private String lastName;
+	protected String lastName;
 
-	private String email;
+	protected String email;
 
-	private String password;
+	protected String password;
 
 	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(
@@ -31,7 +31,7 @@ public class User extends BaseEntity implements UserDetails {
 			joinColumns = @JoinColumn(name = "userId"),
 			inverseJoinColumns = @JoinColumn(name = "roleId")
 	)
-	private Set<Role> roles = new HashSet<>();
+	protected Set<Role> roles = new HashSet<>();
 
 	public User() {
 

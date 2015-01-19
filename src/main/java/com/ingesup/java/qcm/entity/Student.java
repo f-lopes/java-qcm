@@ -1,7 +1,7 @@
 package com.ingesup.java.qcm.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -9,15 +9,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "student")
-public class Student extends BaseEntity {
+public class Student extends User {
 
 	private String name;
 
-	public String getName() {
-		return name;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "student_id")
+	private List<EvaluationStudent> evaluations;
+
+	public Student() {
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public Student(String studentName, String studentFirstname, String email) {
+		this.lastName = studentName;
+		this.firstName = studentFirstname;
+		this.email = email;
 	}
 }

@@ -1,5 +1,7 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.RoleEnum;
+import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.form.AddUserForm;
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.MessageUtil;
@@ -52,7 +54,10 @@ public class UserController {
 			return ADD_USER_VIEW;
 		}
 
-		userService.add(addUserForm.getUser());
+		User userToAdd = addUserForm.getUser();
+		userToAdd.addRole(RoleEnum.ROLE_STUDENT);
+
+		userService.add(userToAdd);
 
 		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
 				messageSource.getMessage("user.add.success", null, LocaleContextHolder.getLocale())));
