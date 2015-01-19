@@ -1,9 +1,6 @@
 package com.ingesup.java.qcm.service;
 
-import com.ingesup.java.qcm.entity.Answer;
-import com.ingesup.java.qcm.entity.Evaluation;
-import com.ingesup.java.qcm.entity.EvaluationStudent;
-import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.*;
 
 import java.util.Date;
 import java.util.List;
@@ -17,7 +14,7 @@ public interface EvaluationService extends BaseService<Evaluation, String> {
 
 	public int takeEvaluation(Evaluation evaluation, Student student, Set<Answer> answers, Date takenDate);
 
-	public List<EvaluationStudent> getTakenEvaluationsForStudent(String studentId);
+	public List<EvaluationStudent> getTakenEvaluationsForStudent(Student student);
 
-	public List<Evaluation> getAvailableEvaluationsByGrade(String gradeId);
+	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade);
 }

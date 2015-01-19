@@ -1,15 +1,13 @@
 package com.ingesup.java.qcm.service.impl;
 
-import com.ingesup.java.qcm.entity.Answer;
-import com.ingesup.java.qcm.entity.Evaluation;
-import com.ingesup.java.qcm.entity.EvaluationStudent;
-import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.*;
 import com.ingesup.java.qcm.repository.BaseRepository;
 import com.ingesup.java.qcm.repository.EvaluationRepository;
 import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
 import com.ingesup.java.qcm.service.EvaluationService;
 import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
@@ -19,6 +17,7 @@ import java.util.Set;
  * Created by lopes_f on 1/16/2015.
  * <florian.lopes@outlook.com>
  */
+@Service
 public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> implements EvaluationService {
 
 	private EvaluationRepository evaluationRepository;
@@ -52,12 +51,12 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	}
 
 	@Override
-	public List<EvaluationStudent> getTakenEvaluationsForStudent(String studentId) {
-		return null;
+	public List<EvaluationStudent> getTakenEvaluationsForStudent(Student student) {
+		return evaluationStudentRepository.findByStudent(student);
 	}
 
 	@Override
-	public List<Evaluation> getAvailableEvaluationsByGrade(String gradeId) {
-		return null;
+	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade) {
+		return evaluationRepository.findByGrade(grade);
 	}
 }

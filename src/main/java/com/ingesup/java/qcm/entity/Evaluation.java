@@ -20,11 +20,46 @@ public class Evaluation extends BaseEntity {
 	@JoinColumn(name = "evaluation_id")
 	private List<EvaluationStudent> students;
 
+	@ManyToOne
+	private Grade grade;
+
 	public Evaluation() {
 	}
 
 	public Evaluation(Date startDate, Date endDate) {
 		this.startDate = startDate;
 		this.endDate = endDate;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public List<EvaluationStudent> getStudents() {
+		return students;
+	}
+
+	public void setStudents(List<EvaluationStudent> students) {
+		this.students = students;
+	}
+
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
 	}
 }

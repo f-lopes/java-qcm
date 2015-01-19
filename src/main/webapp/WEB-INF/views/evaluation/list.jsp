@@ -28,7 +28,7 @@ list.jsp<%--
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="evaluations" var="evaluation">
+      <c:forEach items="${evaluations}" var="evaluation">
         <tr>
           <td>${evaluation.name}</td>
           <td></td>

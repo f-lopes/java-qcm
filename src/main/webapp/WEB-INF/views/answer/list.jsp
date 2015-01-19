@@ -24,7 +24,7 @@
   </tr>
   </thead>
   <tbody>
-  <c:forEach items="answers" var="answer">
+  <c:forEach items="${answers}" var="answer">
     <tr>
       <td>${answer.id}</td>
       <td>${answer.name}</td>

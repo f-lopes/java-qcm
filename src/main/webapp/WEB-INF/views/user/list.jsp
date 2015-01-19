@@ -26,10 +26,10 @@
     </tr>
   </thead>
   <tbody>
-    <c:forEach items="users" var="user">
+    <c:forEach items="${users}" var="user">
       <tr>
         <td>${user.id}</td>
-        <td>${user.name}</td>
+        <td>${user.lastName}</td>
         <td>${user.firstName}</td>
         <td>${user.email}</td>
       </tr>

@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -18,7 +19,7 @@
 <h1><spring:message code="qcm.list"/></h1>
 
 <c:choose>
-  <c:when test="${qcmList.size > 0}">
+  <c:when test="${fn:length(qcmList) gt 0}">
 
     <table>
       <thead>
@@ -28,7 +29,7 @@
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="qcmList" var="qcm">
+      <c:forEach items="${qcmList}" var="qcm">
         <tr>
           <td>${qcm.name}</td>
           <td>${qcm.questions.size}</td>

@@ -1,6 +1,7 @@
 package com.ingesup.java.qcm.entity;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,6 +18,10 @@ public class Grade extends BaseEntity {
     @JoinColumn(name = "grade_id")
     private Set<Student> students;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "grade_id")
+    private List<Evaluation> evaluations;
+
     public String getName() {
         return name;
     }
@@ -31,5 +36,13 @@ public class Grade extends BaseEntity {
 
     public void setStudents(Set<Student> students) {
         this.students = students;
+    }
+
+    public List<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(List<Evaluation> evaluations) {
+        this.evaluations = evaluations;
     }
 }

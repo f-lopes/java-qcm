@@ -4,12 +4,12 @@ import com.ingesup.java.qcm.JavaQcmApplication;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.Student;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -56,6 +56,13 @@ public class EvaluationRepositoryTests {
 				.mark(0).build();
 
 		evaluationStudent = evaluationStudentRepository.save(evaluationStudent);
+
+		Assert.assertEquals(evaluationStudent.getStudent(), student);
+		Assert.assertEquals(evaluationStudent.getEvaluation(), evaluation);
+		Assert.assertEquals(evaluationStudent.getMark(), 0);
 	}
 
+	public void shouldTakeEvaluation() {
+
+	}
 }

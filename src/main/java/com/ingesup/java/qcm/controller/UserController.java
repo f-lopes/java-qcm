@@ -34,7 +34,7 @@ public class UserController {
 	@Autowired
 	private MessageSource messageSource;
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public String allUsers(Model model) {
 		model.addAttribute("users", userService.getAll());
 
@@ -43,7 +43,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserView(Model model) {
-		model.addAttribute(new AddUserForm());
+		model.addAttribute("addUserForm", new AddUserForm());
 
 		return ADD_USER_VIEW;
 	}
