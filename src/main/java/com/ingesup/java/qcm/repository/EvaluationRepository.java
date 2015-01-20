@@ -3,6 +3,7 @@ package com.ingesup.java.qcm.repository;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -11,5 +12,5 @@ import java.util.List;
  */
 public interface EvaluationRepository extends BaseRepository<Evaluation, String> {
 
-	public List<Evaluation> findByGrade(Grade grade);
+	public List<Evaluation> findByGradeAndStartDateBefore(Grade grade, Date beforeDate);
 }
