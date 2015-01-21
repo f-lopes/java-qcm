@@ -1,9 +1,12 @@
 package com.ingesup.java.qcm.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.metamodel.binding.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.persistence.InheritanceType;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +17,13 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "user")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class User extends BaseEntity implements UserDetails {
+
+/*	@Id
+	@GeneratedValue(generator = "system-uuid")
+	@GenericGenerator (name = "system-uuid", strategy = "uuid")
+	private String id;*/
 
 	protected String firstName;
 

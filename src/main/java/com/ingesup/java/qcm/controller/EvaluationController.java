@@ -3,10 +3,10 @@ package com.ingesup.java.qcm.controller;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Student;
-import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
+import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -41,6 +41,14 @@ public class EvaluationController {
 	@Autowired
 	private EvaluationService evaluationService;
 
+	@Autowired
+	private GradeService gradeService;
+
+	@ModelAttribute("grades")
+	private List<Grade> populateGrades() {
+		return gradeService.getAll();
+	}
+	
 	@ModelAttribute("qcmList")
 	private List<Qcm> populateCreateEvaluationForm() {
 		List<Qcm> qcmList = qcmService.getAll();

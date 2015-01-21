@@ -22,6 +22,14 @@ public class Grade extends BaseEntity {
     @JoinColumn(name = "grade_id")
     private List<Evaluation> evaluations;
 
+    public Grade() {
+
+    }
+
+    public Grade(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }

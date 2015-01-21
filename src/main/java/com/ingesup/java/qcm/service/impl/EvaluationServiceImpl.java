@@ -5,7 +5,6 @@ import com.ingesup.java.qcm.repository.BaseRepository;
 import com.ingesup.java.qcm.repository.EvaluationRepository;
 import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
 import com.ingesup.java.qcm.service.EvaluationService;
-import org.apache.commons.lang.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +56,6 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
 	@Override
 	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade) {
-		return evaluationRepository.findByGrade(grade);
+		return evaluationRepository.findAvailableByGrade(grade);
 	}
 }
