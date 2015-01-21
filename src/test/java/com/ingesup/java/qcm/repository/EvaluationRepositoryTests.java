@@ -28,7 +28,6 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-@WebAppConfiguration
 public class EvaluationRepositoryTests {
 
 	@Autowired

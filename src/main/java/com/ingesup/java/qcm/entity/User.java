@@ -1,7 +1,6 @@
 package com.ingesup.java.qcm.entity;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.metamodel.binding.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,20 +17,21 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User extends BaseEntity implements UserDetails {
+@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
+public class User implements UserDetails {
 
-/*	@Id
+	@Id
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator (name = "system-uuid", strategy = "uuid")
-	private String id;*/
+	@GenericGenerator(name = "system-uuid", strategy = "uuid")
+	private String id;
 
-	protected String firstName;
+	private String firstName;
 
-	protected String lastName;
+	private String lastName;
 
-	protected String email;
+	private String email;
 
-	protected String password;
+	private String password;
 
 	@ManyToMany (fetch = FetchType.EAGER)
 	@JoinTable(
@@ -39,7 +39,7 @@ public class User extends BaseEntity implements UserDetails {
 			joinColumns = @JoinColumn(name = "userId"),
 			inverseJoinColumns = @JoinColumn(name = "roleId")
 	)
-	protected Set<Role> roles = new HashSet<>();
+	private Set<Role> roles = new HashSet<>();
 
 	public User() {
 
@@ -50,6 +50,12 @@ public class User extends BaseEntity implements UserDetails {
 		this.lastName = name;
 		this.email = email;
 		this.password = password;
+	}
+
+	public User(String name, String firstName, String email) {
+		this.lastName = name;
+		this.firstName = firstName;
+		this.email = email;
 	}
 
 	public void addRole(RoleEnum roleEnum) {
@@ -71,6 +77,14 @@ public class User extends BaseEntity implements UserDetails {
 		}
 
 		return isAdmin;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getFirstName() {

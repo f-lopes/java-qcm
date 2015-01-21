@@ -9,6 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "student")
+@DiscriminatorValue("1")
 public class Student extends User {
 
 	private String name;
@@ -24,9 +25,7 @@ public class Student extends User {
 	}
 
 	public Student(String studentName, String studentFirstname, String email) {
-		this.lastName = studentName;
-		this.firstName = studentFirstname;
-		this.email = email;
+		super(studentName, studentFirstname, email);
 	}
 
 	public Student(String firstName, String name, String email, String password) {
