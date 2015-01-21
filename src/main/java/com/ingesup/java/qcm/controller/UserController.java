@@ -1,8 +1,6 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.Grade;
-import com.ingesup.java.qcm.entity.RoleEnum;
-import com.ingesup.java.qcm.entity.User;
+import com.ingesup.java.qcm.entity.*;
 import com.ingesup.java.qcm.form.AddUserForm;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.UserService;
@@ -31,6 +29,9 @@ public class UserController {
 
 	private static final String ALL_USERS_VIEW = "user/list";
 	private static final String ADD_USER_VIEW = "user/add";
+
+	private static final String USER_TYPE_STUDENT = "student";
+	private static final String USER_TYPE_TEACHER = "teacher";
 
 	@Autowired
 	private UserService userService;
@@ -67,13 +68,32 @@ public class UserController {
 			return ADD_USER_VIEW;
 		}
 
-		User userToAdd = addUserForm.getUser();
+		String userType = addUserForm.getUserType();
+		if (USER_TYPE_STUDENT.equals(userType)) {
+			if (addUserForm.getGrade() == null) {
+				bindingResult.reject("grade cannot be null");
+			}
+		}
+
+	/*	User userToAdd = addUserForm.getUser();
 		userToAdd.addRole(RoleEnum.ROLE_STUDENT);
 
 		userService.add(userToAdd);
-
+*/
 		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
 				messageSource.getMessage("user.add.success", null, LocaleContextHolder.getLocale())));
 		return "redirect:" + ALL_USERS_VIEW;
+	}
+
+	private void addUserFromForm(AddUserForm addUserForm) {
+		// TODO : if type == student -> studentRepository.add(student)
+
+		if (USER_TYPE_STUDENT.equals(addUserForm.getUserType())) {
+			Student student = addUserForm.getStudent();
+			student.addRole(RoleEnum.ROLE_STUDENT);
+		} else {
+			Teacher teacher = addUserForm.getTeacher();
+			// TODO teacherRepository.addTeacher(teacher);
+		}
 	}
 }

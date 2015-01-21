@@ -2,9 +2,12 @@ package com.ingesup.java.qcm.form;
 
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.entity.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by lopes_f on 1/15/2015.
@@ -23,8 +26,9 @@ public class AddUserForm {
 	@NotEmpty
 	private String password;
 
-	@NotEmpty
 	private Grade grade;
+
+	private String userType;
 
 	public String getFirstName() {
 		return firstName;
@@ -66,10 +70,23 @@ public class AddUserForm {
 		this.grade = grade;
 	}
 
-	public User getUser() {
+	public String getUserType() {
+		return userType;
+	}
+
+	public void setUserType(String userType) {
+		this.userType = userType;
+	}
+
+	public Student getStudent() {
 		Student student = new Student(firstName, name, email, password);
 		student.setGrade(grade);
 
 		return student;
+	}
+
+	public Teacher getTeacher() {
+		// TODO
+		return null;
 	}
 }

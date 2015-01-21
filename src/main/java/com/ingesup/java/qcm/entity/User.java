@@ -17,7 +17,6 @@ import java.util.Set;
 @Entity
 @Table(name = "user")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.INTEGER)
 public class User implements UserDetails {
 
 	@Id

@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "student")
-@DiscriminatorValue("1")
+@PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
 public class Student extends User {
 
 	private String name;
