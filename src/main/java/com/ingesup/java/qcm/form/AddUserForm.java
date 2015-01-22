@@ -3,11 +3,8 @@ package com.ingesup.java.qcm.form;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.Teacher;
-import com.ingesup.java.qcm.entity.User;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * Created by lopes_f on 1/15/2015.

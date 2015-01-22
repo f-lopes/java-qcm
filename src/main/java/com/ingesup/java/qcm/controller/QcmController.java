@@ -2,6 +2,7 @@ package com.ingesup.java.qcm.controller;
 
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
+import com.ingesup.java.qcm.form.AddQuestionsForm;
 import com.ingesup.java.qcm.form.QcmForm;
 import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.service.QcmService;
@@ -13,12 +14,15 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -37,6 +41,7 @@ public class QcmController {
 	private static final String QCM_VIEW = "/qcm/view";
 	private static final String QCM_QUESTIONS_VIEW = "/questions/list";
 	private static final String QCM_QUESTION_ANSWERS_VIEW = "/answer/list";
+	private static final String ADD_QUESTION_VIEW = "qcm/question/create";
 
 	@Autowired
 	private QcmService qcmService;
@@ -50,6 +55,11 @@ public class QcmController {
 	@Autowired
 	public QcmController(QcmService qcmService) {
 		this.qcmService = qcmService;
+	}
+
+	@ModelAttribute("questionsPoints")
+	private List<String> populateModelPoints() {
+		return Arrays.asList("1", "2", "3");
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
@@ -113,6 +123,14 @@ public class QcmController {
 		model.addAttribute("qcm", qcm);
 
 		return QCM_QUESTIONS_VIEW;
+	}
+
+	@RequestMapping(value = "/{qcmId}/questions/add")
+	public String addQuestion(Model model) {
+
+		model.addAttribute("addQuestionForm", new AddQuestionsForm());
+
+		return ADD_QUESTION_VIEW;
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}")

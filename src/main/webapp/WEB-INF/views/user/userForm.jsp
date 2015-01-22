@@ -11,5 +11,7 @@
     <form:errors path="password" cssClass="error" />
     <form:label path="grade"/>
     <form:select path="grade" itemLabel="name" itemValue="id" items="${grades}"/>
+
+    <form:select path="userType" items="${userTypes}" itemValue="key" itemLabel="value"/>
     <button class="btn btn-large btn-primary" type="submit"><spring:message code="user.add.title"/></button>
 </form:form>

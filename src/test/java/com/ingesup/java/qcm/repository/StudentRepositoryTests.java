@@ -12,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * Created by flopes on 21/01/2015.
+ * Created by lopes_f on 21/01/2015.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ActiveProfiles(value = "test")
