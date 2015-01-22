@@ -12,7 +12,7 @@ import java.util.Set;
  */
 public interface EvaluationService extends BaseService<Evaluation, String> {
 
-	public int takeEvaluation(Evaluation evaluation, Student student, Set<Answer> answers, Date takenDate);
+	public int takeEvaluation(String evaluationId, String qcmId, Student student, Set<String> answersIds, Date takenDate);
 
 	public List<EvaluationStudent> getTakenEvaluationsForStudent(Student student);
 

@@ -7,4 +7,5 @@ import com.ingesup.java.qcm.entity.Question;
  * <florian.lopes@outlook.com>
  */
 public interface QuestionRepository extends BaseRepository<Question, String> {
+
 }

@@ -1,16 +1,12 @@
 package com.ingesup.java.qcm.service.impl;
 
 import com.ingesup.java.qcm.entity.*;
-import com.ingesup.java.qcm.repository.BaseRepository;
-import com.ingesup.java.qcm.repository.EvaluationRepository;
-import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
+import com.ingesup.java.qcm.repository.*;
 import com.ingesup.java.qcm.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by lopes_f on 1/16/2015.
@@ -23,9 +19,17 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
 	private EvaluationStudentRepository evaluationStudentRepository;
 
+	private QcmRepository qcmRepository;
+
+	private QuestionRepository questionRepository;
+
+	private AnswerRepository answerRepository;
+
 	@Autowired
 	public EvaluationServiceImpl(EvaluationRepository evaluationRepository,
-								 EvaluationStudentRepository evaluationStudentRepository) {
+								 EvaluationStudentRepository evaluationStudentRepository,
+								 QcmRepository qcmRepository, QuestionRepository questionRepository,
+								 AnswerRepository answerRepository) {
 		this.evaluationRepository = evaluationRepository;
 	}
 
@@ -35,15 +39,15 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	}
 
 	@Override
-	public int takeEvaluation(Evaluation evaluation, Student student, Set<Answer> answers, Date takenDate) {
+	public int takeEvaluation(String evaluationId, String qcmId, Student student, Set<String> answersIds, Date takenDate) {
+		Evaluation evaluation = evaluationRepository.findOne(evaluationId);
 		int evaluationMark = 0;
 
-		for (Answer answer : answers) {
-			evaluationMark += answer.isCorrect() ? 1 : 0;
+		for (String answerId : answersIds) {
+			evaluationMark += answerRepository.findOne(answerId).getAnswerRate();
 		}
 
 		EvaluationStudent evaluationStudent = new EvaluationStudent(evaluation, student, evaluationMark, takenDate);
-
 		evaluationStudentRepository.save(evaluationStudent);
 
 		return evaluationMark;

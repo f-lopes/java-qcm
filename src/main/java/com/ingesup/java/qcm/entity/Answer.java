@@ -18,6 +18,8 @@ public class Answer extends BaseEntity {
     @ManyToOne
     private Question question;
 
+    private int answerRate;
+
     public String getContent() {
         return content;
     }
@@ -32,5 +34,21 @@ public class Answer extends BaseEntity {
 
     public void setCorrect(boolean correct) {
         this.correct = correct;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
+    }
+
+    public int getAnswerRate() {
+        return answerRate;
+    }
+
+    public void setAnswerRate(int answerRate) {
+        this.answerRate = answerRate;
     }
 }

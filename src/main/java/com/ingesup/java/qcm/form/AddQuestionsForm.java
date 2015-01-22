@@ -2,8 +2,6 @@ package com.ingesup.java.qcm.form;
 
 import com.ingesup.java.qcm.entity.Question;
 
-import java.util.List;
-
 /**
  * Created by lopes_f on 1/15/2015.
  * <florian.lopes@outlook.com>
