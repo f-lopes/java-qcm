@@ -1,22 +1,22 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
+import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
+import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -34,6 +34,8 @@ public class EvaluationController {
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
 	private static final String AVAILABLE_EVALUATIONS_VIEW = "evaluation/availableList";
 	private static final String CREATE_EVALUATION_VIEW = "evaluation/create";
+	private static final String TAKE_EVALUATION_VIEW = "evaluation/take";
+	private static final String VIEW_EVALUATION_VIEW = "evaluation/view";
 
 	@Autowired
 	private QcmService qcmService;
@@ -44,17 +46,17 @@ public class EvaluationController {
 	@Autowired
 	private GradeService gradeService;
 
-	@ModelAttribute("grades")
-	private List<Grade> populateGrades() {
-		return gradeService.getAll();
-	}
+//	@ModelAttribute("grades")
+//	private List<Grade> populateGrades() {
+//		return gradeService.getAll();
+//	}
 	
-	@ModelAttribute("qcmList")
-	private List<Qcm> populateCreateEvaluationForm() {
-		List<Qcm> qcmList = qcmService.getAll();
-
-		return qcmList != null ? qcmList : new ArrayList<Qcm>();
-	}
+//	@ModelAttribute("qcmList")
+//	private List<Qcm> populateCreateEvaluationForm() {
+//		List<Qcm> qcmList = qcmService.getAll();
+//
+//		return qcmList != null ? qcmList : new ArrayList<Qcm>();
+//	}
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
@@ -73,6 +75,13 @@ public class EvaluationController {
 		return CREATE_EVALUATION_VIEW;
 	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String viewEvaluationView(Model model, @PathVariable("id") String evalId) {
+		model.addAttribute(evaluationService.get(evalId));
+
+		return VIEW_EVALUATION_VIEW;
+	}
+
 //	@Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm,
@@ -87,8 +96,26 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/take", method = RequestMethod.POST)
-	public String takeEvaluation(Model model, @RequestParam String evaluationId) {
+	public String takeEvaluation(Model model, @RequestParam String evaluationId, RedirectAttributes redirectAttributes) {
+		Evaluation evaluation = evaluationService.get(evaluationId);
+		if(evaluation != null) {
+			model.addAttribute("qcm", evaluation.getQcm());
+			model.addAttribute("validateQcmForm", new ValidateQcmForm(evaluation.getId(), evaluation.getQcm().getId()));
+			return TAKE_EVALUATION_VIEW;
+		}
+		return "redirect:" + VIEW_EVALUATION_VIEW;
+	}
 
-		return null;
+	@Secured(value = "ROLE_STUDENT")
+	@RequestMapping(value = "/validate", method = RequestMethod.POST)
+	public String validateEvaluation(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+		if(bindingResult.hasErrors()){
+			model.addAttribute("flash", MessageUtil.returnDanger("qcm.view.validate.error"));
+			return TAKE_EVALUATION_VIEW;
+		}
+
+		// TODO : validation du QCM
+
+		return "redirect:" + VIEW_EVALUATION_VIEW;
 	}
 }

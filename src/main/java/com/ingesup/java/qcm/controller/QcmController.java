@@ -1,5 +1,6 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.form.AddQuestionsForm;
@@ -19,10 +20,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.beans.editors.BooleanEditor;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -81,13 +81,6 @@ public class QcmController {
 		model.addAttribute("qcmForm", new QcmForm());
 
 		return ADD_QCM_VIEW;
-	}
-
-	@RequestMapping(value = "validate", method = RequestMethod.POST)
-	public String validateForm(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult, RedirectAttributes redirectAttributes){
-
-
-		return "redirect" + VIEW_QCM_VIEW;
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)

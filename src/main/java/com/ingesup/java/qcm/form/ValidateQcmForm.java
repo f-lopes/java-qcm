@@ -11,7 +11,18 @@ public class ValidateQcmForm {
     private String qcmId;
 
     @NotEmpty
+    private String evalId;
+
+    @NotEmpty
     private String[] selectedAnswers;
+
+    public ValidateQcmForm(String evalId, String qcmId) {
+        this.evalId = evalId;
+        this.qcmId = qcmId;
+    }
+
+    public ValidateQcmForm() {
+    }
 
     public String getQcmId() {
         return qcmId;
@@ -19,6 +30,14 @@ public class ValidateQcmForm {
 
     public void setQcmId(String qcmId) {
         this.qcmId = qcmId;
+    }
+
+    public String getEvalId() {
+        return evalId;
+    }
+
+    public void setEvalId(String evalId) {
+        this.evalId = evalId;
     }
 
     public String[] getSelectedAnswers() {

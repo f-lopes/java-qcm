@@ -24,7 +24,7 @@
       <!-- Flash -->
       <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
 
-      <%@include file="qcmForm.jsp"%>
+      <%@include file="evaluationForm.jsp"%>
 
     </div>
 

@@ -23,6 +23,9 @@ public class Evaluation extends BaseEntity {
 	@ManyToOne
 	private Grade grade;
 
+	@ManyToOne
+	private Qcm qcm;
+
 	public Evaluation() {
 	}
 
@@ -61,5 +64,13 @@ public class Evaluation extends BaseEntity {
 
 	public void setGrade(Grade grade) {
 		this.grade = grade;
+	}
+
+	public Qcm getQcm() {
+		return qcm;
+	}
+
+	public void setQcm(Qcm qcm) {
+		this.qcm = qcm;
 	}
 }

@@ -32,7 +32,7 @@
       <c:forEach items="${qcmList}" var="qcm">
         <tr>
           <td>${qcm.name}</td>
-          <td>${qcm.questions.size}</td>
+          <%--<td>${qcm.questions.size}</td>--%>
         </tr>
       </c:forEach>
       </tbody>
