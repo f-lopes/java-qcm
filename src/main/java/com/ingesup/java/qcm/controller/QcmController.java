@@ -41,7 +41,7 @@ public class QcmController {
 	private static final String QCM_VIEW = "/qcm/view";
 	private static final String QCM_QUESTIONS_VIEW = "/questions/list";
 	private static final String QCM_QUESTION_ANSWERS_VIEW = "/answer/list";
-	private static final String ADD_QUESTION_VIEW = "qcm/question/create";
+	private static final String ADD_QUESTION_VIEW = "question/create";
 
 	@Autowired
 	private QcmService qcmService;
@@ -128,9 +128,29 @@ public class QcmController {
 	@RequestMapping(value = "/{qcmId}/questions/add")
 	public String addQuestion(Model model) {
 
+
 		model.addAttribute("addQuestionForm", new AddQuestionsForm());
 
 		return ADD_QUESTION_VIEW;
+	}
+
+	@RequestMapping(value = "/{qcmId}/questions/create", method = RequestMethod.POST)
+	public String saveQuestion(Model model, @Valid AddQuestionsForm questionsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+
+		if (bindingResult.hasErrors()) {
+			// handle errors
+
+			model.addAttribute("flash", MessageUtil.returnDanger("qcm.create.error"));
+
+			return ADD_QUESTION_VIEW;
+		}
+
+		questionService.add(questionsForm.createQuestion());
+
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("question.create.success", null, LocaleContextHolder.getLocale())));
+
+		return "redirect:" + ADD_QUESTION_VIEW;
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}")

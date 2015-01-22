@@ -26,8 +26,8 @@
   <tbody>
     <c:forEach items="qcm.questions" var="question">
       <tr>
-        <td>${qcm.id}</td>
-        <td>${qcm.name}</td>
+        <td>${question.id}</td>
+        <td>${question.name}</td>
       </tr>
     </c:forEach>
   </tbody>
