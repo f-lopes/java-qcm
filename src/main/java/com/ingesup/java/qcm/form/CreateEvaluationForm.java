@@ -1,5 +1,7 @@
 package com.ingesup.java.qcm.form;
 
+import com.ingesup.java.qcm.entity.Course;
+import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -22,6 +24,19 @@ public class CreateEvaluationForm {
 
 	@NotEmpty
 	private Qcm evaluationQcm;
+
+	@NotEmpty
+	private Grade grade;
+
+	@NotEmpty
+	private Course course;
+
+	@NotEmpty
+	private String teacherId;
+
+	public CreateEvaluationForm(String teacherId) {
+		this.teacherId = teacherId;
+	}
 
 	public String getEvaluationName() {
 		return evaluationName;
@@ -53,5 +68,29 @@ public class CreateEvaluationForm {
 
 	public void setEvaluationQcm(Qcm evaluationQcm) {
 		this.evaluationQcm = evaluationQcm;
+	}
+
+	public Grade getGrade() {
+		return grade;
+	}
+
+	public void setGrade(Grade grade) {
+		this.grade = grade;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
+	}
+
+	public String getTeacherId() {
+		return teacherId;
+	}
+
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
 }

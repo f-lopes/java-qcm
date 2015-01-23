@@ -1,17 +1,16 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.Evaluation;
-import com.ingesup.java.qcm.entity.Grade;
-import com.ingesup.java.qcm.entity.Qcm;
-import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.*;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
 import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.security.CurrentUser;
+import com.ingesup.java.qcm.service.CourseService;
 import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,17 +45,8 @@ public class EvaluationController {
 	@Autowired
 	private GradeService gradeService;
 
-//	@ModelAttribute("grades")
-//	private List<Grade> populateGrades() {
-//		return gradeService.getAll();
-//	}
-	
-//	@ModelAttribute("qcmList")
-//	private List<Qcm> populateCreateEvaluationForm() {
-//		List<Qcm> qcmList = qcmService.getAll();
-//
-//		return qcmList != null ? qcmList : new ArrayList<Qcm>();
-//	}
+	@Autowired
+	private CourseService courseService;
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
@@ -67,10 +57,13 @@ public class EvaluationController {
 		return AVAILABLE_EVALUATIONS_VIEW;
 	}
 
-//	@Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
+//	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String createEvaluationView(Model model) {
-		model.addAttribute("createEvaluationForm", new CreateEvaluationForm());
+	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
+		model.addAttribute("createEvaluationForm", new CreateEvaluationForm(teacher.getId()));
+		model.addAttribute("grades", gradeService.getAll());
+		model.addAttribute("qcmList", qcmService.getAll());
+		model.addAttribute("courses", courseService.getAll());
 
 		return CREATE_EVALUATION_VIEW;
 	}
@@ -82,7 +75,7 @@ public class EvaluationController {
 		return VIEW_EVALUATION_VIEW;
 	}
 
-//	@Secured({"ROLE_ADMIN", "ROLE_TEACHER"})
+//	@Secured("ROLE_TEACHER"})
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm,
 								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {

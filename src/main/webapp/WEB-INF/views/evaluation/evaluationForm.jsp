@@ -23,10 +23,18 @@
   </div>
 
   <div class="form-group">
-    <form:label path="grade"><spring:message code="evaluation.selected.qcm"/></form:label>
+    <form:label path="grade"><spring:message code="evaluation.selected.grade"/></form:label>
     <form:select path="grade" items="${grades}" itemValue="id" itemLabel="name" cssClass="form-control"/>
     <form:errors path="grade" cssClass="error" />
   </div>
+
+  <div class="form-group">
+    <form:label path="course"><spring:message code="evaluation.selected.course"/></form:label>
+    <form:select path="course" items="${courses}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+    <form:errors path="course" cssClass="error" />
+  </div>
+
+  <form:hidden path="teacherId" />
 
   <div class="form-group">
     <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>

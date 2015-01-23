@@ -26,6 +26,12 @@ public class Evaluation extends BaseEntity {
 	@ManyToOne
 	private Qcm qcm;
 
+	@ManyToOne
+	private Teacher teacher;
+
+	@ManyToOne
+	private Course course;
+
 	public Evaluation() {
 	}
 
@@ -72,5 +78,21 @@ public class Evaluation extends BaseEntity {
 
 	public void setQcm(Qcm qcm) {
 		this.qcm = qcm;
+	}
+
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
+	}
+
+	public Course getCourse() {
+		return course;
+	}
+
+	public void setCourse(Course course) {
+		this.course = course;
 	}
 }

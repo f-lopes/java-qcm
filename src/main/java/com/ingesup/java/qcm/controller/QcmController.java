@@ -23,6 +23,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sun.beans.editors.BooleanEditor;
 
 import javax.validation.Valid;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
