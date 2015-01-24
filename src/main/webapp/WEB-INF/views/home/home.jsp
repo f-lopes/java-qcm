@@ -13,7 +13,7 @@
 <body>
 <h1>Bienvenue !</h1>
 
-<img src="../../resources/img/hipsterlogogenerator_1420731148543.png">
+<img src="resources/img/hipsterlogogenerator_1420731148543.png">
 
 <p><a href="qcm/create">Créer un nouveau QCM</a></p>
 

@@ -109,11 +109,11 @@ public class UserController {
 		if (USER_TYPE_STUDENT.equals(addUserForm.getUserType())) {
 			Student student = addUserForm.getStudent();
 			student.addRole(RoleEnum.ROLE_STUDENT);
-			studentService.add(student);
+			userService.add(student);
 		} else {
 			Teacher teacher = addUserForm.getTeacher();
 			teacher.addRole(RoleEnum.ROLE_TEACHER);
-			teacherService.add(teacher);
+			userService.add(teacher);
 		}
 	}
 }

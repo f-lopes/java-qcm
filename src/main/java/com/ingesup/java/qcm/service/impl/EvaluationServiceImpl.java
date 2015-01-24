@@ -19,18 +19,14 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
 	private EvaluationStudentRepository evaluationStudentRepository;
 
-	private QcmRepository qcmRepository;
-
-	private QuestionRepository questionRepository;
-
 	private AnswerRepository answerRepository;
 
 	@Autowired
-	public EvaluationServiceImpl(EvaluationRepository evaluationRepository,
-								 EvaluationStudentRepository evaluationStudentRepository,
-								 QcmRepository qcmRepository, QuestionRepository questionRepository,
+	public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationStudentRepository evaluationStudentRepository,
 								 AnswerRepository answerRepository) {
 		this.evaluationRepository = evaluationRepository;
+		this.evaluationStudentRepository = evaluationStudentRepository;
+		this.answerRepository = answerRepository;
 	}
 
 	@Override
@@ -61,5 +57,15 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	@Override
 	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade) {
 		return evaluationRepository.findAvailableByGrade(grade);
+	}
+
+	@Override
+	public boolean hasStudentTakenEvaluation(String studentId, String evaluationId) {
+		return evaluationStudentRepository.findOne(new EvaluationStudentPk(evaluationId, studentId)) != null;
+	}
+
+	@Override
+	public EvaluationStudent getTakenEvaluation(String evaluationId, String studentId) {
+		return evaluationStudentRepository.findOne(new EvaluationStudentPk(evaluationId, studentId));
 	}
 }

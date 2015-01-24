@@ -14,14 +14,6 @@ public class Grade extends BaseEntity {
 
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "grade_id")
-    private Set<Student> students;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "grade_id")
-    private List<Evaluation> evaluations;
-
     public Grade() {
 
     }
@@ -36,21 +28,5 @@ public class Grade extends BaseEntity {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(Set<Student> students) {
-        this.students = students;
-    }
-
-    public List<Evaluation> getEvaluations() {
-        return evaluations;
-    }
-
-    public void setEvaluations(List<Evaluation> evaluations) {
-        this.evaluations = evaluations;
     }
 }

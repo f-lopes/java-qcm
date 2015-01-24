@@ -25,4 +25,14 @@ public abstract class BaseServiceImpl<T, I extends Serializable> implements Base
 	public T get(I primaryKey) {
 		return (T) getRepository().findOne(primaryKey);
 	}
+
+	@Override
+	public void remove(T entity) {
+		getRepository().delete(entity);
+	}
+
+	@Override
+	public T update(T entity) {
+		return (T) getRepository().save(entity);
+	}
 }

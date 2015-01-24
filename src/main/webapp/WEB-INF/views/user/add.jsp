@@ -28,5 +28,10 @@
 
     </div>
 
+<%--
+    <script type="application/javascript" src=""></script>
+    <script type="application/javascript" src="resources/js/user/addUser.js"></script>
+--%>
+
   </body>
 </html>

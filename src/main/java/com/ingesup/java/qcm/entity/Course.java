@@ -1,7 +1,5 @@
 package com.ingesup.java.qcm.entity;
 
-import org.dom4j.tree.AbstractEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
@@ -11,16 +9,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "course")
-public class Course extends AbstractEntity {
+public class Course extends BaseEntity {
 
 	private String name;
 
-	@Override
+	public Course() {
+	}
+
 	public String getName() {
 		return name;
 	}
 
-	@Override
 	public void setName(String name) {
 		this.name = name;
 	}

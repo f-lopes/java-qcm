@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -22,13 +21,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
- * Created by lopes_f on 1/17/2015.
+ * Created by lopes_f on 1/23/2015.
  * <florian.lopes@outlook.com>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(value = "test")
+@RunWith (SpringJUnit4ClassRunner.class)
+@ActiveProfiles (value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-public class EvaluationRepositoryTests {
+public class EvaluationStudentRepositoryTests {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -45,6 +44,7 @@ public class EvaluationRepositoryTests {
 	private Student student;
 	private Evaluation evaluation;
 	private Grade grade;
+
 
 	@Before
 	public void setUp() {
@@ -78,15 +78,32 @@ public class EvaluationRepositoryTests {
 	}
 
 	@Test
-	public void shouldRetrieveAvailableEvaluationsByGrade() {
-		List<Evaluation> availableEvaluations = evaluationRepository.findAvailableByGrade(this.grade);
+	public void shouldAddEvaluationStudentEntry() {
+		EvaluationStudent evaluationStudent = EvaluationStudent.builder()
+				.student(student)
+				.evaluation(evaluation)
+				.date(new Date())
+				.mark(0).build();
 
-		Assert.assertEquals(availableEvaluations.size(), 1);
-		Assert.assertEquals(availableEvaluations.get(0), evaluation);
+		evaluationStudent = evaluationStudentRepository.save(evaluationStudent);
+
+		Assert.assertEquals(evaluationStudent.getStudent().getId(), student.getId());
+		Assert.assertEquals(evaluationStudent.getEvaluation().getId(), evaluation.getId());
+		Assert.assertEquals(evaluationStudent.getMark(), 0);
 	}
 
-/*	@Test
-	public void shouldTakeEvaluation() {
-		Assert.fail("Not implemented");
-	}*/
+	@Test
+	public void shouldRetrieveEvaluationsTakenByStudent() {
+		EvaluationStudent evaluationStudent = EvaluationStudent.builder()
+				.student(student)
+				.evaluation(evaluation)
+				.date(new Date())
+				.mark(0).build();
+
+		evaluationStudent = evaluationStudentRepository.save(evaluationStudent);
+
+		List<EvaluationStudent> takenEvaluationsByStudent = evaluationStudentRepository.findByStudent(student);
+
+		Assert.assertEquals(takenEvaluationsByStudent.size(), 1);
+	}
 }

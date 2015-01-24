@@ -5,8 +5,7 @@ import com.ingesup.java.qcm.entity.Student;
 /**
  * Created by lopes_f on 21/01/2015.
  */
-public interface StudentRepository extends UserRepository {
+public interface StudentRepository extends BaseRepository<Student, String> {
 
-    @Override
     Student findByEmail(String email);
 }

@@ -12,8 +12,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "student_id", referencedColumnName = "id")
 public class Student extends User {
 
-	private String name;
-
 	@ManyToOne
 	private Grade grade;
 
@@ -30,14 +28,6 @@ public class Student extends User {
 
 	public Student(String firstName, String name, String email, String password) {
 		super(firstName, name, email, password);
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Grade getGrade() {

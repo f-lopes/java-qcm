@@ -21,6 +21,11 @@ public class EvaluationStudentPk implements Serializable {
 
 	}
 
+	public EvaluationStudentPk(String evaluationId, String studentId) {
+		this.evaluationId = evaluationId;
+		this.studentId = studentId;
+	}
+
 	public EvaluationStudentPk(Evaluation evaluation, Student student) {
 		this.evaluationId = evaluation.getId();
 		this.studentId = student.getId();

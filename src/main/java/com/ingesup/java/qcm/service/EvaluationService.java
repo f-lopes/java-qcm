@@ -17,4 +17,8 @@ public interface EvaluationService extends BaseService<Evaluation, String> {
 	public List<EvaluationStudent> getTakenEvaluationsForStudent(Student student);
 
 	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade);
+
+	public boolean hasStudentTakenEvaluation(String studentId, String evaluationId);
+
+	public EvaluationStudent getTakenEvaluation(String evaluationId, String studentId);
 }

@@ -16,5 +16,9 @@ public interface BaseService <T, I> {
 
 	public T get(I primaryKey);
 
+	public void remove(T entity);
+
+	public T update(T entity);
+
 	public BaseRepository getRepository();
 }

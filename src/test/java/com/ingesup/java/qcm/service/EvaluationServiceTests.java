@@ -1,11 +1,15 @@
-package com.ingesup.java.qcm.repository;
+package com.ingesup.java.qcm.service;
 
 import com.ingesup.java.qcm.JavaQcmApplication;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Student;
-import org.junit.Assert;
+import com.ingesup.java.qcm.repository.EvaluationRepository;
+import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
+import com.ingesup.java.qcm.repository.GradeRepository;
+import com.ingesup.java.qcm.repository.UserRepository;
+import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,21 +18,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 /**
- * Created by lopes_f on 1/17/2015.
+ * Created by lopes_f on 1/23/2015.
  * <florian.lopes@outlook.com>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ActiveProfiles(value = "test")
+@RunWith (SpringJUnit4ClassRunner.class)
+@ActiveProfiles (value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-public class EvaluationRepositoryTests {
+public class EvaluationServiceTests {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -38,6 +40,9 @@ public class EvaluationRepositoryTests {
 
 	@Autowired
 	private EvaluationStudentRepository evaluationStudentRepository;
+
+	@Autowired
+	private EvaluationService evaluationService;
 
 	@Autowired
 	private GradeRepository gradeRepository;
@@ -75,18 +80,26 @@ public class EvaluationRepositoryTests {
 		evaluation = evaluationRepository.save(evaluation);
 		secondEvaluation = evaluationRepository.save(secondEvaluation);
 		thirdEvaluation = evaluationRepository.save(thirdEvaluation);
+
+		EvaluationStudent evaluationStudent = EvaluationStudent.builder()
+				.student(student)
+				.evaluation(evaluation)
+				.date(new Date())
+				.mark(0).build();
+
+		evaluationStudent = evaluationStudentRepository.save(evaluationStudent);
 	}
 
 	@Test
-	public void shouldRetrieveAvailableEvaluationsByGrade() {
-		List<Evaluation> availableEvaluations = evaluationRepository.findAvailableByGrade(this.grade);
-
-		Assert.assertEquals(availableEvaluations.size(), 1);
-		Assert.assertEquals(availableEvaluations.get(0), evaluation);
+	public void shouldReturnIfStudentHasTakenGivenEvaluation() {
+		boolean hasStudentTakenEvaluation = evaluationService.hasStudentTakenEvaluation(student.getId(), evaluation.getId());
+		Assert.assertTrue(hasStudentTakenEvaluation);
 	}
 
-/*	@Test
+	@Test
 	public void shouldTakeEvaluation() {
+//		EvaluationStudent evaluationStudent = evaluationService.takeEvaluation()
+
 		Assert.fail("Not implemented");
-	}*/
+	}
 }

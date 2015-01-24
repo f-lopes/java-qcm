@@ -33,7 +33,8 @@ public class UserRepositoryTests {
 	}
 
 	@Test
-	public void shouldRetrieveStudent() {
-		Student student = (Student) userRepository.findByEmail("email@email.com");
+	public void shouldRetrieveUser() {
+		User user = userRepository.findByEmail("email@email.com");
+		Assert.assertEquals(user.getEmail(), this.user.getEmail());
 	}
 }

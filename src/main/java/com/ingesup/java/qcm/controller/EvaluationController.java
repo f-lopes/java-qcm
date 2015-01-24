@@ -57,6 +57,18 @@ public class EvaluationController {
 		return AVAILABLE_EVALUATIONS_VIEW;
 	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	public String viewEvaluationView(Model model, @PathVariable("id") String evalId, @CurrentUser Student student) {
+		if (evaluationService.hasStudentTakenEvaluation(student.getId(), evalId)) {
+			model.addAttribute("takenEvaluation", evaluationService.getTakenEvaluation(evalId, student.getId()));
+		} else {
+
+			model.addAttribute(evaluationService.get(evalId));
+		}
+
+		return VIEW_EVALUATION_VIEW;
+	}
+
 //	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
@@ -66,13 +78,6 @@ public class EvaluationController {
 		model.addAttribute("courses", courseService.getAll());
 
 		return CREATE_EVALUATION_VIEW;
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public String viewEvaluationView(Model model, @PathVariable("id") String evalId) {
-		model.addAttribute(evaluationService.get(evalId));
-
-		return VIEW_EVALUATION_VIEW;
 	}
 
 //	@Secured("ROLE_TEACHER"})

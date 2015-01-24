@@ -26,7 +26,7 @@ public class StudentRepositoryTests {
 
     @Before
     public void setUp() {
-        this.user = studentRepository.save(new User("firstname", "name", "email@email.com", "password"));
+        this.user = studentRepository.save(new Student("firstname", "name", "email@email.com", "password"));
     }
 
     @Test
