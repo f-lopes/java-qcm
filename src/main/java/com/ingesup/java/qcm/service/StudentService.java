@@ -17,5 +17,5 @@ public interface StudentService extends BaseService<Student, String> {
 
 	@CacheEvict(value = "studentsCache", allEntries = true)
 	@Override
-	void add(Student entity);
+	Student add(Student entity);
 }

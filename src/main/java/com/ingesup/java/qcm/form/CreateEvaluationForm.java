@@ -1,10 +1,11 @@
 package com.ingesup.java.qcm.form;
 
-import com.ingesup.java.qcm.entity.Course;
-import com.ingesup.java.qcm.entity.Grade;
-import com.ingesup.java.qcm.entity.Qcm;
+import com.ingesup.java.qcm.builder.EvaluationBuilder;
+import com.ingesup.java.qcm.entity.*;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -13,29 +14,25 @@ import java.util.Date;
  */
 public class CreateEvaluationForm {
 
-	@NotEmpty
+	@NotNull
 	private String evaluationName;
 
-	@NotEmpty
+	@NotNull
 	private Date startDate;
 
-	@NotEmpty
+	@NotNull
 	private Date endDate;
 
-	@NotEmpty
+	@NotNull
 	private Qcm evaluationQcm;
 
-	@NotEmpty
+	@NotNull
 	private Grade grade;
 
-	@NotEmpty
+	@NotNull
 	private Course course;
 
-	@NotEmpty
-	private String teacherId;
-
-	public CreateEvaluationForm(String teacherId) {
-		this.teacherId = teacherId;
+	public CreateEvaluationForm() {
 	}
 
 	public String getEvaluationName() {
@@ -86,11 +83,13 @@ public class CreateEvaluationForm {
 		this.course = course;
 	}
 
-	public String getTeacherId() {
-		return teacherId;
-	}
+	public Evaluation getEvaluation() {
+		Evaluation evaluation = new EvaluationBuilder()
+				.startDate(startDate)
+				.endDate(endDate)
+				.grade(grade)
+				.course(course).build();
 
-	public void setTeacherId(String teacherId) {
-		this.teacherId = teacherId;
+		return evaluation;
 	}
 }

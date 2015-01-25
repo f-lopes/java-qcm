@@ -29,6 +29,8 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
+	private static final String ALL_USERS_URL = "/users";
+
 	private static final String ALL_USERS_VIEW = "user/list";
 	private static final String ADD_USER_VIEW = "user/add";
 
@@ -101,7 +103,7 @@ public class UserController {
 
 		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
 				messageSource.getMessage("user.add.success", null, LocaleContextHolder.getLocale())));
-		return "redirect:" + ALL_USERS_VIEW;
+		return "redirect:" + ALL_USERS_URL;
 	}
 
 	private void addUserFromForm(AddUserForm addUserForm) {

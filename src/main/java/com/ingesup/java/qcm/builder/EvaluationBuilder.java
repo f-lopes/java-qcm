@@ -1,8 +1,6 @@
 package com.ingesup.java.qcm.builder;
 
-import com.ingesup.java.qcm.entity.Evaluation;
-import com.ingesup.java.qcm.entity.EvaluationStudent;
-import com.ingesup.java.qcm.entity.Grade;
+import com.ingesup.java.qcm.entity.*;
 
 import java.util.Date;
 import java.util.List;
@@ -44,8 +42,18 @@ public class EvaluationBuilder implements Builder<Evaluation> {
 		return this;
 	}
 
+	public EvaluationBuilder course(Course course) {
+		this.evaluation.setCourse(course);
+		return this;
+	}
+
+	public EvaluationBuilder teacher(Teacher teacher) {
+		this.evaluation.setTeacher(teacher);
+		return this;
+	}
+
 	@Override
 	public Evaluation build() {
-		return null;
+		return this.evaluation;
 	}
 }

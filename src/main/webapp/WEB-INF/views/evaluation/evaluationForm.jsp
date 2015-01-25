@@ -10,6 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <form:form method="POST" action="create" commandName="createEvaluationForm">
+  <form:errors path="" cssClass="error" />
   <div class="form-group">
     <form:label path="evaluationName">Name</form:label>
     <form:input path="evaluationName" class="form-control" />
@@ -18,8 +19,20 @@
 
   <div class="form-group">
     <form:label path="evaluationQcm"><spring:message code="evaluation.selected.qcm"/></form:label>
-    <form:select path="evaluationQcm" items="${qcmList}" itemValue="id" itemLabel="qcmName" cssClass="form-control"/>
+    <form:select path="evaluationQcm" items="${qcmList}" itemValue="id" itemLabel="name" cssClass="form-control"/>
     <form:errors path="evaluationQcm" cssClass="error" />
+  </div>
+
+  <div class="form-group">
+    <form:label path="startDate"><spring:message code="evaluation.startDate"/></form:label>
+    <form:input path="startDate" class="form-control" />
+    <form:errors path="startDate" cssClass="error" />
+  </div>
+
+  <div class="form-group">
+    <form:label path="endDate"><spring:message code="evaluation.endDate"/></form:label>
+    <form:input path="endDate" class="form-control" />
+    <form:errors path="endDate" cssClass="error" />
   </div>
 
   <div class="form-group">
@@ -33,8 +46,6 @@
     <form:select path="course" items="${courses}" itemValue="id" itemLabel="name" cssClass="form-control"/>
     <form:errors path="course" cssClass="error" />
   </div>
-
-  <form:hidden path="teacherId" />
 
   <div class="form-group">
     <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>

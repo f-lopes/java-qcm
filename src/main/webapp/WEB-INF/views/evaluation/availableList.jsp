@@ -8,30 +8,41 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
-    <title><spring:message code="qcm.list"/></title>
+    <title><spring:message code="evaluations.available"/></title>
 </head>
 <body>
 
 <h1><spring:message code="evaluations.available"/></h1>
 
 <c:choose>
-  <c:when test="availableEvaluations.size > 0">
+  <c:when test="${fn:length(availableEvaluations) gt 0}">
 
     <table>
       <thead>
       <tr>
-        <td><spring:message code="evaluation.name"/></td>
-        <td><spring:message code="evaluations.number"/></td>
+        <td><spring:message code="evaluation.startDate"/></td>
+        <td><spring:message code="evaluation.endDate"/></td>
+        <td><spring:message code="course"/></td>
+        <td><spring:message code="action"/></td>
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="availableEvaluations" var="evaluation">
+      <c:forEach items="${availableEvaluations}" var="evaluation">
+        <c:url var="takeEvaluationUrl" value="evaluations/take"/>
         <tr>
-          <td>${evaluation.name}</td>
-          <td></td>
+          <td>${evaluation.startDate}</td>
+          <td>${evaluation.endDate}</td>
+          <td>${evaluation.course.name}</td>
+          <td>
+            <form method="POST" action="${takeEvaluationUrl}">
+              <input type="hidden" name="evaluationId" value="${evaluation.id}"/>
+              <input type="submit" value="<spring:message code='evaluation.take'/>" />
+            </form>
+          </td>
         </tr>
       </c:forEach>
       </tbody>

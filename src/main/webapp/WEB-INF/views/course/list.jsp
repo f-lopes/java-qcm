@@ -1,4 +1,4 @@
-list.jsp<%--
+<%--
   Created by IntelliJ IDEA.
   User: lopes_f
   Date: 1/15/2015
@@ -12,28 +12,25 @@ list.jsp<%--
 
 <html>
 <head>
-    <title><spring:message code="qcm.list"/></title>
+    <title><spring:message code="courses.list"/></title>
 </head>
 <body>
 
-<h1>Evaluations list</h1>
+<h1><spring:message code="courses.list"/></h1>
 
 <c:choose>
-  <c:when test="${fn:length(evaluations) gt 0}">
+  <c:when test="${fn:length(courses) gt 0}">
 
     <table>
       <thead>
       <tr>
-        <td><spring:message code="qcm.name"/></td>
-        <td><spring:message code="qcm.questions.number"/></td>
+        <td><spring:message code="course.name"/></td>
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="${evaluations}" var="evaluation">
+      <c:forEach items="${courses}" var="course">
         <tr>
-          <td>${evaluation.name}</td>
-          <td>
-          </td>
+          <td>${course.name}</td>
         </tr>
       </c:forEach>
       </tbody>
@@ -42,7 +39,7 @@ list.jsp<%--
   </c:when>
 
   <c:otherwise>
-    <spring:message code="no.evaluation.found"/>
+    <spring:message code="no.course.found"/>
   </c:otherwise>
 
 </c:choose>

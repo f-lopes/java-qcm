@@ -83,7 +83,7 @@ public class AddUserForm {
 	}
 
 	public Teacher getTeacher() {
-		// TODO
-		return null;
+		Teacher teacher = new Teacher(firstName, name, email, password);
+		return teacher;
 	}
 }

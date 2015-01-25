@@ -45,11 +45,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	}
 
 	@Override
-	public void add(User entity) {
+	public User add(User entity) {
 		entity.setPassword(passwordEncoder.encode(entity.getPassword()));
 		entity.setRoles(getDbRoles(entity.getRoles()));
 
-		super.add(entity);
+		return super.add(entity);
 	}
 
 	@Override

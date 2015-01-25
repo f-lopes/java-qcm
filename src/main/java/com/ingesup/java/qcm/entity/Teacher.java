@@ -13,7 +13,14 @@ import javax.persistence.Table;
 @PrimaryKeyJoinColumn (name = "teacher_id", referencedColumnName = "id")
 public class Teacher extends User {
 
+    public Teacher() {
+    }
+
     private String speciality;
+
+    public Teacher(String firstName, String name, String email, String password) {
+        super(firstName, name, email, password);
+    }
 
     public String getSpeciality() {
         return speciality;

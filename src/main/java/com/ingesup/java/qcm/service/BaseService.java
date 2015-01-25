@@ -2,6 +2,7 @@ package com.ingesup.java.qcm.service;
 
 import com.ingesup.java.qcm.repository.BaseRepository;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -12,11 +13,15 @@ public interface BaseService <T, I> {
 
 	public List<T> getAll();
 
-	public void add(T entity);
+	public T add(T entity);
+
+	public Iterable<T> add(Iterable<T> entities);
 
 	public T get(I primaryKey);
 
-	public void remove(T entity);
+	public void removeEntity(T entity);
+
+	public void remove(I primaryKey);
 
 	public T update(T entity);
 

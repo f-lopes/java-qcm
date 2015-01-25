@@ -7,10 +7,15 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.ui.context.support.UiApplicationContextUtils;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import java.util.Date;
 
@@ -30,6 +35,7 @@ public class UserRepositoryTests {
 	@Before
 	public void setUp() {
 		this.user = userRepository.save(new User("firstname", "name", "email@email.com", "password"));
+//		WebApplicationContextUtils
 	}
 
 	@Test

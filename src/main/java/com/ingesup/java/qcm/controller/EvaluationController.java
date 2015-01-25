@@ -1,6 +1,8 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.*;
+import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
 import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.security.CurrentUser;
@@ -10,7 +12,8 @@ import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +22,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by lopes_f on 1/16/2015.
@@ -29,6 +34,8 @@ import java.util.List;
 @Controller
 @RequestMapping("/evaluations")
 public class EvaluationController {
+
+	private static final String ALL_EVALUATIONS_URL = "/evaluations";
 
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
 	private static final String AVAILABLE_EVALUATIONS_VIEW = "evaluation/availableList";
@@ -48,6 +55,9 @@ public class EvaluationController {
 	@Autowired
 	private CourseService courseService;
 
+	@Autowired
+	private MessageSource messageSource;
+
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
 	public String availableEvaluations(Model model, @CurrentUser Student student) {
@@ -62,8 +72,7 @@ public class EvaluationController {
 		if (evaluationService.hasStudentTakenEvaluation(student.getId(), evalId)) {
 			model.addAttribute("takenEvaluation", evaluationService.getTakenEvaluation(evalId, student.getId()));
 		} else {
-
-			model.addAttribute(evaluationService.get(evalId));
+			model.addAttribute("evaluation", evaluationService.get(evalId));
 		}
 
 		return VIEW_EVALUATION_VIEW;
@@ -72,7 +81,7 @@ public class EvaluationController {
 //	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
-		model.addAttribute("createEvaluationForm", new CreateEvaluationForm(teacher.getId()));
+		model.addAttribute("createEvaluationForm", new CreateEvaluationForm());
 		model.addAttribute("grades", gradeService.getAll());
 		model.addAttribute("qcmList", qcmService.getAll());
 		model.addAttribute("courses", courseService.getAll());
@@ -82,19 +91,23 @@ public class EvaluationController {
 
 //	@Secured("ROLE_TEACHER"})
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm,
+	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, @CurrentUser Teacher teacher,
 								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 
 			return CREATE_EVALUATION_VIEW;
 		}
 
-		return "redirect:" + ALL_EVALUATIONS_VIEW;
+		Evaluation evaluation = createEvaluationForm.getEvaluation();
+		evaluation.setTeacher(teacher);
+		evaluationService.add(evaluation);
+
+		return "redirect:" + ALL_EVALUATIONS_URL;
 	}
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/take", method = RequestMethod.POST)
-	public String takeEvaluation(Model model, @RequestParam String evaluationId, RedirectAttributes redirectAttributes) {
+	public String takeEvaluation(@RequestBody String evaluationId, Model model, RedirectAttributes redirectAttributes) {
 		Evaluation evaluation = evaluationService.get(evaluationId);
 		if(evaluation != null) {
 			model.addAttribute("qcm", evaluation.getQcm());
@@ -106,13 +119,20 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/validate", method = RequestMethod.POST)
-	public String validateEvaluation(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String validateEvaluation(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult,
+									 RedirectAttributes redirectAttributes, @CurrentUser Student student) {
 		if(bindingResult.hasErrors()){
 			model.addAttribute("flash", MessageUtil.returnDanger("qcm.view.validate.error"));
 			return TAKE_EVALUATION_VIEW;
 		}
 
-		// TODO : validation du QCM
+		Set<String> answersIds = new HashSet<>(Arrays.asList(validateQcmForm.getSelectedAnswers()));
+
+		int evaluationMark = evaluationService.
+				takeEvaluation(validateQcmForm.getEvalId(), validateQcmForm.getQcmId(), student, answersIds, new Date());
+
+		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("qcm.validate.success", new Object[] {evaluationMark}, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + VIEW_EVALUATION_VIEW;
 	}

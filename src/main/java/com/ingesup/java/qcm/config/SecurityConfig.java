@@ -1,6 +1,5 @@
 package com.ingesup.java.qcm.config;
 
-import com.ingesup.java.qcm.repository.UserRepository;
 import com.ingesup.java.qcm.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -10,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,11 +19,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * <florian.lopes@outlook.com>
  */
 @Configuration
+@EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private UserRepository userRepository;
 
 	@Autowired
 	private UserServiceImpl userServiceImpl;
@@ -51,8 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/admin").hasRole("ADMIN")
 				.anyRequest().authenticated()
 				.and()
+				.exceptionHandling().accessDeniedPage("/access-denied").and()
 			.formLogin()
-				.and().logout();
+				.and().
+				logout().logoutUrl("/logout");
 	}
 
 	@Bean

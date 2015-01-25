@@ -17,8 +17,13 @@ public abstract class BaseServiceImpl<T, I extends Serializable> implements Base
 	}
 
 	@Override
-	public void add(T entity) {
-		getRepository().save(entity);
+	public T add(T entity) {
+		return (T) getRepository().save(entity);
+	}
+
+	@Override
+	public Iterable<T> add(Iterable<T> entities) {
+		return getRepository().save(entities);
 	}
 
 	@Override
@@ -27,8 +32,13 @@ public abstract class BaseServiceImpl<T, I extends Serializable> implements Base
 	}
 
 	@Override
-	public void remove(T entity) {
+	public void removeEntity(T entity) {
 		getRepository().delete(entity);
+	}
+
+	@Override
+	public void remove(I primaryKey) {
+		getRepository().delete(primaryKey);
 	}
 
 	@Override
