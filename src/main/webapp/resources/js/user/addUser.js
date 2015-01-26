@@ -12,11 +12,11 @@ $(document).ready(function() {
 
     var registerListeners = function () {
 
-        $(gradeListSelector).change(function() {
+        $(userTypesSelector).change(function() {
             if ($(this).attr("value") == teacherTypeSelectValue) {
-                $(userTypesSelector).hide();
+                $(gradeListSelector).hide();
             } else {
-                $(userTypesSelector).show();
+                $(gradeListSelector).show();
             }
         });
     }

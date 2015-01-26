@@ -38,7 +38,7 @@
           <td>${evaluation.endDate}</td>
           <td>${evaluation.course.name}</td>
           <td>
-            <form method="POST" action="${takeEvaluationUrl}">
+            <form method="get" action="${takeEvaluationUrl}">
               <input type="hidden" name="evaluationId" value="${evaluation.id}"/>
               <input type="submit" value="<spring:message code='evaluation.take'/>" />
             </form>

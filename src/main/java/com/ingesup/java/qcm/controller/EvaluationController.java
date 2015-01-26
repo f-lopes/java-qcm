@@ -18,10 +18,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -45,6 +42,7 @@ public class EvaluationController {
 	private static final String CREATE_EVALUATION_VIEW = "evaluation/create";
 	private static final String TAKE_EVALUATION_VIEW = "evaluation/take";
 	private static final String VIEW_EVALUATION_VIEW = "evaluation/view";
+	private static final String ADMIN_EVALUATIONS_BY_GRADE_VIEW = "evaluation/admin/list";
 
 	@Autowired
 	private QcmService qcmService;
@@ -63,11 +61,39 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
-	public String availableEvaluations(Model model, @CurrentUser Student student) {
+	public String availableEvaluationsForStudent(Model model, @CurrentUser Student student) {
 		model.addAttribute("availableEvaluations",
 				evaluationService.getAvailableEvaluationsByGrade(student.getGrade()));
 
 		return AVAILABLE_EVALUATIONS_VIEW;
+	}
+
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public String evaluations(Model model) {
+		model.addAttribute("evaluations", evaluationService.getAll());
+
+		return ALL_EVALUATIONS_VIEW;
+	}
+
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
+	public String evaluationsByGrade(Model model, @RequestParam String gradeId, @RequestParam boolean onlyAvailable) {
+		if (onlyAvailable) {
+			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.get(gradeId)));
+		} else {
+			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.get(gradeId)));
+		}
+
+		return ADMIN_EVALUATIONS_BY_GRADE_VIEW;
+	}
+
+	@Secured(value = "ROLE_TEACHER")
+	@RequestMapping(value = "proposed-evaluations")
+	public String evaluationsByTeacher(Model model, @CurrentUser Teacher teacher) {
+		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
+
+		return ALL_EVALUATIONS_VIEW;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -109,8 +135,8 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_STUDENT")
-	@RequestMapping(value = "/take", method = RequestMethod.POST)
-	public String takeEvaluation(@RequestBody String evaluationId, Model model, RedirectAttributes redirectAttributes) {
+	@RequestMapping(value = "/take", method = RequestMethod.GET)
+	public String takeEvaluation(@RequestParam String evaluationId, Model model, RedirectAttributes redirectAttributes) {
 		Evaluation evaluation = evaluationService.get(evaluationId);
 		if(evaluation != null) {
 			model.addAttribute("qcm", evaluation.getQcm());

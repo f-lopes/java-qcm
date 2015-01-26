@@ -73,4 +73,14 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	public EvaluationStudent getTakenEvaluation(String evaluationId, String studentId) {
 		return evaluationStudentRepository.findOne(new EvaluationStudentPk(evaluationId, studentId));
 	}
+
+	@Override
+	public List<Evaluation> getEvaluationsByTeacher(Teacher teacher) {
+		return evaluationRepository.findByTeacher(teacher);
+	}
+
+	@Override
+	public List<Evaluation> getEvaluationsByGrade(Grade grade) {
+		return evaluationRepository.findByGrade(grade);
+	}
 }

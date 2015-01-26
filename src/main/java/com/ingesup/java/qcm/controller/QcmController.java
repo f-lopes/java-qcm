@@ -165,4 +165,25 @@ public class QcmController {
 
 		return QCM_QUESTION_ANSWERS_VIEW;
 	}
+
+	@RequestMapping(value = "/{id}/questions/{questionId}/answers")
+	public String questionAnswers(Model model, @PathVariable("id") String qcmId,
+										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
+		Question question = questionService.get(questionId);
+
+		// TODO
+		if (question == null) {
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
+					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
+
+			return "redirect:" + ALL_QCM_VIEW;
+		}
+
+		if (qcmId.equals(question.getQcm().getId())) {
+
+			model.addAttribute("answers", question.getAnswers());
+		}
+
+		return QCM_QUESTION_ANSWERS_VIEW;
+	}
 }

@@ -52,6 +52,11 @@ public class EvaluationBuilder implements Builder<Evaluation> {
 		return this;
 	}
 
+	public EvaluationBuilder qcm(Qcm qcm) {
+		this.evaluation.setQcm(qcm);
+		return this;
+	}
+
 	@Override
 	public Evaluation build() {
 		return this.evaluation;
