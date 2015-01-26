@@ -1,6 +1,5 @@
 package com.ingesup.java.qcm.builder;
 
-import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.EvaluationStudentPk;
 
 /**

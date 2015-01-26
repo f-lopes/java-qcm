@@ -1,9 +1,10 @@
 package com.ingesup.java.qcm.form;
 
 import com.ingesup.java.qcm.builder.EvaluationBuilder;
-import com.ingesup.java.qcm.entity.*;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.ingesup.java.qcm.entity.Course;
+import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.Grade;
+import com.ingesup.java.qcm.entity.Qcm;
 
 import javax.validation.constraints.NotNull;
 import java.util.Date;

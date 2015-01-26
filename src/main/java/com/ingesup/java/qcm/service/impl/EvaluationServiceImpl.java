@@ -1,12 +1,17 @@
 package com.ingesup.java.qcm.service.impl;
 
 import com.ingesup.java.qcm.entity.*;
-import com.ingesup.java.qcm.repository.*;
+import com.ingesup.java.qcm.repository.AnswerRepository;
+import com.ingesup.java.qcm.repository.BaseRepository;
+import com.ingesup.java.qcm.repository.EvaluationRepository;
+import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
 import com.ingesup.java.qcm.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by lopes_f on 1/16/2015.

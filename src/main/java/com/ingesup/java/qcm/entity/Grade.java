@@ -1,8 +1,7 @@
 package com.ingesup.java.qcm.entity;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 /**
  * Created by lopes_f on 1/19/2015.

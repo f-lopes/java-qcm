@@ -2,7 +2,6 @@ package com.ingesup.java.qcm.service;
 
 import com.ingesup.java.qcm.repository.BaseRepository;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**

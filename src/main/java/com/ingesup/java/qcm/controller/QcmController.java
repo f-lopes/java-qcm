@@ -1,11 +1,9 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.form.AddQuestionsForm;
 import com.ingesup.java.qcm.form.QcmForm;
-import com.ingesup.java.qcm.form.ValidateQcmForm;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.service.QuestionService;
 import com.ingesup.java.qcm.util.MessageUtil;
@@ -20,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sun.beans.editors.BooleanEditor;
 
 import javax.validation.Valid;
 import java.util.Arrays;
