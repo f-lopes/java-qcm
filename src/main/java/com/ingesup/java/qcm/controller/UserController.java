@@ -6,6 +6,7 @@ import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.service.TeacherService;
 import com.ingesup.java.qcm.service.UserService;
+import com.ingesup.java.qcm.util.ApplicationUrls;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -26,10 +27,10 @@ import java.util.Map;
  * <florian.lopes@outlook.com>
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping(ApplicationUrls.User.USERS_NAMESPACE)
 public class UserController {
 
-	private static final String ALL_USERS_URL = "/users";
+	private static final String ALL_USERS_URL = ApplicationUrls.User.ALL;
 
 	private static final String ALL_USERS_VIEW = "user/list";
 	private static final String ADD_USER_VIEW = "user/add";
@@ -74,19 +75,19 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = "/json", method = RequestMethod.GET)
+	@RequestMapping(value = ApplicationUrls.User.JSON_USERS, method = RequestMethod.GET)
 	public List<User> jsonAllUsers(@RequestParam boolean showAdminUsers) {
 		return showAdminUsers ? userService.getAll() : userService.getAllNonAdminUsers();
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@RequestMapping(value = ApplicationUrls.User.ADD_USER, method = RequestMethod.GET)
 	public String addUserView(Model model) {
 		model.addAttribute("addUserForm", new AddUserForm());
 
 		return ADD_USER_VIEW;
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = ApplicationUrls.User.ADD_USER, method = RequestMethod.POST)
 	public String addUser(@Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			return ADD_USER_VIEW;
