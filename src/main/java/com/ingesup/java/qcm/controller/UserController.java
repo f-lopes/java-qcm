@@ -27,10 +27,10 @@ import java.util.Map;
  * <florian.lopes@outlook.com>
  */
 @Controller
-@RequestMapping(ApplicationUrls.User.USERS_NAMESPACE)
+@RequestMapping("/users")
 public class UserController {
 
-	private static final String ALL_USERS_URL = ApplicationUrls.User.ALL;
+	private static final String ALL_USERS_URL = ApplicationUrls.User.ALL.toString();
 
 	private static final String ALL_USERS_VIEW = "user/list";
 	private static final String ADD_USER_VIEW = "user/add";
@@ -75,19 +75,19 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@RequestMapping(value = ApplicationUrls.User.JSON_USERS, method = RequestMethod.GET)
+	@RequestMapping(value = "/json", method = RequestMethod.GET)
 	public List<User> jsonAllUsers(@RequestParam boolean showAdminUsers) {
 		return showAdminUsers ? userService.getAll() : userService.getAllNonAdminUsers();
 	}
 
-	@RequestMapping(value = ApplicationUrls.User.ADD_USER, method = RequestMethod.GET)
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserView(Model model) {
 		model.addAttribute("addUserForm", new AddUserForm());
 
 		return ADD_USER_VIEW;
 	}
 
-	@RequestMapping(value = ApplicationUrls.User.ADD_USER, method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			return ADD_USER_VIEW;

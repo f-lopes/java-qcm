@@ -10,7 +10,12 @@ public enum ApplicationUrls {
 
 	public enum User {
 
-		USERS_NAMESPACE("/users");
+		USERS_NAMESPACE("/users"),
+
+		ALL(""),
+		JSON_USERS("/json"),
+		USER("/{id}"),
+		ADD_USER("/add");
 
 		private String value;
 
@@ -18,10 +23,14 @@ public enum ApplicationUrls {
 			this.value = value;
 		}
 
-		/*public static final String ALL = USERS_NAMESPACE;
-		public static final String JSON_USERS = USERS_NAMESPACE + "/json";
-		public static final String USER = USERS_NAMESPACE + "/{id}";
-		public static final String ADD_USER = USERS_NAMESPACE + "/add";*/
+		public String getUrl() {
+			return USERS_NAMESPACE + this.value;
+		}
+
+		@Override
+		public String toString() {
+			return this.value;
+		}
 	}
 
 	public enum Student {
