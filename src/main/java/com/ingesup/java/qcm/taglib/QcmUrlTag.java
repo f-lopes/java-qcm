@@ -3,6 +3,7 @@ package com.ingesup.java.qcm.taglib;
 import com.ingesup.java.qcm.util.ApplicationUrls;
 import org.apache.commons.lang.StringUtils;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -21,6 +22,7 @@ public class QcmUrlTag extends SimpleTagSupport {
 
 	private Map<String, String> urlsValues = new HashMap<>();
 
+	private boolean relative = true;
 	private String key;
 
 	public QcmUrlTag() {
@@ -33,9 +35,16 @@ public class QcmUrlTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
-		String resolvedUrl = ((PageContext) getJspContext()).getRequest().getRemoteHost() + urlsValues.get(key);
+		StringBuilder resolvedUrlStringBuilder = new StringBuilder();
+		ServletRequest servletRequest = ((PageContext) getJspContext()).getRequest();
 
-		getJspContext().getOut().write(resolvedUrl);
+		if (relative) {
+			resolvedUrlStringBuilder.append(servletRequest.getRemoteHost() + urlsValues.get(key));
+		} else {
+			resolvedUrlStringBuilder.append(servletRequest.getServerName() + ":" + servletRequest.getLocalPort());
+		}
+
+		getJspContext().getOut().write(resolvedUrlStringBuilder.toString());
 	}
 
 	public String getKey() {
@@ -44,5 +53,13 @@ public class QcmUrlTag extends SimpleTagSupport {
 
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	public boolean isRelative() {
+		return relative;
+	}
+
+	public void setRelative(boolean relative) {
+		this.relative = relative;
 	}
 }

@@ -16,5 +16,9 @@
             <name>key</name>
             <required>true</required>
         </attribute>
+        <attribute>
+            <name>relative</name>
+            <required>false</required>
+        </attribute>
     </tag>
 </taglib>
