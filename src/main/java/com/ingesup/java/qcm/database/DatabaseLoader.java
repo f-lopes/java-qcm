@@ -56,7 +56,7 @@ public class DatabaseLoader {
 
 	private void initRoles() {
 		Set<Role> roles = new HashSet<>();
-		String[] rolesNames = StringUtils.split(databaseProperties.getRoles(), databaseProperties.SEPARATOR);
+		String[] rolesNames = StringUtils.split(databaseProperties.getRoles(), QcmDatabaseProperties.SEPARATOR);
 
 		for (String roleName : rolesNames) {
 			roles.add(new Role(roleName));
@@ -67,7 +67,7 @@ public class DatabaseLoader {
 
 	private void initGrades() {
 		Set<Grade> grades = new HashSet<>();
-		String[] gradesNames = StringUtils.split(administrationProperties.getGrades(), administrationProperties.SEPARATOR);
+		String[] gradesNames = StringUtils.split(administrationProperties.getGrades(), QcmAdministrationProperties.SEPARATOR);
 
 		for (String gradeName : gradesNames) {
 			grades.add(new Grade(gradeName));
@@ -78,7 +78,7 @@ public class DatabaseLoader {
 
 	private void initCourses() {
 		Set<Course> courses = new HashSet<>();
-		String[] coursesNames = StringUtils.split(administrationProperties.getCourses(), administrationProperties.SEPARATOR);
+		String[] coursesNames = StringUtils.split(administrationProperties.getCourses(), QcmAdministrationProperties.SEPARATOR);
 
 		for (String courseName : coursesNames) {
 			courses.add(new Course(courseName));

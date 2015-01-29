@@ -27,7 +27,7 @@
         $newAnswerInput.attr("name", "answer[" + (++nbInput - 1) + "]");
         $newAnswerInput.appendTo($answersForm);
       });
-    }
+    };
 
     registerListeners();
   });

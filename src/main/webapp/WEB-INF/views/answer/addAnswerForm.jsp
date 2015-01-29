@@ -9,16 +9,20 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 
-<form:form method="POST" action="create" commandName="qcmForm">
+<form:form method="POST" action="${qcmId}/questions/${questionId}/answers/add" commandName="qcmForm">
   <form:errors path="" />
   <div id="answersForm">
-    <form:label path="name">Name</form:label>
-    <form:input path="name" id="answerInputTemplate" class="form-control"/>
-    <form:errors path="name" cssClass="error" />
+    <form:hidden path="questionId"/>
+    <form:label path="content">Name</form:label>
+    <form:input path="content" id="answerInputTemplate" class="form-control"/>
+    <form:errors path="content" cssClass="error" />
+    <form:label path="answerRate">Name</form:label>
+    <form:input path="answerRate" class="form-control"/>
+    <form:errors path="answerRate" cssClass="error" />
     <input id="addAnswerButton" type="button" value="add answer"/>
   </div>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>
+    <input type="submit" class="btn btn-primary" value="<spring:message code='qcm.create'/>"/>
   </div>
 </form:form>
 

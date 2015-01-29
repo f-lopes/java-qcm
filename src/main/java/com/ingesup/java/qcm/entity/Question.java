@@ -19,7 +19,12 @@ public class Question extends BaseEntity {
     @ManyToOne
     private Qcm qcm;
 
-    public int getPoints() {
+	public Question(Qcm qcm, String label) {
+		this.qcm = qcm;
+		this.label = label;
+	}
+
+	public int getPoints() {
         return points;
     }
 

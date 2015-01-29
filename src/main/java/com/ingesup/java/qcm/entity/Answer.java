@@ -13,27 +13,23 @@ public class Answer extends BaseEntity {
 
     private String content;
 
-    private boolean correct;
-
     @ManyToOne
     private Question question;
 
     private int answerRate;
 
-    public String getContent() {
+	public Answer(String content, Question question, int answerRate) {
+		this.content = content;
+		this.question = question;
+		this.answerRate = answerRate;
+	}
+
+	public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public boolean isCorrect() {
-        return correct;
-    }
-
-    public void setCorrect(boolean correct) {
-        this.correct = correct;
     }
 
     public Question getQuestion() {
