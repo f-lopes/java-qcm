@@ -28,10 +28,6 @@
 
     </div>
 
-<%--
-    <script type="application/javascript" src=""></script>
-    <script type="application/javascript" src="resources/js/user/addUser.js"></script>
---%>
-
+    <script type="application/javascript" src="<c:url value='resources/js/user/addUser.js'/>"></script>
   </body>
 </html>
