@@ -30,7 +30,7 @@ import java.util.Map;
 @RequestMapping("/users")
 public class UserController {
 
-	private static final String ALL_USERS_URL = ApplicationUrls.User.ALL.toString();
+	private static final String ALL_USERS_URL = ApplicationUrls.User.USERS_NAMESPACE.toString();
 
 	private static final String ALL_USERS_VIEW = "user/list";
 	private static final String ADD_USER_VIEW = "user/add";

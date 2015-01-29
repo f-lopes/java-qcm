@@ -12,6 +12,7 @@
 <html>
 <head>
     <title>QCM</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
     <h1>QCM</h1>
