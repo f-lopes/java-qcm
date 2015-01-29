@@ -18,7 +18,7 @@
 
 <p><a href="qcm/create">Créer un nouveau QCM</a></p>
 
-<qcm:url key="user.all"/>
+<%--<qcm:url key="user.all"/>--%>
 
 </body>
 </html>

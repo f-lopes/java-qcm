@@ -92,7 +92,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_TEACHER")
-	@RequestMapping(value = "proposed-evaluations")
+	@RequestMapping(value = "/proposed-evaluations", method = RequestMethod.GET)
 	public String evaluationsByTeacher(Model model, @CurrentUser Teacher teacher) {
 		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
 

@@ -75,7 +75,7 @@ public class QcmController {
 		return ALL_QCM_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String viewQcm(Model model, @PathVariable("id") String qcmId) {
 		model.addAttribute("qcm", qcmService.get(qcmId));
 
@@ -108,7 +108,7 @@ public class QcmController {
 		return "redirect:" + ADD_QCM_URL;
 	}
 
-	@RequestMapping(value = "/{id}/questions")
+	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
 	public String viewQcmQuestions(Model model, @PathVariable("id") String qcmId, RedirectAttributes redirectAttributes) {
 		Qcm qcm = qcmService.get(qcmId);
 
@@ -124,7 +124,7 @@ public class QcmController {
 		return QCM_QUESTIONS_VIEW;
 	}
 
-	@RequestMapping(value = "/{qcmId}/questions/add")
+	@RequestMapping(value = "/{qcmId}/questions/add", method = RequestMethod.GET)
 	public String addQuestion(Model model, @PathVariable String qcmId) {
 
 		model.addAttribute("addQuestionForm", new AddQuestionsForm(qcmId));
