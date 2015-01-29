@@ -1,4 +1,4 @@
-list.jsp<%--
+<%--
   Created by IntelliJ IDEA.
   User: lopes_f
   Date: 1/15/2015
@@ -12,38 +12,46 @@ list.jsp<%--
 
 <html>
 <head>
-    <title><spring:message code="qcm.list"/></title>
+    <title><spring:message code="evaluations.available"/></title>
 </head>
 <body>
 
-<h1>Evaluations list</h1>
+<h1><spring:message code="evaluations.available"/></h1>
 
 <c:choose>
-  <c:when test="${fn:length(evaluations) gt 0}">
+    <c:when test="${fn:length(evaluations) gt 0}">
 
-    <table>
-      <thead>
-      <tr>
-        <td><spring:message code="qcm.name"/></td>
-        <td><spring:message code="qcm.questions.number"/></td>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach items="${evaluations}" var="evaluation">
-        <tr>
-          <td>${evaluation.name}</td>
-          <td>
-          </td>
-        </tr>
-      </c:forEach>
-      </tbody>
-    </table>
+        <table>
+            <thead>
+            <tr>
+                <td><spring:message code="evaluation.startDate"/></td>
+                <td><spring:message code="evaluation.endDate"/></td>
+                <td><spring:message code="course"/></td>
+                <td><spring:message code="action"/></td>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${evaluations}" var="evaluation">
+                <tr>
+                    <td>${evaluation.startDate}</td>
+                    <td>${evaluation.endDate}</td>
+                    <td>${evaluation.course.name}</td>
+                    <td>
+                        <form method="post" action="delete">
+                            <input type="hidden" name="evaluationId" value="${evaluation.id}"/>
+                            <input type="submit" value="<spring:message code='evaluation.delete'/>" />
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-  </c:when>
+    </c:when>
 
-  <c:otherwise>
-    <spring:message code="no.evaluation.found"/>
-  </c:otherwise>
+    <c:otherwise>
+        <spring:message code="no.evaluation.found"/>
+    </c:otherwise>
 
 </c:choose>
 </body>

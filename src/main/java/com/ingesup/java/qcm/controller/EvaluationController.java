@@ -18,10 +18,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -39,6 +36,7 @@ import java.util.Set;
 public class EvaluationController {
 
 	private static final String ALL_EVALUATIONS_URL = "/evaluations";
+	private static final String PROPOSED_EVALUATIONS_URL = "/evaluations/proposed-evaluations";
 
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
 	private static final String AVAILABLE_EVALUATIONS_VIEW = "evaluation/availableList";
@@ -80,15 +78,34 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
-	public String evaluationsByGrade(Model model, @RequestParam String gradeId, @RequestParam boolean onlyAvailable) {
-		if (onlyAvailable) {
-			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.get(gradeId)));
-		} else {
-			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.get(gradeId)));
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	public String deleteEvaluation(Model model, @RequestBody String evaluationId,
+								   RedirectAttributes redirectAttributes) {
+
+		Evaluation evaluation = evaluationService.get(evaluationId);
+
+		if (evaluation == null) {
+			redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+					messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
+			return "redirect:" + ALL_EVALUATIONS_URL;
 		}
 
-		return ADMIN_EVALUATIONS_BY_GRADE_VIEW;
+		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("evaluation.delete.success", null, LocaleContextHolder.getLocale())));
+
+		return "redirect:" + ALL_EVALUATIONS_URL;
+	}
+
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
+	public String evaluationsByGrade(Model model, @RequestParam String grade, @RequestParam boolean onlyAvailable) {
+		if (onlyAvailable) {
+			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
+		} else {
+			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
+		}
+
+		return ALL_EVALUATIONS_VIEW;
 	}
 
 	@Secured(value = "ROLE_TEACHER")
@@ -134,7 +151,10 @@ public class EvaluationController {
 		evaluation.setTeacher(teacher);
 		evaluationService.add(evaluation);
 
-		return "redirect:" + ALL_EVALUATIONS_URL;
+		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
+
+		return "redirect:" + PROPOSED_EVALUATIONS_URL;
 	}
 
 	@Secured(value = "ROLE_STUDENT")

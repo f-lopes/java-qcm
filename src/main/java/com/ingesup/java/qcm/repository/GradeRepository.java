@@ -8,5 +8,5 @@ import com.ingesup.java.qcm.entity.Grade;
  */
 public interface GradeRepository extends BaseRepository<Grade, String> {
 
-	public Grade findByName(String name);
+	public Grade findFirstByName(String name);
 }
