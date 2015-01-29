@@ -208,7 +208,7 @@ public class QcmController {
 		return ADD_ANSWER_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.POST)
 	public String saveAnswerForQuestion(Model model, @PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId,
 									   @Valid AddAnswerForm addAnswerForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
