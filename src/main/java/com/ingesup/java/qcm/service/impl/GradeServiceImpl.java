@@ -25,4 +25,9 @@ public class GradeServiceImpl extends BaseServiceImpl<Grade, String> implements 
 	public BaseRepository getRepository() {
 		return gradeRepository;
 	}
+
+	@Override
+	public Grade getGradeByName(String name) {
+		return gradeRepository.findFirstByName(name);
+	}
 }

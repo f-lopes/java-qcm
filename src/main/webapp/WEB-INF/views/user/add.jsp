@@ -12,7 +12,8 @@
 <html>
   <head>
       <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
-      <title><spring:message code="qcm.create.title"/></title>
+      <title><spring:message code="user.create.title"/></title>
+      <script src="/resources/js/lib/jquery-2.1.3.min.js"></script>
       <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
   </head>
   <body>
@@ -28,10 +29,6 @@
 
     </div>
 
-<%--
-    <script type="application/javascript" src=""></script>
-    <script type="application/javascript" src="resources/js/user/addUser.js"></script>
---%>
-
+    <script type="application/javascript" src="<c:url value='/resources/js/user/addUser.js'/>"></script>
   </body>
 </html>

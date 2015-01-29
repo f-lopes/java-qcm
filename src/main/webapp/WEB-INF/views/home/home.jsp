@@ -7,18 +7,33 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="qcm" uri="/WEB-INF/taglib/qcmurl.tld"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title></title>
+    <title>QCM++</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-<h1>Bienvenue !</h1>
 
-<img src="resources/img/hipsterlogogenerator_1420731148543.png">
+<sec:authorize access="hasRole('ROLE_ADMIN')" >
+    <%@include file="../menu/adminMenu.jsp"%>
+</sec:authorize>
 
-<p><a href="qcm/create">Créer un nouveau QCM</a></p>
+<div class="container">
 
+    <sec:authorize access="isAnonymous()" >
+
+        <p style="text-align:center;">
+
+            <img src="resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
+            <br />
+
+            <a href="/login" class="btn btn-default btn-lg">Connexion</a>
+        </p>
+    </sec:authorize>
 <%--<qcm:url key="user.all"/>--%>
 
+
+</div>
 </body>
 </html>

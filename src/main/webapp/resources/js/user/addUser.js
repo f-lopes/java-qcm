@@ -8,16 +8,24 @@ var userTypesSelector = "#userTypes";
 
 $(document).ready(function() {
 
-    registerListeners();
+    if ($(userTypesSelector).val() == teacherTypeSelectValue) {
+        $(gradeListSelector).hide();
+    } else {
+        $(gradeListSelector).show();
+    }
+
 
     var registerListeners = function () {
 
         $(userTypesSelector).change(function() {
-            if ($(this).attr("value") == teacherTypeSelectValue) {
+            if ($(userTypesSelector).val() == teacherTypeSelectValue) {
                 $(gradeListSelector).hide();
             } else {
                 $(gradeListSelector).show();
             }
         });
     }
+
+
+    registerListeners();
 });
