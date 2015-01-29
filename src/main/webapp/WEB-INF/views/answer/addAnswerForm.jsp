@@ -25,4 +25,3 @@
     <input type="submit" class="btn btn-primary" value="<spring:message code='qcm.create'/>"/>
   </div>
 </form:form>
-

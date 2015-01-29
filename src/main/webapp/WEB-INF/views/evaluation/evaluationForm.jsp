@@ -25,13 +25,13 @@
 
   <div class="form-group">
     <form:label path="startDate"><spring:message code="evaluation.startDate"/></form:label>
-    <form:input path="startDate" class="form-control" />
+    <form:input path="startDate" id="startDate" class="form-control" />
     <form:errors path="startDate" cssClass="error" />
   </div>
 
   <div class="form-group">
     <form:label path="endDate"><spring:message code="evaluation.endDate"/></form:label>
-    <form:input path="endDate" class="form-control" />
+    <form:input path="endDate" id="endDate" class="form-control" />
     <form:errors path="endDate" cssClass="error" />
   </div>
 

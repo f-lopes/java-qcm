@@ -16,7 +16,6 @@
       <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
   </head>
   <body>
-
     <div class="container">
 
       <h1><spring:message code="evaluation.create.title"/></h1>
@@ -28,5 +27,12 @@
 
     </div>
 
+    <script type="application/javascript" src="<c:url value='resources/js/lib/date-picker/jquery-ui.js'/>"></script>
+
+    <script type="application/javascript">
+        $(function() {
+            $("#startDate").datepicker("option", "dateFormat", "dd/mm/yyyy");
+        });
+    </script>
   </body>
 </html>

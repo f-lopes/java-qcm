@@ -15,10 +15,16 @@
         <attribute>
             <name>key</name>
             <required>true</required>
+            <type>java.lang.String</type>
+            <description id="keyDescription">
+                Render URL for given key. Key : lowerCase({ApplicationUrls.ENUM.val})
+            </description>
         </attribute>
         <attribute>
             <name>relative</name>
             <required>false</required>
+            <type>boolean</type>
+            <description>Tells if generated URL must be relative. Default to false</description>
         </attribute>
     </tag>
 </taglib>

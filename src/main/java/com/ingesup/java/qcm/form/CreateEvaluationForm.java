@@ -5,8 +5,13 @@ import com.ingesup.java.qcm.entity.Course;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,6 +19,10 @@ import java.util.Date;
  * <florian.lopes@outlook.com>
  */
 public class CreateEvaluationForm {
+
+	private static final Logger logger = LoggerFactory.getLogger(CreateEvaluationForm.class);
+
+	private DateFormat dateFormatter;
 
 	@NotNull
 	private String evaluationName;
@@ -85,6 +94,20 @@ public class CreateEvaluationForm {
 	}
 
 	public Evaluation getEvaluation() {
+		if (dateFormatter == null) {
+			// Date format : dd/mm/yyyy
+			dateFormatter = new SimpleDateFormat("dd/mm/yyyy");
+		}
+		String frenchDateFormat = dateFormatter.format(startDate);
+		try {
+			startDate = dateFormatter.parse(frenchDateFormat);
+			frenchDateFormat = dateFormatter.format(endDate);
+			endDate = dateFormatter.parse(frenchDateFormat);
+		}
+		catch (ParseException e) {
+			logger.error(String.format("Failed to format date {%s}", startDate), e);
+		}
+
 		Evaluation evaluation = new EvaluationBuilder()
 				.startDate(startDate)
 				.endDate(endDate)
