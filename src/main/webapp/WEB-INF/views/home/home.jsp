@@ -15,14 +15,22 @@
 </head>
 <body>
 
+<sec:authorize access="hasRole('ROLE_ADMIN')" >
+    <%@include file="../menu/adminMenu.jsp"%>
+</sec:authorize>
+
 <div class="container">
-    <p style="text-align:center;">
 
-        <img src="resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
-        <br />
+    <sec:authorize access="isAnonymous()" >
 
-        <a href="/login" class="btn btn-default btn-lg">Connexion</a>
-    </p>
+        <p style="text-align:center;">
+
+            <img src="resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
+            <br />
+
+            <a href="/login" class="btn btn-default btn-lg">Connexion</a>
+        </p>
+    </sec:authorize>
 <%--<qcm:url key="user.all"/>--%>
 
 
