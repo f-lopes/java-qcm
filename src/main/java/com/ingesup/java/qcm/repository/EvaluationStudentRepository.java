@@ -1,5 +1,6 @@
 package com.ingesup.java.qcm.repository;
 
+import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.EvaluationStudentPk;
 import com.ingesup.java.qcm.entity.Student;
@@ -13,4 +14,6 @@ import java.util.List;
 public interface EvaluationStudentRepository extends BaseRepository<EvaluationStudent, EvaluationStudentPk> {
 
     public List<EvaluationStudent> findByStudent(Student student);
+
+	public List<EvaluationStudent> findByEvaluation(Evaluation evaluation);
 }

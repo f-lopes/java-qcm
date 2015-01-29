@@ -22,10 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by lopes_f on 1/16/2015.
@@ -44,6 +41,7 @@ public class EvaluationController {
 	private static final String TAKE_EVALUATION_VIEW = "evaluation/take";
 	private static final String VIEW_EVALUATION_VIEW = "evaluation/view";
 	private static final String ADMIN_EVALUATIONS_BY_GRADE_VIEW = "evaluation/admin/list";
+	private static final String EVALUATION_DETAIL_VIEW = "evaluation/detail";
 
 	@Autowired
 	private QcmService qcmService;
@@ -85,7 +83,7 @@ public class EvaluationController {
 		Evaluation evaluation = evaluationService.get(evaluationId);
 
 		if (evaluation == null) {
-			redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+			redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
 			return "redirect:" + ALL_EVALUATIONS_URL;
 		}
@@ -111,11 +109,39 @@ public class EvaluationController {
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/proposed-evaluations", method = RequestMethod.GET)
 	public String evaluationsByTeacher(Model model, @CurrentUser Teacher teacher) {
-		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
+		Map<Evaluation, Float> averageMarkByEvaluation = new HashMap<>();
+		List<Evaluation> finishedEvaluations = evaluationService.getFinishedEvaluationsByTeacher(teacher);
+
+		if (finishedEvaluations != null) {
+			for (Evaluation evaluation: finishedEvaluations) {
+				averageMarkByEvaluation.put(evaluation, evaluationService.getAverageMarkForEvaluation(evaluation));
+			}
+		}
+
+		model.addAttribute("finishedEvaluations", finishedEvaluations);
 
 		return ALL_EVALUATIONS_VIEW;
 	}
 
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/evaluation-detail/{evaluationId}", method = RequestMethod.GET)
+	public String evaluationDetail(Model model, @PathVariable String evaluationId, RedirectAttributes redirectAttributes) {
+		Evaluation evaluation = evaluationService.get(evaluationId);
+
+		if (evaluation == null) {
+			redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+					messageSource.getMessage("evaluation.not-found", null, LocaleContextHolder.getLocale())));
+		}
+
+		List<Student> students = evaluationService.getStudentsByEvaluation(evaluation);
+
+		model.addAttribute("evaluation", evaluation);
+		model.addAttribute("students", students);
+
+		return EVALUATION_DETAIL_VIEW;
+	}
+
+	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String viewEvaluationView(Model model, @PathVariable("id") String evalId, @CurrentUser Student student) {
 		if (evaluationService.hasStudentTakenEvaluation(student.getId(), evalId)) {
@@ -166,6 +192,10 @@ public class EvaluationController {
 			model.addAttribute("validateQcmForm", new ValidateQcmForm(evaluation.getId(), evaluation.getQcm().getId()));
 			return TAKE_EVALUATION_VIEW;
 		}
+
+		redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+				messageSource.getMessage("error", null, LocaleContextHolder.getLocale())));
+
 		return "redirect:" + VIEW_EVALUATION_VIEW;
 	}
 

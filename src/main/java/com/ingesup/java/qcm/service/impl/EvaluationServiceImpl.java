@@ -83,4 +83,38 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	public List<Evaluation> getEvaluationsByGrade(Grade grade) {
 		return evaluationRepository.findByGrade(grade);
 	}
+
+	@Override
+	public float getAverageMarkForEvaluation(Evaluation evaluation) {
+		List<EvaluationStudent> evaluationResults = evaluationStudentRepository.findByEvaluation(evaluation);
+		float averageMarks = 0;
+		if (evaluationResults != null) {
+			int nbStudents = evaluationResults.size();
+
+			for (EvaluationStudent evaluationResult : evaluationResults) {
+				averageMarks += evaluationResult.getMark();
+			}
+
+			averageMarks = averageMarks / nbStudents;
+		}
+
+		return averageMarks;
+	}
+
+	@Override
+	public Evaluation getFirstEvaluationByTeacher(Teacher teacher) {
+		return evaluationRepository.findFirstByTeacher(teacher);
+	}
+
+	@Override
+	public List<Evaluation> getFinishedEvaluationsByTeacher(Teacher teacher) {
+		return evaluationRepository.findFinishedEvaluationsByTeacher(teacher);
+	}
+
+	@Override
+	public List<Student> getStudentsByEvaluation(Evaluation evaluation) {
+//		return evaluationStudentRepository.findByEvaluation();
+		// TODO
+		return null;
+	}
 }

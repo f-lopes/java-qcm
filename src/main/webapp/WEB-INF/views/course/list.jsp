@@ -33,7 +33,7 @@
         <tr>
           <td>${course.name}</td>
           <td>
-              <form method="post" action="delete">
+              <form method="post" action="<c:url value='/courses/delete'/>">
                   <input type="hidden" name="courseId" value="${course.id}"/>
                   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                   <input type="submit" value="<spring:message code='course.delete'/>" />

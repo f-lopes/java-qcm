@@ -19,4 +19,9 @@ public interface EvaluationRepository extends BaseRepository<Evaluation, String>
 	public List<Evaluation> findByTeacher(Teacher teacher);
 
 	public List<Evaluation> findByGrade(Grade grade);
+
+	public Evaluation findFirstByTeacher(Teacher teacher);
+
+	@Query("SELECT E FROM Evaluation E WHERE (NOW() > E.endDate) AND E.teacher = ?1")
+	public List<Evaluation> findFinishedEvaluationsByTeacher(Teacher teacher);
 }
