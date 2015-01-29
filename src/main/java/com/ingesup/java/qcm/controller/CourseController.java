@@ -10,9 +10,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -73,9 +73,11 @@ public class CourseController {
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deleteCourse(@RequestBody String courseId) {
+	public String deleteCourse(@RequestParam String courseId, RedirectAttributes redirectAttributes) {
 		courseService.remove(courseId);
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("course.delete.success", null, LocaleContextHolder.getLocale())));
 
-		return COURSES_VIEW;
+		return "redirect:" + COURSES_URL;
 	}
 }

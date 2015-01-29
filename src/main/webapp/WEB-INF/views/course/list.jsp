@@ -25,12 +25,20 @@
       <thead>
       <tr>
         <td><spring:message code="course.name"/></td>
+        <td><spring:message code="action"/></td>
       </tr>
       </thead>
       <tbody>
       <c:forEach items="${courses}" var="course">
         <tr>
           <td>${course.name}</td>
+          <td>
+              <form method="post" action="delete">
+                  <input type="hidden" name="courseId" value="${course.id}"/>
+                  <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                  <input type="submit" value="<spring:message code='course.delete'/>" />
+              </form>
+          </td>
         </tr>
       </c:forEach>
       </tbody>
