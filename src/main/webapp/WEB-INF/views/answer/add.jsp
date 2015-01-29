@@ -33,5 +33,7 @@
   });
 
 </script>
+
+<%@include file="addAnswerForm.jsp"%>
 </body>
 </html>

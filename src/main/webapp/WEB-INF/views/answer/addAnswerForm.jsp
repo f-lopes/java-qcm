@@ -7,11 +7,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<form:form method="POST" action="${qcmId}/questions/${questionId}/answers/add" commandName="qcmForm">
+<form:form method="POST" action="/${qcmId}/questions/${questionId}/answers/add" commandName="addAnswerForm">
   <form:errors path="" />
-  <div id="answersForm">
+  <div id="answersForm"
     <form:hidden path="questionId"/>
     <form:label path="content">Name</form:label>
     <form:input path="content" id="answerInputTemplate" class="form-control"/>
@@ -22,6 +23,7 @@
     <input id="addAnswerButton" type="button" value="add answer"/>
   </div>
   <div class="form-group">
-    <input type="submit" class="btn btn-primary" value="<spring:message code='qcm.create'/>"/>
+    <spring:message code="qcm.create" var="createQcm"/>
+    <input type="submit" class="btn btn-primary" value="${createQcm}"/>
   </div>
 </form:form>

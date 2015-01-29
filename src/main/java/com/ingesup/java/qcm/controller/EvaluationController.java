@@ -158,6 +158,7 @@ public class EvaluationController {
 			return TAKE_EVALUATION_VIEW;
 		}
 
+		//evaluationService.takeEvaluation(validateQcmForm.getEvalId(), validateQcmForm.getQcmId(), null, validateQcmForm.getSelectedAnswers(), null);
 		Set<String> answersIds = new HashSet<>(Arrays.asList(validateQcmForm.getSelectedAnswers()));
 
 		int evaluationMark = evaluationService.

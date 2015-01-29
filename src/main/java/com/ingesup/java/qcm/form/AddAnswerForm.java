@@ -54,4 +54,12 @@ public class AddAnswerForm {
 	public Answer getAnswer() {
 		return new Answer(content, questionService.get(questionId), answerRate);
 	}
+
+	public QuestionService getQuestionService() {
+		return questionService;
+	}
+
+	public void setQuestionService(QuestionService questionService) {
+		this.questionService = questionService;
+	}
 }

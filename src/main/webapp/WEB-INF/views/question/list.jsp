@@ -19,15 +19,13 @@
 <table>
   <thead>
     <tr>
-      <td>ID</td>
       <td>Name</td>
     </tr>
   </thead>
   <tbody>
-    <c:forEach items="qcm.questions" var="question">
+    <c:forEach items="${questions}" var="question">
       <tr>
-        <td>${question.id}</td>
-        <td>${question.name}</td>
+        <td>${question.label}</td>
       </tr>
     </c:forEach>
   </tbody>

@@ -17,20 +17,33 @@
     <h1>QCM</h1>
 
     <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
-    <h3><spring:message code="qcm.questions.number"/> : ${qcm.questions.size()}</h3>
+    <h3><spring:message code="qcm.questions.number"/> : ${questions.size()}</h3>
 
     <br/><br/>
-    <ol>
-        <c:forEach items="${qcm.questions}" var="question">
-
-            <li><h3>${question.label}</h3></li>
-            <ul>
-                <c:forEach items="${question.answers}" var="answer">
-                    <li>${answer.content}</li>
-                </c:forEach>
-            </ul>
-            <br/>
-        </c:forEach>
-    </ol>
-</body>
-</html>
+    <c:if test="${questions.size() > 0}" >
+        <table>
+            <thead>
+                <tr>
+                    <td><spring:message code="question.label"/></td>
+                    <td><spring:message code="question.points"/></td>
+                    <td></td>
+                </tr>
+            </thead>
+            <c:forEach items="${questions}" var="question">
+                <tbody>
+                <tr>
+                    <td><h3>${question.label}</h3></td>
+                    <td>${question.points}</td>
+                    <td><a href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
+                <%--<ul>--%>
+                    <%--<c:forEach items="${question.answers}" var="answer">--%>
+                        <%--<li>${answer.content}</li>--%>
+                    <%--</c:forEach>--%>
+                <%--</ul>--%>
+                </tr>
+                </tbody>
+            </c:forEach>
+        </table>
+    </c:if>
+    <br/><br/>
+<a href="<c:url value="${qcm.id}/questions/create"/>"><spring:message code="question.create.title"/></a>

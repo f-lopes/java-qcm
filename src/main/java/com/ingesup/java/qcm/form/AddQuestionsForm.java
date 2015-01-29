@@ -17,8 +17,21 @@ public class AddQuestionsForm {
 
 	private String label;
 
+	private int points;
+
 	public AddQuestionsForm(String qcmId) {
 		this.qcmId = qcmId;
+	}
+
+	public AddQuestionsForm() {
+	}
+
+	public QcmService getQcmService() {
+		return qcmService;
+	}
+
+	public void setQcmService(QcmService qcmService) {
+		this.qcmService = qcmService;
 	}
 
 	public String getQcmId() {
@@ -39,5 +52,13 @@ public class AddQuestionsForm {
 
 	public Question getQuestion() {
 		return new Question(qcmService.get(qcmId), label);
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

@@ -15,22 +15,26 @@
 <body>
 
 <h1><spring:message code="answer.list.title"/></h1>
-
-<table>
-  <thead>
-  <tr>
-    <td>ID</td>
-    <td>Name</td>
-  </tr>
-  </thead>
-  <tbody>
-  <c:forEach items="${answers}" var="answer">
+<c:if test="${answers.size() > 0}">
+  <table>
+    <thead>
     <tr>
-      <td>${answer.id}</td>
-      <td>${answer.name}</td>
+      <td>ID</td>
+      <td>Name</td>
     </tr>
-  </c:forEach>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <c:forEach items="${answers}" var="answer">
+      <tr>
+        <td>${answer.id}</td>
+        <td>${answer.name}</td>
+      </tr>
+    </c:forEach>
+    </tbody>
+  </table>
+</c:if>
+<br/><br/>
+
+<a href="<c:url value="answers/add"/>"><spring:message code="answer.create"/></a>
 </body>
 </html>

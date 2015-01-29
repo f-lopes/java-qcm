@@ -24,7 +24,10 @@ public class Question extends BaseEntity {
 		this.label = label;
 	}
 
-	public int getPoints() {
+    public Question() {
+    }
+
+    public int getPoints() {
         return points;
     }
 

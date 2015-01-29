@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class QcmController {
 	private static final String VIEW_QCM_VIEW = "/qcm/view";
 	private static final String ALL_QCM_VIEW = "/qcm/list";
 	private static final String QCM_VIEW = "/qcm/view";
-	private static final String QCM_QUESTIONS_VIEW = "/questions/list";
+	private static final String QCM_QUESTIONS_VIEW = "/question/list";
 	private static final String QCM_QUESTION_ANSWERS_VIEW = "/answer/list";
 	private static final String ADD_QUESTION_VIEW = "question/create";
 	private static final String ADD_ANSWER_VIEW = "answer/add";
@@ -77,7 +78,9 @@ public class QcmController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public String viewQcm(Model model, @PathVariable("id") String qcmId) {
-		model.addAttribute("qcm", qcmService.get(qcmId));
+		Qcm qcm = qcmService.get(qcmId);
+		model.addAttribute("qcm", qcm);
+		model.addAttribute("questions", questionService.getQuestionsByQcm(qcm));
 
 		return QCM_VIEW;
 	}
@@ -105,12 +108,14 @@ public class QcmController {
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));
 
-		return "redirect:" + ADD_QCM_URL;
+		Qcm addedQcm = qcmService.getAll().get(qcmService.getAll().size()-1);
+		return "redirect:" + getQuestionsForQcmUrl(addedQcm.getId());
 	}
 
 	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
 	public String viewQcmQuestions(Model model, @PathVariable("id") String qcmId, RedirectAttributes redirectAttributes) {
 		Qcm qcm = qcmService.get(qcmId);
+		List<Question> questions = questionService.getQuestionsByQcm(qcm);
 
 		if (qcm == null) {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
@@ -120,6 +125,7 @@ public class QcmController {
 		}
 
 		model.addAttribute("qcm", qcm);
+		model.addAttribute("questions", questions);
 
 		return QCM_QUESTIONS_VIEW;
 	}
@@ -143,7 +149,7 @@ public class QcmController {
 
 			return "redirect:" + getQuestionsForQcmUrl(qcmId);
 		}
-
+		questionsForm.setQcmService(qcmService);
 		questionService.add(questionsForm.getQuestion());
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
@@ -184,6 +190,8 @@ public class QcmController {
 		if (qcmId.equals(question.getQcm().getId())) {
 
 			model.addAttribute("answers", question.getAnswers());
+			model.addAttribute("qcm", qcmService.get(qcmId));
+			model.addAttribute("question", question);
 		}
 
 		return QCM_QUESTION_ANSWERS_VIEW;
@@ -229,7 +237,7 @@ public class QcmController {
 	}
 
 	private String getQuestionsForQcmUrl(String qcmId) {
-		return "/qcm/" + qcmId + "/questions";
+		return "/qcm/" + qcmId;
 	}
 
 	private String getAnswersForQuestionUrl(String qcmId, String questionId) {
