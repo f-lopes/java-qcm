@@ -32,5 +32,5 @@ public interface EvaluationService extends BaseService<Evaluation, String> {
 
 	public List<Evaluation> getFinishedEvaluationsByTeacher(Teacher teacher);
 
-	public List<Student> getStudentsByEvaluation(Evaluation evaluation);
+	public List<EvaluationStudent> getStudentsResultsByEvaluation(Evaluation evaluation);
 }

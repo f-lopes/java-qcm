@@ -112,9 +112,7 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	}
 
 	@Override
-	public List<Student> getStudentsByEvaluation(Evaluation evaluation) {
-//		return evaluationStudentRepository.findByEvaluation();
-		// TODO
-		return null;
+	public List<EvaluationStudent> getStudentsResultsByEvaluation(Evaluation evaluation) {
+		return evaluationStudentRepository.findByEvaluation(evaluation);
 	}
 }

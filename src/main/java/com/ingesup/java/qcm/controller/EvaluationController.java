@@ -1,6 +1,7 @@
 package com.ingesup.java.qcm.controller;
 
 import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
@@ -133,10 +134,10 @@ public class EvaluationController {
 					messageSource.getMessage("evaluation.not-found", null, LocaleContextHolder.getLocale())));
 		}
 
-		List<Student> students = evaluationService.getStudentsByEvaluation(evaluation);
+		List<EvaluationStudent> studentsResults = evaluationService.getStudentsResultsByEvaluation(evaluation);
 
 		model.addAttribute("evaluation", evaluation);
-		model.addAttribute("students", students);
+		model.addAttribute("studentsResults", studentsResults);
 
 		return EVALUATION_DETAIL_VIEW;
 	}
