@@ -31,17 +31,22 @@
       </tr>
       </thead>
       <tbody>
-      <c:forEach items="${availableEvaluations}" var="evaluation">
+      <c:forEach items="${availableEvaluations}" var="availableEvaluation">
         <c:url var="takeEvaluationUrl" value="evaluations/take"/>
         <tr>
-          <td>${evaluation.startDate}</td>
-          <td>${evaluation.endDate}</td>
-          <td>${evaluation.course.name}</td>
-          <td>
-            <form method="get" action="${takeEvaluationUrl}">
-              <input type="hidden" name="evaluationId" value="${evaluation.id}"/>
-              <input type="submit" value="<spring:message code='evaluation.take'/>" />
-            </form>
+          <td>${availableEvaluation.key.startDate}</td>
+          <td>${availableEvaluation.key.endDate}</td>
+          <td>${availableEvaluation.key.course.name}</td>
+            <td>
+                <c:when test="${availableEvaluation.value == null}">
+                    <form method="get" action="${takeEvaluationUrl}">
+                        <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
+                        <input type="submit" value="<spring:message code='evaluation.take'/>" />
+                    </form>
+                </c:when>
+                <c:otherwise>
+                    <spring:message code="evaluation.result"/> : ${availableEvaluation.value.mark} - ${availableEvaluation.value.date}
+                </c:otherwise>
           </td>
         </tr>
       </c:forEach>

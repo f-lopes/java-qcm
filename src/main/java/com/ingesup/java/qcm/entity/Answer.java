@@ -11,7 +11,10 @@ import javax.persistence.Table;
 @Table(name = "answer")
 public class Answer extends BaseEntity {
 
-    private String content;
+	public Answer() {
+	}
+
+	private String content;
 
     @ManyToOne
     private Question question;

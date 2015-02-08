@@ -158,12 +158,11 @@ public class QcmController {
 		return "redirect:" + getQuestionsForQcmUrl(qcmId);
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}", method = RequestMethod.GET)
-	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId,
-										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
-		Question question = questionService.get(questionId);
+	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
+	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId, RedirectAttributes redirectAttributes) {
+		Question question = questionService.get(qcmId);
 
-		if (question == null && !qcmId.equals(question.getQcm().getId())) {
+		if (question == null || !qcmId.equals(question.getQcm().getId())) {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
 

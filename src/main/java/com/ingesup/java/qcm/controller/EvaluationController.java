@@ -43,6 +43,7 @@ public class EvaluationController {
 	private static final String VIEW_EVALUATION_VIEW = "evaluation/view";
 	private static final String ADMIN_EVALUATIONS_BY_GRADE_VIEW = "evaluation/admin/list";
 	private static final String EVALUATION_DETAIL_VIEW = "evaluation/detail";
+	private static final String EVALUATIONS_RESULTS = "evaluation/evaluationsResults";
 
 	@Autowired
 	private QcmService qcmService;
@@ -62,8 +63,15 @@ public class EvaluationController {
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
 	public String availableEvaluationsForStudent(Model model, @CurrentUser Student student) {
-		model.addAttribute("availableEvaluations",
-				evaluationService.getAvailableEvaluationsByGrade(student.getGrade()));
+		Map<Evaluation, EvaluationStudent> availablesEvaluationsForStudent = new HashMap<>();
+
+		List<Evaluation> availableEvaluationsForGrade = evaluationService.getAvailableEvaluationsByGrade(student.getGrade());
+		for (Evaluation evaluation : availableEvaluationsForGrade) {
+			availablesEvaluationsForStudent.put(evaluation, evaluationService.getTakenEvaluation(evaluation.getId(), student.getId()));
+		}
+		// TODO check if student already has taken evaluation
+		// TODO modify JSP according to MAP
+		model.addAttribute("availableEvaluations", availableEvaluationsForGrade);
 
 		return AVAILABLE_EVALUATIONS_VIEW;
 	}
@@ -109,17 +117,22 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/proposed-evaluations", method = RequestMethod.GET)
-	public String evaluationsByTeacher(Model model, @CurrentUser Teacher teacher) {
-		Map<Evaluation, Float> averageMarkByEvaluation = new HashMap<>();
-		List<Evaluation> finishedEvaluations = evaluationService.getFinishedEvaluationsByTeacher(teacher);
+	public String evaluationsByTeacher(Model model, @RequestParam(required = false) boolean finished, @CurrentUser Teacher teacher) {
 
-		if (finishedEvaluations != null) {
-			for (Evaluation evaluation: finishedEvaluations) {
-				averageMarkByEvaluation.put(evaluation, evaluationService.getAverageMarkForEvaluation(evaluation));
+		if (finished) {
+			Map<Evaluation, Float> averageMarkByEvaluation = new HashMap<>();
+			List<Evaluation> finishedEvaluations = evaluationService.getFinishedEvaluationsByTeacher(teacher);
+
+			if (finishedEvaluations != null) {
+				for (Evaluation evaluation: finishedEvaluations) {
+					averageMarkByEvaluation.put(evaluation, evaluationService.getAverageMarkForEvaluation(evaluation));
+				}
 			}
+			model.addAttribute("evaluations", finishedEvaluations);
+		} else {
+			model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
+			return EVALUATIONS_RESULTS;
 		}
-
-		model.addAttribute("finishedEvaluations", finishedEvaluations);
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -218,6 +231,6 @@ public class EvaluationController {
 		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.validate.success", new Object[] {evaluationMark}, LocaleContextHolder.getLocale())));
 
-		return "redirect:" + VIEW_EVALUATION_VIEW;
+		return "redirect:" + ALL_EVALUATIONS_URL;
 	}
 }

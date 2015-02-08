@@ -13,13 +13,13 @@
 <head>
   <title>Users list</title>
 
-  <script src="<c:url value='resources/js/lib/angular.min.js'/>"></script>
-  <script src="<c:url value='resources/js/lib/angular-toggle-switch.min.js'/>"></script>
-  <script src="<c:url value='resources/js/lib/loading-bar.js'/>"></script>
-  <script src="<c:url value='resources/js/user/UserListController.js'/>"></script>
+  <script src="<c:url value='/resources/js/lib/angular.min.js'/>"></script>
+  <script src="<c:url value='/resources/js/lib/angular-toggle-switch.min.js'/>"></script>
+  <script src="<c:url value='/resources/js/lib/loading-bar.js'/>"></script>
+  <script src="<c:url value='/resources/js/user/UserListController.js'/>"></script>
 
-  <link rel="stylesheet" href="<c:url value='resources/css/angular-toggle-switch.css'/>"/>
-  <link rel="stylesheet" href="<c:url value='resources/css/loading-bar.css'/>"/>
+  <link rel="stylesheet" href="<c:url value='/resources/css/angular-toggle-switch.css'/>"/>
+  <link rel="stylesheet" href="<c:url value='/resources/css/loading-bar.css'/>"/>
 </head>
 <body ng-controller="UserListController">
 

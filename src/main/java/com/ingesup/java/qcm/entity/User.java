@@ -5,9 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -76,6 +74,16 @@ public class User implements UserDetails {
 		}
 
 		return isAdmin;
+	}
+
+	public List<String> getRolesAsString(){
+		List<String> rolesAsString = new ArrayList<>();
+
+		for (Role role : roles) {
+			rolesAsString.add(role.getName());
+		}
+
+		return rolesAsString;
 	}
 
 	public String getId() {

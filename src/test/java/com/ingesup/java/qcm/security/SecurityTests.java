@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @WebAppConfiguration
 public class SecurityTests {
 
-    private static final String LOGIN_URL = "http://localhost:8080/java-qcm/login";
+    private static final String LOGIN_URL = "http://localhost/login";
 
     private static final String ALL_USERS_URL = ApplicationUrls.User.ALL.getUrl();
 

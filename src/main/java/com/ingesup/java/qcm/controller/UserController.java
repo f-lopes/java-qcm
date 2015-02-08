@@ -11,6 +11,7 @@ import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,13 +54,11 @@ public class UserController {
 	@Autowired
 	private StudentService studentService;
 
-	@ModelAttribute("grades")
-	private List<Grade> populateModel() {
+	private List<Grade> getGrades() {
 		return gradeService.getAll();
 	}
 
-	@ModelAttribute("userTypes")
-	private Map<String, String> populateUserTypes() {
+	private Map<String, String> getUserTypes() {
 		Map<String, String> userTypes = new HashMap<>();
 		userTypes.put(USER_TYPE_STUDENT,
 					  messageSource.getMessage("user.type.student", null, LocaleContextHolder.getLocale()));
@@ -69,24 +68,30 @@ public class UserController {
 		return userTypes;
 	}
 
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(method = RequestMethod.GET)
 	public String allUsers() {
 		return ALL_USERS_VIEW;
 	}
 
 	@ResponseBody
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/json", method = RequestMethod.GET)
 	public List<User> jsonAllUsers(@RequestParam boolean showAdminUsers) {
 		return showAdminUsers ? userService.getAll() : userService.getAllNonAdminUsers();
 	}
 
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserView(Model model) {
 		model.addAttribute("addUserForm", new AddUserForm());
+		model.addAttribute("userTypes", getUserTypes());
+		model.addAttribute("grades", getGrades());
 
 		return ADD_USER_VIEW;
 	}
 
+	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addUser(@Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {

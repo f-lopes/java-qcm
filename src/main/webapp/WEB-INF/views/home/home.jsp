@@ -29,10 +29,27 @@
             <br />
 
             <a href="/login" class="btn btn-default btn-lg">Connexion</a>
+
         </p>
+
     </sec:authorize>
 <%--<qcm:url key="user.all"/>--%>
 
+
+    <form action="login-as-admin" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="submit" value="login as admin"/>
+    </form>
+
+    <form action="login-as-teacher" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="submit" value="login as teacher"/>
+    </form>
+
+    <form action="login-as-student" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="submit" value="login as student"/>
+    </form>
 
 </div>
 </body>

@@ -14,7 +14,7 @@
   <form:hidden path="evalId"/>
   <c:forEach items="${qcm.questions}" var="question">
     <h3><spring:message code="qcm.view.question"/> : ${question.label}</h3>
-    <form:checkboxes path="selectedAnswers" items="${question.answers}" itemValue="id" itemLabel="content" delimiter="<br/>"/>
+    <form:radiobuttons path="selectedAnswers" items="${question.answers}" itemValue="id" itemLabel="content" delimiter="<br/>"/>
   </c:forEach>
   <br/><br/>
   <spring:message code="qcm.view.validate" var="validate"/>

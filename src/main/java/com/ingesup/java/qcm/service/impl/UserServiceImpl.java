@@ -64,6 +64,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	}
 
 	@Override
+	public User getByEmail(String email) {
+		return userRepository.findByEmail(email);
+	}
+
+	@Override
 	public List<User> getAllNonAdminUsers() {
 		List<User> users = getAll();
 		List<User> nonAdminUsers = new ArrayList<>();
@@ -79,6 +84,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 
 	@Override
 	public List<Teacher> getAllTeachers() {
+		// TODO implement method
 		return null;
 	}
 

@@ -32,6 +32,7 @@ public class EvaluationStudent {
 	}
 
 	public EvaluationStudent(Evaluation evaluation, Student student, int evaluationMark, Date takenDate) {
+		this.evaluationStudentPk = new EvaluationStudentPk(evaluation, student);
 		this.evaluation = evaluation;
 		this.student = student;
 		this.mark = evaluationMark;
