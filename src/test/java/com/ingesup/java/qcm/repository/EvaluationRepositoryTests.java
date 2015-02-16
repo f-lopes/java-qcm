@@ -2,7 +2,6 @@ package com.ingesup.java.qcm.repository;
 
 import com.ingesup.java.qcm.JavaQcmApplication;
 import com.ingesup.java.qcm.entity.Evaluation;
-import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Student;
 import org.junit.Assert;
@@ -14,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.util.Calendar;
 import java.util.Date;

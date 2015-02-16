@@ -1,7 +1,5 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.service.StudentService;
-import com.ingesup.java.qcm.service.TeacherService;
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,6 @@ public class HomeController {
 
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private TeacherService teacherService;
-
-	@Autowired
-	private StudentService studentService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {

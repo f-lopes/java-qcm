@@ -1,14 +1,9 @@
 package com.ingesup.java.qcm.util;
 
-import com.ingesup.java.qcm.entity.RoleEnum;
 import com.ingesup.java.qcm.entity.User;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.context.SecurityContextImpl;
-
-import java.util.ArrayList;
 
 /**
  * Created by lopes_f on 1/15/2015.

@@ -7,6 +7,7 @@ import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.service.TeacherService;
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.ApplicationUrls;
+import com.ingesup.java.qcm.util.ControllerUtil;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -15,7 +16,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -109,7 +113,8 @@ public class UserController {
 
 		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
 				messageSource.getMessage("user.add.success", null, LocaleContextHolder.getLocale())));
-		return "redirect:" + ALL_USERS_URL;
+
+		return ControllerUtil.redirect(ALL_USERS_URL);
 	}
 
 	private void addUserFromForm(AddUserForm addUserForm) {

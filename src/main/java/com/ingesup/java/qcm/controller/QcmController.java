@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 import java.util.Arrays;
 import java.util.List;
 
@@ -158,9 +157,10 @@ public class QcmController {
 		return "redirect:" + getQuestionsForQcmUrl(qcmId);
 	}
 
-	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
-	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId, RedirectAttributes redirectAttributes) {
-		Question question = questionService.get(qcmId);
+	@RequestMapping(value = "/{id}/questions/{questionId}", method = RequestMethod.GET)
+	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId,
+										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
+		Question question = questionService.get(questionId);
 
 		if (question == null || !qcmId.equals(question.getQcm().getId())) {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(

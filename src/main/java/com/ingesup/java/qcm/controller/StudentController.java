@@ -1,12 +1,13 @@
 package com.ingesup.java.qcm.controller;
 
-import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.EvaluationStudent;
 import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.service.UserService;
+import com.ingesup.java.qcm.util.ControllerUtil;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 /**
  * Created by lopes_f on 19/01/2015.
@@ -31,8 +34,6 @@ public class StudentController {
     private static final String STUDENT_INFO_VIEW = "student/info";
     private static final String STUDENT_MARKS_VIEW = "student/marks";
 
-    private UserService userService;
-
 	private StudentService studentService;
 
 	private EvaluationService evaluationService;
@@ -41,10 +42,8 @@ public class StudentController {
 	private MessageSource messageSource;
 
     @Autowired
-    public StudentController(EvaluationService evaluationService, UserService userService,
-							 StudentService studentService) {
+    public StudentController(EvaluationService evaluationService, StudentService studentService) {
         this.evaluationService = evaluationService;
-        this.userService = userService;
 		this.studentService = studentService;
     }
 
@@ -59,8 +58,16 @@ public class StudentController {
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/marks", method = RequestMethod.GET)
 	public String studentMarks(Model model, @CurrentUser Student currentStudent) {
-		model.addAttribute("results",
-						   evaluationService.getTakenEvaluationsForStudent(currentStudent));
+		List<EvaluationStudent> studentResults = evaluationService.getTakenEvaluationsForStudent(currentStudent);
+		int average = 0;
+
+		for (EvaluationStudent result : studentResults) {
+			average += result.getMark();
+		}
+		average = average / studentResults.size();
+
+		model.addAttribute("results", studentResults);
+		model.addAttribute("average", average);
 
 		return STUDENT_MARKS_VIEW;
 	}
@@ -75,7 +82,7 @@ public class StudentController {
 			redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
 					messageSource.getMessage("student.not-found", null, LocaleContextHolder.getLocale())));
 
-			return "redirect:" + ALL_USERS_URL;
+			return ControllerUtil.redirect(ALL_USERS_URL);
 		}
 
         model.addAttribute("student", studentService.get(studentId));
