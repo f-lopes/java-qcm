@@ -79,7 +79,7 @@ public class StudentController {
 		Student student = studentService.get(studentId);
 
 		if (student == null) {
-			redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 					messageSource.getMessage("student.not-found", null, LocaleContextHolder.getLocale())));
 
 			return ControllerUtil.redirect(ALL_USERS_URL);

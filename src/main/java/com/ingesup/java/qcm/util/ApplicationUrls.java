@@ -43,6 +43,25 @@ public enum ApplicationUrls {
 
 	public enum Evaluation {
 
+		EVALUATION_NAMESPACE("/evaluations"),
+
+		AVAILABLE(""),
+		PROPOSED("/proposed-evaluations");
+
+		private String value;
+
+		Evaluation(String value) {
+			this.value = value;
+		}
+
+		public String getUrl() {
+			return EVALUATION_NAMESPACE + this.value;
+		}
+
+		@Override
+		public String toString() {
+			return this.value;
+		}
 	}
 
 	public enum Qcm {

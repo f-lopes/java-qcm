@@ -16,6 +16,9 @@ public class Qcm extends BaseEntity {
 	@JoinColumn(name = "qcm_id")
 	private Set<Question> questions;
 
+    @ManyToOne
+    private Teacher createdBy;
+
 	public Qcm() {
 
 	}
@@ -39,4 +42,12 @@ public class Qcm extends BaseEntity {
 	public void setQuestions(Set<Question> questions) {
 		this.questions = questions;
 	}
+
+    public Teacher getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Teacher createdBy) {
+        this.createdBy = createdBy;
+    }
 }

@@ -3,9 +3,11 @@ package com.ingesup.java.qcm.controller;
 import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
+import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.form.AddAnswerForm;
 import com.ingesup.java.qcm.form.AddQuestionsForm;
 import com.ingesup.java.qcm.form.QcmForm;
+import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.AnswerService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.service.QuestionService;
@@ -92,7 +94,8 @@ public class QcmController {
 	}
 
 	@RequestMapping(value = "create", method = RequestMethod.POST)
-	public String saveQcm(Model model, @Valid QcmForm qcmForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String saveQcm(Model model, @Valid QcmForm qcmForm, BindingResult bindingResult,
+                          @CurrentUser Teacher teacher, RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
 			// handle errors
@@ -102,7 +105,9 @@ public class QcmController {
 			return "redirect:" + ADD_QCM_URL;
 		}
 
-		qcmService.add(qcmForm.getQcm());
+        Qcm qcm = qcmForm.getQcm();
+        qcm.setCreatedBy(teacher);
+		qcmService.add(qcm);
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));

@@ -86,7 +86,7 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deleteEvaluation(Model model, @RequestBody String evaluationId,
+	public String deleteEvaluation(@RequestBody String evaluationId,
 								   RedirectAttributes redirectAttributes) {
 
 		Evaluation evaluation = evaluationService.get(evaluationId);
@@ -96,6 +96,8 @@ public class EvaluationController {
 					messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
 			return "redirect:" + ALL_EVALUATIONS_URL;
 		}
+
+		evaluationService.removeEntity(evaluation);
 
 		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("evaluation.delete.success", null, LocaleContextHolder.getLocale())));
@@ -129,9 +131,9 @@ public class EvaluationController {
 				}
 			}
 			model.addAttribute("evaluations", finishedEvaluations);
+			return EVALUATIONS_RESULTS;
 		} else {
 			model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
-			return EVALUATIONS_RESULTS;
 		}
 
 		return ALL_EVALUATIONS_VIEW;
@@ -143,7 +145,7 @@ public class EvaluationController {
 		Evaluation evaluation = evaluationService.get(evaluationId);
 
 		if (evaluation == null) {
-			redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("evaluation.not-found", null, LocaleContextHolder.getLocale())));
 		}
 
@@ -178,7 +180,7 @@ public class EvaluationController {
 		return CREATE_EVALUATION_VIEW;
 	}
 
-//	@Secured("ROLE_TEACHER"})
+	@Secured("ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, @CurrentUser Teacher teacher,
 								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -191,7 +193,7 @@ public class EvaluationController {
 		evaluation.setTeacher(teacher);
 		evaluationService.add(evaluation);
 
-		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + PROPOSED_EVALUATIONS_URL;
@@ -199,15 +201,24 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_STUDENT")
 	@RequestMapping(value = "/take", method = RequestMethod.GET)
-	public String takeEvaluation(@RequestParam String evaluationId, Model model, RedirectAttributes redirectAttributes) {
+	public String takeEvaluation(@RequestParam String evaluationId, Model model,
+								 @CurrentUser Student student, RedirectAttributes redirectAttributes) {
+
+		if (evaluationService.hasStudentTakenEvaluation(student.getId(), evaluationId)) {
+			redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+					messageSource.getMessage("evaluation.already.taken", null, LocaleContextHolder.getLocale())));
+			return "redirect:" + VIEW_EVALUATION_VIEW;
+		}
+
 		Evaluation evaluation = evaluationService.get(evaluationId);
+
 		if(evaluation != null) {
 			model.addAttribute("qcm", evaluation.getQcm());
 			model.addAttribute("validateQcmForm", new ValidateQcmForm(evaluation.getId(), evaluation.getQcm().getId()));
 			return TAKE_EVALUATION_VIEW;
 		}
 
-		redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 				messageSource.getMessage("error", null, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + VIEW_EVALUATION_VIEW;
@@ -228,8 +239,8 @@ public class EvaluationController {
 		int evaluationMark = evaluationService.
 				takeEvaluation(validateQcmForm.getEvalId(), validateQcmForm.getQcmId(), student, answersIds, new Date());
 
-		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
-				messageSource.getMessage("qcm.validate.success", new Object[] {evaluationMark}, LocaleContextHolder.getLocale())));
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("qcm.validate.success", new Object[]{evaluationMark}, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + ALL_EVALUATIONS_URL;
 	}

@@ -28,7 +28,7 @@
             <img src="resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
             <br />
 
-            <a href="/login" class="btn btn-default btn-lg">Connexion</a>
+            <a href="<c:url value='/login'/>" class="btn btn-default btn-lg">Connexion</a>
 
         </p>
 
