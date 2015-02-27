@@ -106,7 +106,7 @@ public class QcmController {
 		}
 
         Qcm qcm = qcmForm.getQcm();
-        qcm.setCreatedBy(teacher);
+        qcm.setTeacher(teacher);
 		qcmService.add(qcm);
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(

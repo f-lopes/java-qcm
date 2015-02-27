@@ -116,4 +116,18 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	public List<EvaluationStudent> getStudentsResultsByEvaluation(Evaluation evaluation) {
 		return evaluationStudentRepository.findByEvaluation(evaluation);
 	}
+
+    @Override
+    public boolean hasStudentsTakenEvaluation(String evaluationId) {
+        Evaluation evaluation = evaluationRepository.findOne(evaluationId);
+
+        if (evaluation != null) {
+            List<EvaluationStudent> evaluationResults = evaluationStudentRepository.findByEvaluation(evaluation);
+            if (evaluationResults != null && evaluationResults.size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

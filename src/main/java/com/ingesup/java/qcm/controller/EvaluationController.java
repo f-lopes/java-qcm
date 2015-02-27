@@ -19,7 +19,10 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -33,7 +36,7 @@ import java.util.*;
 @RequestMapping("/evaluations")
 public class EvaluationController {
 
-	private static final String ALL_EVALUATIONS_URL = "/evaluations";
+	private static final String ALL_EVALUATIONS_URL = "/evaluations/all";
 	private static final String PROPOSED_EVALUATIONS_URL = "/evaluations/proposed-evaluations";
 
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
@@ -45,22 +48,23 @@ public class EvaluationController {
 	private static final String EVALUATION_DETAIL_VIEW = "evaluation/detail";
 	private static final String EVALUATIONS_RESULTS = "evaluation/evaluationsResults";
 
-	@Autowired
-	private QcmService qcmService;
+	private final QcmService qcmService;
+	private final EvaluationService evaluationService;
+	private final GradeService gradeService;
+	private final CourseService courseService;
+	private final MessageSource messageSource;
 
-	@Autowired
-	private EvaluationService evaluationService;
+    @Autowired
+    public EvaluationController(QcmService qcmService, EvaluationService evaluationService,
+                                GradeService gradeService, CourseService courseService, MessageSource messageSource) {
+        this.qcmService = qcmService;
+        this.evaluationService = evaluationService;
+        this.gradeService = gradeService;
+        this.courseService = courseService;
+        this.messageSource = messageSource;
+    }
 
-	@Autowired
-	private GradeService gradeService;
-
-	@Autowired
-	private CourseService courseService;
-
-	@Autowired
-	private MessageSource messageSource;
-
-	@Secured(value = "ROLE_STUDENT")
+    @Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
 	public String availableEvaluationsForStudent(Model model, @CurrentUser Student student) {
 		Map<Evaluation, EvaluationStudent> availablesEvaluationsForStudent = new HashMap<>();
@@ -69,9 +73,8 @@ public class EvaluationController {
 		for (Evaluation evaluation : availableEvaluationsForGrade) {
 			availablesEvaluationsForStudent.put(evaluation, evaluationService.getTakenEvaluation(evaluation.getId(), student.getId()));
 		}
-		// TODO check if student already has taken evaluation
-		// TODO modify JSP according to MAP
-		model.addAttribute("availableEvaluations", availableEvaluationsForGrade);
+
+		model.addAttribute("availableEvaluations", availablesEvaluationsForStudent);
 
 		return AVAILABLE_EVALUATIONS_VIEW;
 	}
@@ -86,21 +89,26 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	public String deleteEvaluation(@RequestBody String evaluationId,
+	public String deleteEvaluation(@RequestParam("evaluationId") String evaluationId,
 								   RedirectAttributes redirectAttributes) {
 
-		Evaluation evaluation = evaluationService.get(evaluationId);
+        if (evaluationService.hasStudentsTakenEvaluation(evaluationId)) {
+            redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
+                    messageSource.getMessage("evaluation.delete.error.already-taken", null, LocaleContextHolder.getLocale())));
+            return "redirect:" + ALL_EVALUATIONS_URL;
+        }
 
-		if (evaluation == null) {
-			redirectAttributes.addAttribute("flash", MessageUtil.returnWarning(
+        Evaluation evaluation = evaluationService.get(evaluationId);
+        if (evaluation == null) {
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("evaluation.create.success", null, LocaleContextHolder.getLocale())));
 			return "redirect:" + ALL_EVALUATIONS_URL;
 		}
 
 		evaluationService.removeEntity(evaluation);
 
-		redirectAttributes.addAttribute("flash", MessageUtil.returnSuccess(
-				messageSource.getMessage("evaluation.delete.success", null, LocaleContextHolder.getLocale())));
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+                messageSource.getMessage("evaluation.delete.success", null, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + ALL_EVALUATIONS_URL;
 	}

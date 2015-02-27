@@ -18,7 +18,5 @@ public interface UserService extends BaseService<User, String> {
 
 	public List<User> getAllNonAdminUsers();
 
-	public List<Teacher> getAllTeachers();
-
 	public User getByEmail(String email);
 }

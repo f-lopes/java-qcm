@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -38,16 +39,29 @@
           <td>${availableEvaluation.key.endDate}</td>
           <td>${availableEvaluation.key.course.name}</td>
             <td>
-                <c:when test="${availableEvaluation.value == null}">
-                    <form method="get" action="${takeEvaluationUrl}">
+
+                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                    <form method="post" action="<c:url value="/delete" />">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
-                        <input type="submit" value="<spring:message code='evaluation.take'/>" />
+                        <input type="submit" value="<spring:message code='evaluation.delete'/>" />
                     </form>
-                </c:when>
-                <c:otherwise>
-                    <spring:message code="evaluation.result"/> : ${availableEvaluation.value.mark} - ${availableEvaluation.value.date}
-                </c:otherwise>
-          </td>
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('ROLE_STUDENT')" >
+                    <c:if test="${availableEvaluation.value == null}">
+                        <form method="post" action="<c:url value="/take" />">
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
+                            <input type="submit" value="<spring:message code='evaluation.take'/>" />
+                        </form>
+                    </c:if>
+                    <c:if test="${availableEvaluation.value != null}">
+                        ${availableEvaluation.value.date} : ${availableEvaluation.value.mark}
+                    </c:if>
+                </sec:authorize>
+
+            </td>
         </tr>
       </c:forEach>
       </tbody>

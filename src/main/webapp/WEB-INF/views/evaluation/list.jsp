@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -33,14 +34,17 @@
             <tbody>
             <c:forEach items="${evaluations}" var="availableEvaluation">
                 <tr>
-                    <td>${availableEvaluation.startDate}</td>
-                    <td>${availableEvaluation.endDate}</td>
-                    <td>${availableEvaluation.course.name}</td>
+                    <td>${availableEvaluation.key.startDate}</td>
+                    <td>${availableEvaluation.key.endDate}</td>
+                    <td>${availableEvaluation.key.course.name}</td>
                     <td>
-                        <form method="post" action="delete">
-                            <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
-                            <input type="submit" value="<spring:message code='evaluation.delete'/>" />
-                        </form>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                            <form method="post" action="<c:url value="/delete" />">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
+                                <input type="submit" value="<spring:message code='evaluation.delete'/>" />
+                            </form>
+                        </sec:authorize>
                     </td>
                 </tr>
             </c:forEach>

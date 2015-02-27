@@ -26,11 +26,11 @@ import java.util.Set;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<User, String> implements UserService, UserDetailsService {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
-	private RoleRepository roleRepository;
+	private final RoleRepository roleRepository;
 
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
 	@Autowired
 	public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
@@ -80,12 +80,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		}
 
 		return nonAdminUsers;
-	}
-
-	@Override
-	public List<Teacher> getAllTeachers() {
-		// TODO implement method
-		return null;
 	}
 
 	private Set<Role> getDbRoles(Set<Role> roles) {

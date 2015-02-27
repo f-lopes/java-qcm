@@ -17,7 +17,7 @@ public class Qcm extends BaseEntity {
 	private Set<Question> questions;
 
     @ManyToOne
-    private Teacher createdBy;
+    private Teacher teacher;
 
 	public Qcm() {
 
@@ -43,11 +43,11 @@ public class Qcm extends BaseEntity {
 		this.questions = questions;
 	}
 
-    public Teacher getCreatedBy() {
-        return createdBy;
+    public Teacher getTeacher() {
+        return teacher;
     }
 
-    public void setCreatedBy(Teacher createdBy) {
-        this.createdBy = createdBy;
+    public void setTeacher(Teacher teacher) {
+        this.teacher = teacher;
     }
 }

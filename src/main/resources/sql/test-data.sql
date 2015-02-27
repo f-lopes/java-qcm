@@ -53,7 +53,9 @@ CREATE TABLE grade
 CREATE TABLE qcm
 (
   id VARCHAR(255) PRIMARY KEY NOT NULL,
-  name VARCHAR(255)
+  name VARCHAR(255),
+  created_by_teacher_id VARCHAR(255),
+  teacher_teacher_id VARCHAR(255)
 );
 CREATE TABLE question
 (
@@ -107,6 +109,10 @@ ALTER TABLE evaluation_student ADD FOREIGN KEY (student_id) REFERENCES student (
 CREATE INDEX FK_8l0itw4t0fi10qv1ekbu3gbwh ON evaluation_student (evaluation_id);
 CREATE INDEX FK_9ulyk975qer8mqspdk00wuexw ON evaluation_student (student_student_id);
 CREATE INDEX FK_trhltg8i77kbr0srjk2j0nb3o ON evaluation_student (student_id);
+ALTER TABLE qcm ADD FOREIGN KEY (teacher_teacher_id) REFERENCES teacher (teacher_id);
+ALTER TABLE qcm ADD FOREIGN KEY (created_by_teacher_id) REFERENCES teacher (teacher_id);
+CREATE INDEX FK_3nl78wgsj1t1v8si2wv6ulcbx ON qcm (teacher_teacher_id);
+CREATE INDEX FK_n7qeokjhyn6rovhih5uvaew0r ON qcm (created_by_teacher_id);
 ALTER TABLE question ADD FOREIGN KEY (qcm_id) REFERENCES qcm (id);
 CREATE INDEX FK_lnspdlo4u3ji98bwdr46h5e5f ON question (qcm_id);
 ALTER TABLE student ADD FOREIGN KEY (grade_id) REFERENCES grade (id);
@@ -142,9 +148,10 @@ INSERT INTO user_roles (user_id, role_id) VALUES ('4028818b4b27e139014b27ea63310
 
 INSERT INTO course (id, name) VALUES ('4028818b4b22968e014b2297ba010008', 'Java');
 
-INSERT INTO qcm (id, name) VALUES ('4028818b4b27c5c8014b27cf7f100000', 'TestQcm');
-INSERT INTO qcm (id, name) VALUES ('4028818e4bc75b7b014bc77f0c8d0001', 'wtrwer');
-INSERT INTO qcm (id, name) VALUES ('4028b8814b363411014b3634b3fc0000', 'test');
+INSERT INTO qcm (id, name, created_by_teacher_id, teacher_teacher_id) VALUES ('4028818b4b27c5c8014b27cf7f100000', 'TestQcm', null, null);
+INSERT INTO qcm (id, name, created_by_teacher_id, teacher_teacher_id) VALUES ('4028818e4bc75b7b014bc77f0c8d0001', 'wtrwer', null, null);
+INSERT INTO qcm (id, name, created_by_teacher_id, teacher_teacher_id) VALUES ('4028b8814b363411014b3634b3fc0000', 'test', null, null);
+
 
 INSERT INTO evaluation (id, end_date, start_date, course_id, grade_id, qcm_id, teacher_teacher_id) VALUES ('4028818b4b27db35014b27e0486f0000', '2015-02-28 00:00:00', '2015-01-25 00:00:00', '4028818b4b22968e014b2297ba010008', '4028818b4b22968e014b2297b4680003', '4028818b4b27c5c8014b27cf7f100000', '4028818b4b27e139014b27ea63310000');
 INSERT INTO evaluation (id, end_date, start_date, course_id, grade_id, qcm_id, teacher_teacher_id) VALUES ('4028818e4bc75b7b014bc7713cde0000', '2016-01-01 00:00:00', '2015-01-01 00:00:00', '4028818b4b22968e014b2297ba010008', '4028818b4b22968e014b2297b4680003', null, '4028818b4b27e139014b27ea63310000');
@@ -154,3 +161,4 @@ INSERT INTO evaluation_student (evaluationid, studentid, date, mark, evaluation_
 INSERT INTO question (id, label, points, qcm_id) VALUES ('4028818b4b27e139014b280f6a060001', 'test', 1, '4028818b4b27c5c8014b27cf7f100000');
 
 INSERT INTO answer (id, answer_rate, content, correct, question_id) VALUES ('4028818b4b27e139014b280f6a060052', 1, 'TestAnswer', true, '4028818b4b27e139014b280f6a060001');
+
