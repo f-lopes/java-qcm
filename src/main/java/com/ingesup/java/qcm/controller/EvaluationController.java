@@ -12,6 +12,7 @@ import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -82,6 +83,7 @@ public class EvaluationController {
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String evaluations(Model model) {
+		model.addAttribute("grades", gradeService.getAll());
 		model.addAttribute("evaluations", evaluationService.getAll());
 
 		return ALL_EVALUATIONS_VIEW;
@@ -115,9 +117,10 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
-	public String evaluationsByGrade(Model model, @RequestParam String grade, @RequestParam boolean onlyAvailable) {
-		if (onlyAvailable) {
-			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
+	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade) {
+
+		if (grade == null) {
+			model.addAttribute("evaluations", evaluationService.getAll());
 		} else {
 			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
 		}

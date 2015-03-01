@@ -5,9 +5,11 @@ import com.ingesup.java.qcm.entity.Student;
 import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
+import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.util.ControllerUtil;
 import com.ingesup.java.qcm.util.MessageUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -17,8 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,18 +34,39 @@ public class StudentController {
 
 	private static final String ALL_USERS_URL = "/users";
 
+	private static final String ALL_STUDENTS_VIEW = "student/list";
     private static final String STUDENT_INFO_VIEW = "student/info";
     private static final String STUDENT_MARKS_VIEW = "student/marks";
 
 	private final StudentService studentService;
 	private final EvaluationService evaluationService;
 	private final MessageSource messageSource;
+	private final GradeService gradeService;
 
 	@Autowired
-	public StudentController(StudentService studentService, EvaluationService evaluationService, MessageSource messageSource) {
+	public StudentController(StudentService studentService, EvaluationService evaluationService,
+							 MessageSource messageSource, GradeService gradeService) {
 		this.studentService = studentService;
 		this.evaluationService = evaluationService;
 		this.messageSource = messageSource;
+		this.gradeService = gradeService;
+	}
+
+	@Secured(value = "ROLE_ADMIN")
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public String allStudents(Model model, @RequestParam(required = false) String grade) {
+		List<Student> students;
+
+		if (StringUtils.isEmpty(grade)) {
+			students = studentService.getAll();
+		} else {
+			students = studentService.getStudentsByGrade(gradeService.getGradeByName(grade));
+		}
+
+		model.addAttribute("grades", gradeService.getAll());
+		model.addAttribute("students", students);
+
+		return ALL_STUDENTS_VIEW;
 	}
 
 	@Secured(value = "ROLE_STUDENT")

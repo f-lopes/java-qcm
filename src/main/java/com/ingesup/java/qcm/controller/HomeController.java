@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 
 	private static final String HOME_VIEW = "home/home";
+	private static final String ACCESS_DENIED_VIEW = "accessDenied";
 
 	private final UserService userService;
 
@@ -47,5 +48,11 @@ public class HomeController {
 		SecurityUtil.loginUser(userService.getByEmail("student@student.fr"));
 
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/access-denied", method = RequestMethod.POST)
+	public String accessDenied() {
+
+		return ACCESS_DENIED_VIEW;
 	}
 }

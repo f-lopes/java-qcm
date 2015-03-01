@@ -19,6 +19,13 @@
 
 <h1><spring:message code="evaluations.available"/></h1>
 
+<spring:message code="evaluations.by-grade"/> : <br/>
+<sec:authorize access="hasRole('ROLE_ADMIN')" >
+        <c:forEach items="${grades}" var="grade">
+            <a href="<c:url value="/evaluations/by-grade?grade=${grade.name}"/>">${grade.name}</a> <br/>
+        </c:forEach>
+</sec:authorize>
+
 <c:choose>
     <c:when test="${fn:length(evaluations) gt 0}">
 

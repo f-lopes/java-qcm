@@ -13,7 +13,7 @@
 <head>
     <title>Users list</title>
 
-    <script src="<c:url var="jQueryURL" value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
+    <script src="<c:url value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
     <script src="<c:url value='/resources/js/lib/angular.min.js'/>"></script>
     <script src="<c:url value='/resources/js/lib/angular-toggle-switch.min.js'/>"></script>
     <script src="<c:url value='/resources/js/lib/loading-bar.js'/>"></script>
@@ -27,7 +27,7 @@
 <h1>Users list</h1>
 <spring:message code="users.filter"/>
 <input ng-model="usernameQuery" type="text"/>
-<input type="hidden" ng-model="usersURL" value="<c:url value='/users/json?showAdminUsers=' />"/>
+<input type="hidden"id="usersURL" value="<c:url value='/users/json?showAdminUsers=' />"/>
 
 <table>
     <thead>
