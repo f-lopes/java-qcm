@@ -1,19 +1,12 @@
 package com.ingesup.java.qcm.form;
 
-import com.ingesup.java.qcm.entity.Answer;
-import com.ingesup.java.qcm.service.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.validation.constraints.NotNull;
 
 /**
  * Created by lopes_f on 1/29/2015.
  * <florian.lopes@outlook.com>
  */
-public class AddAnswerForm {
-
-	@Autowired
-	private QuestionService questionService;
+public class AddAnswersForm {
 
 	@NotNull
 	private String questionId;
@@ -23,10 +16,10 @@ public class AddAnswerForm {
 
 	private int answerRate;
 
-	public AddAnswerForm() {
+	public AddAnswersForm() {
 	}
 
-	public AddAnswerForm(String questionId) {
+	public AddAnswersForm(String questionId) {
 		this.questionId = questionId;
 	}
 
@@ -52,17 +45,5 @@ public class AddAnswerForm {
 
 	public void setAnswerRate(int answerRate) {
 		this.answerRate = answerRate;
-	}
-
-	public Answer getAnswer() {
-		return new Answer(content, questionService.get(questionId), answerRate);
-	}
-
-	public QuestionService getQuestionService() {
-		return questionService;
-	}
-
-	public void setQuestionService(QuestionService questionService) {
-		this.questionService = questionService;
 	}
 }

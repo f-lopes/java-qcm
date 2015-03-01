@@ -9,14 +9,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title><spring:message code="error" /></title>
 </head>
 <body>
 
 <spring:message code="error" />
 <br/>
 <%@include file="menu/menuByRole.jsp"%>
-
 
 </body>
 </html>

@@ -47,4 +47,4 @@
         </table>
     </c:if>
     <br/><br/>
-<a href="<c:url value="${qcm.id}/questions/create"/>"><spring:message code="question.create.title"/></a>
+<a href="<c:url value="${qcm.id}/questions/add"/>"><spring:message code="question.create.title"/></a>

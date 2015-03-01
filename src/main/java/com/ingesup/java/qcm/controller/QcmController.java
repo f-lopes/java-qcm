@@ -4,7 +4,7 @@ import com.ingesup.java.qcm.entity.Answer;
 import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.entity.Teacher;
-import com.ingesup.java.qcm.form.AddAnswerForm;
+import com.ingesup.java.qcm.form.AddAnswersForm;
 import com.ingesup.java.qcm.form.AddQuestionsForm;
 import com.ingesup.java.qcm.form.QcmForm;
 import com.ingesup.java.qcm.security.CurrentUser;
@@ -214,7 +214,7 @@ public class QcmController {
 
 		model.addAttribute("qcmId", qcmId);
 		model.addAttribute("questionId", questionId);
-		model.addAttribute("addAnswerForm", new AddAnswerForm(questionId));
+		model.addAttribute("addAnswerForm", new AddAnswersForm(questionId));
 
 		return ADD_ANSWER_VIEW;
 	}
@@ -222,16 +222,16 @@ public class QcmController {
 	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.POST)
 	public String saveAnswerForQuestion(Model model, @PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId,
-									   @Valid AddAnswerForm addAnswerForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+									   @Valid
+									   AddAnswersForm addAnswersForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			// handle errors
-
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.error"));
 
 			return "redirect:" + getAddAnswerForQuestionUrl(qcmId, questionId);
 		}
 
-		Answer answer = addAnswerForm.getAnswer();
+		Answer answer = new Answer(addAnswersForm.getContent(), questionService.get(questionId), addAnswersForm.getAnswerRate());
 		answerService.add(answer);
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.success"));
@@ -245,6 +245,7 @@ public class QcmController {
 
 	private String getAnswersForQuestionUrl(String qcmId, String questionId) {
 		return new StringBuilder("/")
+				.append("/qcm/")
 				.append(qcmId)
 				.append("/questions/")
 				.append(questionId)
@@ -253,6 +254,7 @@ public class QcmController {
 
 	private String getAddAnswerForQuestionUrl(String qcmId, String questionId) {
 		return new StringBuilder("/")
+				.append("/qcm/")
 				.append(qcmId)
 				.append("/questions/")
 				.append(questionId)

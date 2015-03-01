@@ -38,6 +38,6 @@
 </c:if>
 <br/><br/>
 
-<a href="<c:url value="answers/add"/>"><spring:message code="answer.create"/></a>
+<a href="<c:url value="/qcm/${qcm.id}/questions/${question.id}/answers/add"/>"><spring:message code="answer.create"/></a>
 </body>
 </html>

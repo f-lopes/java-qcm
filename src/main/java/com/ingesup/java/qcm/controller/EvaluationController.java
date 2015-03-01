@@ -12,7 +12,6 @@ import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -39,6 +38,7 @@ public class EvaluationController {
 
 	private static final String ALL_EVALUATIONS_URL = "/evaluations/all";
 	private static final String PROPOSED_EVALUATIONS_URL = "/evaluations/proposed-evaluations";
+	private static final String AVAILABLE_EVALUATIONS_URL = "/evaluations";
 
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
 	private static final String AVAILABLE_EVALUATIONS_VIEW = "evaluation/availableList";
@@ -253,6 +253,6 @@ public class EvaluationController {
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.validate.success", new Object[]{evaluationMark}, LocaleContextHolder.getLocale())));
 
-		return "redirect:" + ALL_EVALUATIONS_URL;
+		return "redirect:" + AVAILABLE_EVALUATIONS_URL;
 	}
 }

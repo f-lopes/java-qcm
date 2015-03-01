@@ -7,32 +7,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 <html>
 <head>
-    <title><spring:message code="user.add.title"/></title>
+    <title><spring:message code="qcm.create.title"/></title>
 </head>
 <body>
-<script src="<c:url var="jQueryURL" value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
 
-<script>
-
-  jQuery(document).ready(function () {
-    var nbInput = 1;
-    var $answerInputTemplate = jQuery("#answerInputTemplate");
-    var $answersForm = jQuery("#answersForm");
-
-    var registerListeners = function() {
-      jQuery("#addAnswerButton").click(function() {
-        var $newAnswerInput = $answerInputTemplate.clone();
-        $newAnswerInput.attr("name", "answer[" + (++nbInput - 1) + "]");
-        $newAnswerInput.appendTo($answersForm);
-      });
-    };
-
-    registerListeners();
-  });
-
-</script>
 
 <%@include file="addAnswerForm.jsp"%>
 </body>

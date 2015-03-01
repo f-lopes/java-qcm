@@ -10,6 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -35,13 +36,19 @@
       <c:forEach items="${availableEvaluations}" var="availableEvaluation">
         <c:url var="takeEvaluationUrl" value="evaluations/take"/>
         <tr>
-          <td>${availableEvaluation.key.startDate}</td>
-          <td>${availableEvaluation.key.endDate}</td>
-          <td>${availableEvaluation.key.course.name}</td>
+          <td>
+              <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.startDate}" />
+          </td>
+          <td>
+              <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.endDate}" />
+          </td>
+          <td>
+            ${availableEvaluation.key.course.name}
+          </td>
             <td>
 
                 <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                    <form method="post" action="<c:url value="/delete" />">
+                    <form method="post" action="<c:url value="/evaluations/delete" />">
                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
                         <input type="submit" value="<spring:message code='evaluation.delete'/>" />
@@ -50,14 +57,15 @@
 
                 <sec:authorize access="hasRole('ROLE_STUDENT')" >
                     <c:if test="${availableEvaluation.value == null}">
-                        <form method="post" action="<c:url value="/take" />">
+                        <form method="get" action="${takeEvaluationUrl}">
                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
                             <input type="submit" value="<spring:message code='evaluation.take'/>" />
                         </form>
                     </c:if>
                     <c:if test="${availableEvaluation.value != null}">
-                        ${availableEvaluation.value.date} : ${availableEvaluation.value.mark}
+                        <i><fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.value.date}" /></i>
+                         - <b><spring:message code="mark"/></b> ${availableEvaluation.value.mark}
                     </c:if>
                 </sec:authorize>
 
