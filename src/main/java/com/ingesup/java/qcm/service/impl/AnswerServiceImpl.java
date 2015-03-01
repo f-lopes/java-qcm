@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AnswerServiceImpl extends BaseServiceImpl<Answer, String> implements AnswerService {
 
-	private AnswerRepository answerRepository;
+	private final AnswerRepository answerRepository;
 
 	@Autowired
 	public AnswerServiceImpl(AnswerRepository answerRepository) {

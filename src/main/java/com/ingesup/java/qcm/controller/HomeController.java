@@ -16,8 +16,12 @@ public class HomeController {
 
 	private static final String HOME_VIEW = "home/home";
 
+	private final UserService userService;
+
 	@Autowired
-	private UserService userService;
+	public HomeController(UserService userService) {
+		this.userService = userService;
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {

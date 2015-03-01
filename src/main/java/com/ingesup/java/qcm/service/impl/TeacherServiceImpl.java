@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TeacherServiceImpl extends BaseServiceImpl<Teacher, String> implements TeacherService {
 
-	private TeacherRepository teacherRepository;
+	private final TeacherRepository teacherRepository;
 
 	@Autowired
 	public TeacherServiceImpl(TeacherRepository teacherRepository) {

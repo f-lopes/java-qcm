@@ -1,7 +1,9 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.form.AddCourseForm;
 import com.ingesup.java.qcm.service.CourseService;
+import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by lopes_f on 1/24/2015.
@@ -33,11 +36,17 @@ public class CourseController {
 	private static final String COURSE_VIEW = "course/view";
 	private static final String ADD_COURSE_VIEW = "course/add";
 
-	@Autowired
-	private CourseService courseService;
+	private final CourseService courseService;
+	private final MessageSource messageSource;
+	private final EvaluationService evaluationService;
 
 	@Autowired
-	private MessageSource messageSource;
+	public CourseController(CourseService courseService, MessageSource messageSource,
+							EvaluationService evaluationService) {
+		this.courseService = courseService;
+		this.messageSource = messageSource;
+		this.evaluationService = evaluationService;
+	}
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String allCourses(Model model) {
@@ -76,6 +85,15 @@ public class CourseController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String deleteCourse(@RequestParam String courseId, RedirectAttributes redirectAttributes) {
+
+		List<Evaluation> existingEvaluationsForCourse = evaluationService.getEvaluationsByCourseId(courseId);
+		if (existingEvaluationsForCourse != null && existingEvaluationsForCourse.size() > 0) {
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+					messageSource.getMessage("course.delete.error.evaluation", new String[] {courseId}, LocaleContextHolder.getLocale())));
+
+			return "redirect:" + COURSES_URL;
+		}
+
 		courseService.remove(courseId);
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("course.delete.success", null, LocaleContextHolder.getLocale())));

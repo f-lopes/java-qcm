@@ -48,21 +48,18 @@ public class QcmController {
 	private static final String ADD_QUESTION_VIEW = "question/create";
 	private static final String ADD_ANSWER_VIEW = "answer/add";
 
-	@Autowired
-	private QcmService qcmService;
+	private final QcmService qcmService;
+	private final QuestionService questionService;
+	private final MessageSource messageSource;
+	private final AnswerService answerService;
 
 	@Autowired
-	private QuestionService questionService;
-
-	@Autowired
-	private MessageSource messageSource;
-
-	@Autowired
-	private AnswerService answerService;
-
-	@Autowired
-	public QcmController(QcmService qcmService) {
+	public QcmController(QcmService qcmService, QuestionService questionService,
+						 MessageSource messageSource, AnswerService answerService) {
 		this.qcmService = qcmService;
+		this.questionService = questionService;
+		this.messageSource = messageSource;
+		this.answerService = answerService;
 	}
 
 	@ModelAttribute("questionsPoints")

@@ -1,6 +1,5 @@
 package com.ingesup.java.qcm.service;
 
-import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.entity.User;
 import org.springframework.cache.annotation.Cacheable;
 

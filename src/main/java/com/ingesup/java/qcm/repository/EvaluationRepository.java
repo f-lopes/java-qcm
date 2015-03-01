@@ -1,5 +1,6 @@
 package com.ingesup.java.qcm.repository;
 
+import com.ingesup.java.qcm.entity.Course;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Teacher;
@@ -24,4 +25,6 @@ public interface EvaluationRepository extends BaseRepository<Evaluation, String>
 
 	@Query("SELECT E FROM Evaluation E WHERE (NOW() > E.endDate) AND E.teacher = ?1")
 	public List<Evaluation> findFinishedEvaluationsByTeacher(Teacher teacher);
+
+	public List<Evaluation> findByCourse(Course course);
 }

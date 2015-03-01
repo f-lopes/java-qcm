@@ -10,20 +10,21 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
-<form:form method="POST" action="/${qcmId}/questions/${questionId}/answers/add" commandName="addAnswerForm">
+<form:form method="POST" action="/qcm/${qcmId}/questions/${questionId}/answers/add" commandName="addAnswerForm">
   <form:errors path="" />
   <div id="answersForm"
     <form:hidden path="questionId"/>
-    <form:label path="content">Name</form:label>
-    <form:input path="content" id="answerInputTemplate" class="form-control"/>
-    <form:errors path="content" cssClass="error" />
-    <form:label path="answerRate">Name</form:label>
-    <form:input path="answerRate" class="form-control"/>
-    <form:errors path="answerRate" cssClass="error" />
-    <input id="addAnswerButton" type="button" value="add answer"/>
+    <div class="" id="answerInputTemplate">
+        <form:label path="content"><spring:message code="qcm.content" /></form:label>
+        <form:input path="content" class="form-control"/>
+        <form:errors path="content" cssClass="error" />
+        <form:label path="answerRate"><spring:message code="qcm.rate" /></form:label>
+        <form:input path="answerRate" class="form-control"/>
+        <form:errors path="answerRate" cssClass="error" />
+    </div>
+    <input id="addAnswerButton" type="button" value="<spring:message code="answer.add" />"/>
   </div>
   <div class="form-group">
-    <spring:message code="qcm.create" var="createQcm"/>
-    <input type="submit" class="btn btn-primary" value="${createQcm}"/>
+    <input type="submit" class="btn btn-primary" value="<spring:message code="answer.create" />"/>
   </div>
 </form:form>

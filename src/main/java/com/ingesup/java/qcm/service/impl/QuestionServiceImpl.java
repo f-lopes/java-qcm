@@ -18,9 +18,9 @@ import java.util.List;
 @Service
 public class QuestionServiceImpl extends BaseServiceImpl<Question, String> implements QuestionService {
 
-	private QcmService qcmService;
+	private final QcmService qcmService;
 
-	private QuestionRepository questionRepository;
+	private final QuestionRepository questionRepository;
 
 	@Autowired
 	public QuestionServiceImpl(QuestionRepository questionRepository, QcmService qcmService) {

@@ -28,18 +28,20 @@
                 <td><spring:message code="evaluation.startDate"/></td>
                 <td><spring:message code="evaluation.endDate"/></td>
                 <td><spring:message code="course"/></td>
-                <td><spring:message code="action"/></td>
+                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                    <td><spring:message code="action"/></td>
+                </sec:authorize>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${evaluations}" var="availableEvaluation">
                 <tr>
-                    <td>${availableEvaluation.key.startDate}</td>
-                    <td>${availableEvaluation.key.endDate}</td>
-                    <td>${availableEvaluation.key.course.name}</td>
+                    <td>${availableEvaluation.startDate}</td>
+                    <td>${availableEvaluation.endDate}</td>
+                    <td>${availableEvaluation.course.name}</td>
                     <td>
                         <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                            <form method="post" action="<c:url value="/delete" />">
+                            <form method="post" action="<c:url value="/evaluations/delete" />">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
                                 <input type="submit" value="<spring:message code='evaluation.delete'/>" />

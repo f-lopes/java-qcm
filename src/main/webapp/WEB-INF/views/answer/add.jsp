@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: lopes_f
@@ -8,11 +9,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title><spring:message code="user.add.title"/></title>
 </head>
 <body>
-
-<script src="<c:url value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
+<script src="<c:url var="jQueryURL" value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
 
 <script>
 

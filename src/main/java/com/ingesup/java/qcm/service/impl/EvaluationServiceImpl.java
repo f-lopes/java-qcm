@@ -1,14 +1,12 @@
 package com.ingesup.java.qcm.service.impl;
 
 import com.ingesup.java.qcm.entity.*;
-import com.ingesup.java.qcm.repository.AnswerRepository;
-import com.ingesup.java.qcm.repository.BaseRepository;
-import com.ingesup.java.qcm.repository.EvaluationRepository;
-import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
+import com.ingesup.java.qcm.repository.*;
 import com.ingesup.java.qcm.service.EvaluationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -20,18 +18,18 @@ import java.util.Set;
 @Service
 public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> implements EvaluationService {
 
-	private EvaluationRepository evaluationRepository;
-
-	private EvaluationStudentRepository evaluationStudentRepository;
-
-	private AnswerRepository answerRepository;
+	private final EvaluationRepository evaluationRepository;
+	private final EvaluationStudentRepository evaluationStudentRepository;
+	private final AnswerRepository answerRepository;
+	private final CourseRepository courseRepository;
 
 	@Autowired
 	public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationStudentRepository evaluationStudentRepository,
-								 AnswerRepository answerRepository) {
+								 AnswerRepository answerRepository, CourseRepository courseRepository) {
 		this.evaluationRepository = evaluationRepository;
 		this.evaluationStudentRepository = evaluationStudentRepository;
 		this.answerRepository = answerRepository;
+		this.courseRepository = courseRepository;
 	}
 
 	@Override
@@ -130,4 +128,16 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
         return false;
     }
+
+	@Override
+	public List<Evaluation> getEvaluationsByCourseId(String courseId) {
+		Course course = courseRepository.findOne(courseId);
+		List<Evaluation> evaluationsByCourse = new ArrayList<>();
+
+		if (course != null) {
+			evaluationsByCourse.addAll(evaluationRepository.findByCourse(course));
+		}
+
+		return evaluationsByCourse;
+	}
 }

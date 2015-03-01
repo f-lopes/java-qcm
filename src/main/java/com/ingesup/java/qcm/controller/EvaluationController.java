@@ -177,7 +177,7 @@ public class EvaluationController {
 		return VIEW_EVALUATION_VIEW;
 	}
 
-//	@Secured(value = "ROLE_TEACHER")
+	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
 		model.addAttribute("createEvaluationForm", new CreateEvaluationForm());

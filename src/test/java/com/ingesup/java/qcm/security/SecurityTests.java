@@ -1,7 +1,10 @@
 package com.ingesup.java.qcm.security;
 
 import com.ingesup.java.qcm.JavaQcmApplication;
-import com.ingesup.java.qcm.entity.*;
+import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.Teacher;
+import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.service.TeacherService;
@@ -24,7 +27,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.Filter;
-
 import java.util.List;
 
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;

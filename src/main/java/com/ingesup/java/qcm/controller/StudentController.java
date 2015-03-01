@@ -6,7 +6,6 @@ import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.StudentService;
-import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.ControllerUtil;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,20 +33,18 @@ public class StudentController {
     private static final String STUDENT_INFO_VIEW = "student/info";
     private static final String STUDENT_MARKS_VIEW = "student/marks";
 
-	private StudentService studentService;
-
-	private EvaluationService evaluationService;
+	private final StudentService studentService;
+	private final EvaluationService evaluationService;
+	private final MessageSource messageSource;
 
 	@Autowired
-	private MessageSource messageSource;
-
-    @Autowired
-    public StudentController(EvaluationService evaluationService, StudentService studentService) {
-        this.evaluationService = evaluationService;
+	public StudentController(StudentService studentService, EvaluationService evaluationService, MessageSource messageSource) {
 		this.studentService = studentService;
-    }
+		this.evaluationService = evaluationService;
+		this.messageSource = messageSource;
+	}
 
-    @Secured(value = "ROLE_STUDENT")
+	@Secured(value = "ROLE_STUDENT")
     @RequestMapping(value = "/personal", method = RequestMethod.GET)
     public String accountInfo(Model model, @CurrentUser User currentUser) {
         model.addAttribute("currentUser", currentUser);

@@ -21,13 +21,16 @@
     <tr>
       <td>ID</td>
       <td>Name</td>
+      <td>Content</td>
+      <td>Rate</td>
     </tr>
     </thead>
     <tbody>
     <c:forEach items="${answers}" var="answer">
       <tr>
         <td>${answer.id}</td>
-        <td>${answer.name}</td>
+        <td>${answer.content}</td>
+        <td>${answer.answerRate}</td>
       </tr>
     </c:forEach>
     </tbody>

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements RoleService {
 
-	private RoleRepository roleRepository;
+	private final RoleRepository roleRepository;
 
 	@Autowired
 	public RoleServiceImpl(RoleRepository roleRepository) {

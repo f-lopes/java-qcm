@@ -23,6 +23,9 @@ public class AddAnswerForm {
 
 	private int answerRate;
 
+	public AddAnswerForm() {
+	}
+
 	public AddAnswerForm(String questionId) {
 		this.questionId = questionId;
 	}

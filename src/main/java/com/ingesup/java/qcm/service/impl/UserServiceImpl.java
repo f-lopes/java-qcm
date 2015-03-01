@@ -1,7 +1,6 @@
 package com.ingesup.java.qcm.service.impl;
 
 import com.ingesup.java.qcm.entity.Role;
-import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.entity.User;
 import com.ingesup.java.qcm.repository.BaseRepository;
 import com.ingesup.java.qcm.repository.RoleRepository;
@@ -27,9 +26,7 @@ import java.util.Set;
 public class UserServiceImpl extends BaseServiceImpl<User, String> implements UserService, UserDetailsService {
 
 	private final UserRepository userRepository;
-
 	private final RoleRepository roleRepository;
-
 	private final PasswordEncoder passwordEncoder;
 
 	@Autowired

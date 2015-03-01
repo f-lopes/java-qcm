@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StudentServiceImpl extends BaseServiceImpl<Student, String> implements StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     @Autowired
     public StudentServiceImpl(StudentRepository studentRepository) {

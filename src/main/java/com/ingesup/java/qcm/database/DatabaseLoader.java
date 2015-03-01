@@ -23,25 +23,22 @@ import java.util.Set;
 public class DatabaseLoader {
 
 	private UserService userService;
-
 	private GradeService gradeService;
-
 	private CourseService courseService;
-
 	private RoleService roleService;
-
-	@Autowired
 	private QcmDatabaseProperties databaseProperties;
-
-	@Autowired
 	private QcmAdministrationProperties administrationProperties;
 
 	@Autowired
-	public DatabaseLoader(UserService userService, GradeService gradeService, CourseService courseService, RoleService roleService) {
+	public DatabaseLoader(UserService userService, GradeService gradeService,
+						  CourseService courseService, RoleService roleService,
+						  QcmDatabaseProperties databaseProperties, QcmAdministrationProperties administrationProperties) {
 		this.userService = userService;
 		this.gradeService = gradeService;
 		this.courseService = courseService;
 		this.roleService = roleService;
+		this.databaseProperties = databaseProperties;
+		this.administrationProperties = administrationProperties;
 	}
 
 	@PostConstruct

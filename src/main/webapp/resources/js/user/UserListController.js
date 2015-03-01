@@ -5,7 +5,7 @@
 var qcmUsersApp = angular.module('qcmUsersApp', ['toggle-switch', 'angular-loading-bar']);
 
 qcmUsersApp.controller('UserListController', function ($scope, $http) {
-    var usersUrl = "<c:url value='/json?showAdminUsers=' />";
+    var usersUrl = angular.element("#answerInputTemplate");
     var showAdminUsers = "false";
 
     var getUsersRequest = {

@@ -32,7 +32,7 @@ import java.util.Map;
  * <florian.lopes@outlook.com>
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping ( "/users" )
 public class UserController {
 
 	private static final String ALL_USERS_URL = ApplicationUrls.User.USERS_NAMESPACE.toString();
@@ -43,20 +43,22 @@ public class UserController {
 	private static final String USER_TYPE_STUDENT = "student";
 	private static final String USER_TYPE_TEACHER = "teacher";
 
-	@Autowired
-	private UserService userService;
+	private final UserService userService;
+	private final GradeService gradeService;
+	private final MessageSource messageSource;
+	private final TeacherService teacherService;
+	private final StudentService studentService;
 
 	@Autowired
-	private GradeService gradeService;
-
-	@Autowired
-	private MessageSource messageSource;
-
-	@Autowired
-	private TeacherService teacherService;
-
-	@Autowired
-	private StudentService studentService;
+	public UserController(UserService userService, GradeService gradeService,
+						  MessageSource messageSource, TeacherService teacherService,
+						  StudentService studentService) {
+		this.userService = userService;
+		this.gradeService = gradeService;
+		this.messageSource = messageSource;
+		this.teacherService = teacherService;
+		this.studentService = studentService;
+	}
 
 	private List<Grade> getGrades() {
 		return gradeService.getAll();
@@ -72,21 +74,23 @@ public class UserController {
 		return userTypes;
 	}
 
-	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(method = RequestMethod.GET)
+	@Secured ( value = "ROLE_ADMIN" )
+	@RequestMapping ( method = RequestMethod.GET )
 	public String allUsers() {
 		return ALL_USERS_VIEW;
 	}
 
 	@ResponseBody
-	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/json", method = RequestMethod.GET)
-	public List<User> jsonAllUsers(@RequestParam boolean showAdminUsers) {
+	@Secured ( value = "ROLE_ADMIN" )
+	@RequestMapping ( value = "/json", method = RequestMethod.GET )
+	public List<User> jsonAllUsers(
+			@RequestParam
+			boolean showAdminUsers) {
 		return showAdminUsers ? userService.getAll() : userService.getAllNonAdminUsers();
 	}
 
-	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	@Secured ( value = "ROLE_ADMIN" )
+	@RequestMapping ( value = "/add", method = RequestMethod.GET )
 	public String addUserView(Model model) {
 		model.addAttribute("addUserForm", new AddUserForm());
 		model.addAttribute("userTypes", getUserTypes());
@@ -95,9 +99,11 @@ public class UserController {
 		return ADD_USER_VIEW;
 	}
 
-	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addUser(@Valid AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	@Secured ( value = "ROLE_ADMIN" )
+	@RequestMapping ( value = "/add", method = RequestMethod.POST )
+	public String addUser(
+			@Valid
+			AddUserForm addUserForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			return ADD_USER_VIEW;
 		}
@@ -123,7 +129,8 @@ public class UserController {
 			Student student = addUserForm.getStudent();
 			student.addRole(RoleEnum.ROLE_STUDENT);
 			userService.add(student);
-		} else {
+		}
+		else {
 			Teacher teacher = addUserForm.getTeacher();
 			teacher.addRole(RoleEnum.ROLE_TEACHER);
 			userService.add(teacher);

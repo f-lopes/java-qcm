@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class QcmServiceImpl extends BaseServiceImpl<Qcm, String> implements QcmService {
 
-	private QcmRepository qcmRepository;
+	private final QcmRepository qcmRepository;
 
 	@Autowired
 	public QcmServiceImpl(QcmRepository qcmRepository) {

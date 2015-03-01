@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GradeServiceImpl extends BaseServiceImpl<Grade, String> implements GradeService {
 
-	private GradeRepository gradeRepository;
+	private final GradeRepository gradeRepository;
 
 	@Autowired
 	public GradeServiceImpl(GradeRepository gradeRepository) {

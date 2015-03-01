@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CourseServiceImpl extends BaseServiceImpl<Course, String> implements CourseService {
 
-	private CourseRepository courseRepository;
+	private final CourseRepository courseRepository;
 
 	@Autowired
 	public CourseServiceImpl(CourseRepository courseRepository) {

@@ -31,7 +31,7 @@
       <tbody>
       <c:forEach items="${qcmList}" var="qcm">
         <tr>
-          <td><a href="<c:url value='/${qcm.id}'/>">${qcm.name}</a></td>
+          <td><a href="<c:url value='/qcm/${qcm.id}'/>">${qcm.name}</a></td>
             <td>${qcm.questions.size()}</td>
         </tr>
       </c:forEach>

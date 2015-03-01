@@ -10,13 +10,7 @@ public final class Message {
 
     private String text;
 
-	public Message() {
-
-	}
-
-    public Message(MessageType type, String text){
-        this.messageType = type;
-        this.text = text;
+    public Message(){
     }
 
     public String getStatus(){
