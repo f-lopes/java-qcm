@@ -69,12 +69,6 @@ public class QcmController {
 		return Arrays.asList("1", "2", "3");
 	}
 
-//	@Secured(value = {"ROLE_ADMIN"})
-//	@RequestMapping(value = "/all", method = RequestMethod.GET)
-//	public String qcmListAdmin(Model model) {
-//		model.addAttribute("qcmList", qcmService.getAll());
-//		return ALL_QCM_VIEW;
-//	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String qcmListTeacher(Model model, @CurrentUser Teacher teacher) {
