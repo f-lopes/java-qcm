@@ -27,11 +27,14 @@
 
     </div>
 
-    <script type="application/javascript" src="<c:url value='resources/js/lib/date-picker/jquery-ui.js'/>"></script>
+    <script type="application/javascript" src="<c:url value='/resources/js/lib/date-picker/external/jquery/jquery.js'/>"></script>
+    <script type="application/javascript" src="<c:url value='/resources/js/lib/date-picker/jquery-ui.js'/>"></script>
 
     <script type="application/javascript">
         $(function() {
-            $("#startDate").datepicker("option", "dateFormat", "dd/mm/yyyy");
+            $("#startDate").datepicker({
+                dateFormat: "dd/mm/yy"
+            })
         });
     </script>
   </body>

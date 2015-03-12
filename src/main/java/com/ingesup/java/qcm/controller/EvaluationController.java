@@ -141,6 +141,7 @@ public class EvaluationController {
 					averageMarkByEvaluation.put(evaluation, evaluationService.getAverageMarkForEvaluation(evaluation));
 				}
 			}
+			model.addAttribute("averageMark", averageMarkByEvaluation);
 			model.addAttribute("evaluations", finishedEvaluations);
 			return EVALUATIONS_RESULTS;
 		} else {

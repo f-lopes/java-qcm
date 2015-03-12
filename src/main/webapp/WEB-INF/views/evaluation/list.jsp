@@ -14,6 +14,7 @@
 <html>
 <head>
     <title><spring:message code="evaluations.available"/></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
@@ -67,5 +68,8 @@
     </c:otherwise>
 
 </c:choose>
+<br/>
+<c:url var="addEvaluation" value="/evaluations/create" />
+<a href="${addEvaluation}" class="btn btn-default btn-lg"><spring:message code='evaluation.button.create'/></a>
 </body>
 </html>

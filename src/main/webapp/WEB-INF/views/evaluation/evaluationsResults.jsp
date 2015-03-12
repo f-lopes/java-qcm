@@ -27,6 +27,7 @@
                 <td><spring:message code="evaluation.startDate"/></td>
                 <td><spring:message code="evaluation.endDate"/></td>
                 <td><spring:message code="course"/></td>
+                <td>Average</td>
                 <td><spring:message code="action"/></td>
             </tr>
             </thead>
@@ -36,6 +37,14 @@
                     <td>${availableEvaluation.startDate}</td>
                     <td>${availableEvaluation.endDate}</td>
                     <td>${availableEvaluation.course.name}</td>
+                    <c:choose>
+                        <c:when test="${averageMark.get(availableEvaluation) != 'NaN'}">
+                            <td>${averageMark.get(availableEvaluation)}</td>
+                        </c:when>
+                        <c:otherwise>
+                            <td><spring:message code="evaluation.finished.average"/></td>
+                        </c:otherwise>
+                    </c:choose>
                     <td>
                         <form method="post" action="delete">
                             <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
