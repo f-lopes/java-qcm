@@ -115,7 +115,7 @@ public class QcmController {
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));
 
 		Qcm addedQcm = qcmService.getAll().get(qcmService.getAll().size()-1);
-		return "redirect:" + getQuestionsForQcmUrl(addedQcm.getId());
+		return "redirect:" + getQuestionsForQcmURL(addedQcm.getId());
 	}
 
 	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
@@ -153,7 +153,7 @@ public class QcmController {
 
 			model.addAttribute("flash", MessageUtil.returnDanger("qcm.create.error"));
 
-			return "redirect:" + getQuestionsForQcmUrl(qcmId);
+			return "redirect:" + getQuestionsForQcmURL(qcmId);
 		}
 		questionsForm.setQcmService(qcmService);
 		questionService.add(questionsForm.getQuestion());
@@ -161,7 +161,7 @@ public class QcmController {
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("question.create.success", null, LocaleContextHolder.getLocale())));
 
-		return "redirect:" + getQuestionsForQcmUrl(qcmId);
+		return "redirect:" + getQuestionsForQcmURL(qcmId);
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}", method = RequestMethod.GET)
@@ -190,7 +190,7 @@ public class QcmController {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
 
-			return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 		}
 
 		if (qcmId.equals(question.getQcm().getId())) {
@@ -212,7 +212,7 @@ public class QcmController {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
 
-			return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 		}
 
 		model.addAttribute("qcmId", qcmId);
@@ -231,7 +231,7 @@ public class QcmController {
 			// handle errors
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.error"));
 
-			return "redirect:" + getAddAnswerForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAddAnswerForQuestionURL(qcmId, questionId);
 		}
 
 		Answer answer = new Answer(addAnswersForm.getContent(), questionService.get(questionId), addAnswersForm.getAnswerRate());
@@ -239,23 +239,23 @@ public class QcmController {
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.success"));
 
-		return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+		return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 	}
 
-	private String getQuestionsForQcmUrl(String qcmId) {
+	private String getQuestionsForQcmURL(String qcmId) {
 		return "/qcm/" + qcmId;
 	}
 
-	private String getAnswersForQuestionUrl(String qcmId, String questionId) {
+	private String getAnswersForQuestionURL(String qcmId, String questionId) {
 		return new StringBuilder("/")
 				.append("/qcm/")
 				.append(qcmId)
 				.append("/questions/")
 				.append(questionId)
-				.append("/answers/add").toString();
+				.append("/answers").toString();
 	}
 
-	private String getAddAnswerForQuestionUrl(String qcmId, String questionId) {
+	private String getAddAnswerForQuestionURL(String qcmId, String questionId) {
 		return new StringBuilder("/")
 				.append("/qcm/")
 				.append(qcmId)

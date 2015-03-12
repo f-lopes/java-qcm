@@ -13,19 +13,21 @@ import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -64,6 +66,13 @@ public class EvaluationController {
         this.courseService = courseService;
         this.messageSource = messageSource;
     }
+
+	@InitBinder
+	public void initBinder(WebDataBinder webDataBinder) {
+		DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
+		dateFormat.setLenient(false);
+		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
 
     @Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
@@ -195,7 +204,7 @@ public class EvaluationController {
 		return CREATE_EVALUATION_VIEW;
 	}
 
-	@Secured("ROLE_TEACHER")
+	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
 	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, @CurrentUser Teacher teacher,
 								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {

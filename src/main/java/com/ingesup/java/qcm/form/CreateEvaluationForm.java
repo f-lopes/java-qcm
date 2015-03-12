@@ -5,6 +5,7 @@ import com.ingesup.java.qcm.entity.Course;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Qcm;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +25,7 @@ public class CreateEvaluationForm {
 
 	private DateFormat dateFormatter;
 
-	@NotNull
+	@NotEmpty
 	private String evaluationName;
 
 	@NotNull
