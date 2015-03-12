@@ -85,7 +85,8 @@ public class StudentController {
 		for (EvaluationStudent result : studentResults) {
 			average += result.getMark();
 		}
-		average = average / studentResults.size();
+		if(studentResults.size() > 0)
+			average = average / studentResults.size();
 
 		model.addAttribute("results", studentResults);
 		model.addAttribute("average", average);
