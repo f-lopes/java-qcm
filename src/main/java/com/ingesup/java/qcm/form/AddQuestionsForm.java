@@ -51,7 +51,7 @@ public class AddQuestionsForm {
 	}
 
 	public Question getQuestion() {
-		return new Question(qcmService.get(qcmId), label);
+		return new Question(qcmService.get(qcmId), label, points);
 	}
 
 	public int getPoints() {
