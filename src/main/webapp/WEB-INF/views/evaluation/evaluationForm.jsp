@@ -50,5 +50,4 @@
   <div class="form-group">
     <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>
   </div>
-  </table>
 </form:form>

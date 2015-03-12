@@ -36,6 +36,11 @@
                 dateFormat: "dd/mm/yy"
             })
         });
+        $(function() {
+            $("#endDate").datepicker({
+                dateFormat: "dd/mm/yy"
+            })
+        });
     </script>
   </body>
 </html>
