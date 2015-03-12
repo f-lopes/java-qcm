@@ -11,25 +11,26 @@
 <html>
 <head>
     <title>QCM Questions list</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+<div class="container">
+    <h1>QCM Questions list</h1>
 
-<h1>QCM Questions list</h1>
-
-<table>
-  <thead>
-    <tr>
-      <td>Name</td>
-    </tr>
-  </thead>
-  <tbody>
-    <c:forEach items="${questions}" var="question">
-      <tr>
-        <td>${question.label}</td>
-      </tr>
-    </c:forEach>
-  </tbody>
-</table>
-
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <td>Name</td>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${questions}" var="question">
+          <tr>
+            <td>${question.label}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+    </table>
+</div>
 </body>
 </html>

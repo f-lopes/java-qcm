@@ -13,37 +13,42 @@
 <html>
 <head>
     <title><spring:message code="qcm.list"/></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="container">
 
-<h1><spring:message code="qcm.list"/></h1>
+        <h1><spring:message code="qcm.list"/></h1>
 
-<c:choose>
-  <c:when test="${fn:length(qcmList) gt 0}">
+        <p><a href="<c:url value="/qcm/create"/>" class="btn btn-success"><spring:message code="qcm.create"/></a></p>
+        
+        <c:choose>
+        <c:when test="${fn:length(qcmList) gt 0}">
 
-    <table>
-      <thead>
-      <tr>
-        <td><spring:message code="qcm.name"/></td>
-        <td><spring:message code="qcm.questions.number"/></td>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach items="${qcmList}" var="qcm">
-        <tr>
-          <td><a href="<c:url value='/qcm/${qcm.id}'/>">${qcm.name}</a></td>
-            <td>${qcm.questions.size()}</td>
-        </tr>
-      </c:forEach>
-      </tbody>
-    </table>
+        <table class="table table-striped">
+          <thead>
+          <tr>
+            <td><spring:message code="qcm.name"/></td>
+            <td><spring:message code="qcm.questions.number"/></td>
+          </tr>
+          </thead>
+          <tbody>
+          <c:forEach items="${qcmList}" var="qcm">
+            <tr>
+              <td><a href="<c:url value='/qcm/${qcm.id}'/>">${qcm.name}</a></td>
+                <td>${qcm.questions.size()}</td>
+            </tr>
+          </c:forEach>
+          </tbody>
+        </table>
 
-  </c:when>
+        </c:when>
 
-  <c:otherwise>
-    <spring:message code="no.qcm.found"/>
-  </c:otherwise>
+        <c:otherwise>
+        <spring:message code="no.qcm.found"/>
+        </c:otherwise>
 
-</c:choose>
+        </c:choose>
+    </div>
 </body>
 </html>

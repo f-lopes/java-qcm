@@ -18,58 +18,72 @@
 </head>
 <body>
 
-<h1><spring:message code="evaluations.available"/></h1>
+    <div class="container">
 
-<spring:message code="evaluations.by-grade"/> : <br/>
-<sec:authorize access="hasRole('ROLE_ADMIN')" >
-        <c:forEach items="${grades}" var="grade">
-            <a href="<c:url value="/evaluations/by-grade?grade=${grade.name}"/>">${grade.name}</a> <br/>
-        </c:forEach>
-</sec:authorize>
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
 
-<c:choose>
-    <c:when test="${fn:length(evaluations) gt 0}">
+        <h1><spring:message code="evaluations.available"/></h1>
 
-        <table>
-            <thead>
-            <tr>
-                <td><spring:message code="evaluation.startDate"/></td>
-                <td><spring:message code="evaluation.endDate"/></td>
-                <td><spring:message code="course"/></td>
-                <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                    <td><spring:message code="action"/></td>
-                </sec:authorize>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${evaluations}" var="availableEvaluation">
-                <tr>
-                    <td>${availableEvaluation.startDate}</td>
-                    <td>${availableEvaluation.endDate}</td>
-                    <td>${availableEvaluation.course.name}</td>
-                    <td>
-                        <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                            <form method="post" action="<c:url value="/evaluations/delete" />">
-                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
-                                <input type="submit" value="<spring:message code='evaluation.delete'/>" />
-                            </form>
-                        </sec:authorize>
-                    </td>
-                </tr>
+
+        <sec:authorize access="hasRole('ROLE_TEACHER')">
+            <p><a href="<c:url value="/evaluations/create"/>" class="btn btn-success"><spring:message code="evaluation.create.title"/></a></p>
+        </sec:authorize>
+
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <spring:message code="evaluations.by-grade"/> : <br/>
+            <c:forEach items="${grades}" var="grade">
+                <a href="<c:url value="/evaluations/by-grade?grade=${grade.name}"/>">${grade.name}</a> <br/>
             </c:forEach>
-            </tbody>
-        </table>
+        </sec:authorize>
+        
+        <c:choose>
+            <c:when test="${fn:length(evaluations) gt 0}">
 
-    </c:when>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td><spring:message code="evaluation.startDate"/></td>
+                        <td><spring:message code="evaluation.endDate"/></td>
+                        <td><spring:message code="course"/></td>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                            <td><spring:message code="action"/></td>
+                        </sec:authorize>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach items="${evaluations}" var="availableEvaluation">
+                        <tr>
+                            <td>${availableEvaluation.startDate}</td>
+                            <td>${availableEvaluation.endDate}</td>
+                            <td>${availableEvaluation.course.name}</td>
+                            <td>
+                                <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                                    <form method="post" action="<c:url value="/evaluations/delete" />">
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <input type="hidden" name="evaluationId" value="${availableEvaluation.id}"/>
+                                        <input type="submit" value="<spring:message code='evaluation.delete'/>" class="btn btn-danger" />
+                                    </form>
+                                </sec:authorize>
+                            </td>
+                        </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
 
-    <c:otherwise>
-        <spring:message code="no.evaluation.found"/>
-    </c:otherwise>
+            </c:when>
 
-</c:choose>
-<br/>
-<c:url var="addEvaluation" value="/evaluations/create" />
-<a href="${addEvaluation}" class="btn btn-default btn-lg"><spring:message code='evaluation.button.create'/></a>
+            <c:otherwise>
+                <div class="alert alert-danger">
+                    <spring:message code="no.evaluation.found"/>
+                </div>
+            </c:otherwise>
+
+        </c:choose>
+
+
+    </div>
+
 </body>
 </html>

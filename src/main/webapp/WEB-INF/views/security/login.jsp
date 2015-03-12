@@ -10,21 +10,32 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title></title>
+    <title>QCM++</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form action="<c:url value="/login"/>" method="POST" class="form">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-<form action="<c:url value="/login"/>" method="POST">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 
-    <label for="login"><spring:message code="email"/></label>
-    <input id="login" type="text" name="login"/>
+                <div class="form-group">
+                    <label for="login"><spring:message code="email"/></label>
+                    <input id="login" type="text" name="login" placeholder="<spring:message code="email"/>" class="form-control"/>
+                </div>
 
-    <label for="password"><spring:message code="password"/></label>
-    <input id="password" type="password" name="password"/>
 
-    <input type="submit" value="<spring:message code="login"/>" />
-</form>
+                <div class="form-group">
+                    <label for="password"><spring:message code="password"/></label>
+                    <input id="password" type="password" name="password" placeholder="<spring:message code="password"/>" class="form-control"/>
+                </div>
 
+                <input type="submit" value="<spring:message code="login"/>" class="btn btn-success" />
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

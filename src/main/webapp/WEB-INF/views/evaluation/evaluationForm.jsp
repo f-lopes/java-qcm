@@ -12,16 +12,26 @@
 <form:form method="POST" action="create" commandName="createEvaluationForm">
   <form:errors path="" cssClass="error" />
   <div class="form-group">
-    <form:label path="evaluationName">Name</form:label>
+    <form:label path="evaluationName"><spring:message code="evaluation.name"/></form:label>
     <form:input path="evaluationName" class="form-control" />
     <form:errors path="evaluationName" cssClass="error" />
   </div>
-
-  <div class="form-group">
-    <form:label path="evaluationQcm"><spring:message code="evaluation.selected.qcm"/></form:label>
-    <form:select path="evaluationQcm" items="${qcmList}" itemValue="id" itemLabel="name" cssClass="form-control"/>
-    <form:errors path="evaluationQcm" cssClass="error" />
-  </div>
+    
+    <div class="row">
+        <div class="col-md-10">
+            <div class="form-group">
+                <form:label path="evaluationQcm"><spring:message code="evaluation.selected.qcm"/></form:label>
+                <form:select path="evaluationQcm" items="${qcmList}" itemValue="id" itemLabel="name" cssClass="form-control"/>
+                <form:errors path="evaluationQcm" cssClass="error" />
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="form-group">
+                <label>&nbsp;</label>
+                <p><a style="text-align:right;" href="<c:url value="/qcm/create"/>" class="btn btn-success"><spring:message code="qcm.create"/></a></p>
+            </div>
+        </div>
+    </div>
 
   <div class="form-group">
     <form:label path="startDate"><spring:message code="evaluation.startDate"/></form:label>
@@ -48,7 +58,7 @@
   </div>
 
   <div class="form-group">
-    <input type="submit" class="btn btn-primary" value="<spring:message code="qcm.create"/>"/>
+    <input type="submit" class="btn btn-primary" value="<spring:message code="evaluation.create.title"/>"/>
   </div>
   </table>
 </form:form>

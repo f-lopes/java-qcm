@@ -1,19 +1,19 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-
-<form:form method="POST" action="create" commandName="addQuestionForm">
+<form:form method="POST" action="create" commandName="addQuestionForm" cssClass="form-inline">
   <form:errors path="" />
   <div class="form-group">
     <form:label path="label"><spring:message code="question.create.label"/> </form:label>
-    <form:input path="label" class="form-control" placeholder="your question"/>
+    <spring:message code='question.label' var="placeholderLabel"/>
+    <form:input path="label" class="form-control" placeholder="${placeholderLabel}"/>
   </div>
-  <br/>
+    
   <div class="form-group">
-    <form:label path="points"></form:label>
-    <form:select path="points" items="${questionsPoints}"></form:select>
-
+    <form:label path="points"><spring:message code="question.create.points"/></form:label>
+    <form:select cssClass="form-control" path="points" items="${questionsPoints}"></form:select>
   </div>
-  <br/>
+
   <spring:message code="question.create.validate" var="validateForm"/>
   <input type="submit" value="${validateForm}" class="btn btn-primary" />
 

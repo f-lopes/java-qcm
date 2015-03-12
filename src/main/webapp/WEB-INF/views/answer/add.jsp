@@ -13,10 +13,11 @@
 <html>
 <head>
     <title><spring:message code="qcm.create.title"/></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-
-
-<%@include file="addAnswerForm.jsp"%>
+    <div class="container">
+        <%@include file="addAnswerForm.jsp"%>
+    </div>
 </body>
 </html>

@@ -7,22 +7,25 @@
 --%>
 
 <c:url var="addAnswerURL" value="/qcm/${qcmId}/questions/${questionId}/answers/add"/>
-<form:form method="POST" action="${addAnswerURL}" commandName="addAnswerForm">
-  <form:errors path="" />
-  <div id="answersForm"
-    <form:hidden path="questionId"/>
-    <div class="" id="answerInputTemplate">
+<form:form method="POST" action="${addAnswerURL}" commandName="addAnswerForm" cssClass="form">
+    <form:errors path="" />
+    <div id="answersForm"
+        <form:hidden path="questionId"/>
+        <div class="" id="answerInputTemplate">
 
-        <form:label path="content"><spring:message code="qcm.content" /></form:label>
-        <form:input path="content" class="form-control"/>
-        <form:errors path="content" cssClass="error" />
-        <form:label path="answerRate"><spring:message code="qcm.rate" /></form:label>
-        <form:input path="answerRate" class="form-control"/>
-        <form:errors path="answerRate" cssClass="error" />
+            <div class="form-group">
+                <form:label path="content"><spring:message code="qcm.content" /></form:label>
+                <form:input path="content" class="form-control" required="required"/>
+                <form:errors path="content" cssClass="error" />
+            </div>
+
+            <div class="form-group">
+                <form:label path="answerRate"><spring:message code="qcm.rate" /></form:label>
+                <form:input path="answerRate" class="form-control" required="required"/>
+                <form:errors path="answerRate" cssClass="error" />
+            </div>
+        </div>
+        <%--<input id="addAnswerButton" type="button" value="<spring:message code="answer.add" />"/>--%>
     </div>
-    <%--<input id="addAnswerButton" type="button" value="<spring:message code="answer.add" />"/>--%>
-  </div>
-  <div class="form-group">
     <input type="submit" class="btn btn-primary" value="<spring:message code="answer.create" />"/>
-  </div>
 </form:form>

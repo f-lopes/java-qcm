@@ -15,36 +15,50 @@
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <h1>QCM</h1>
+    <div class="container">
+        <h1>QCM</h1>
+    
+        <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
+        <h3><spring:message code="qcm.questions.number"/> : ${questions.size()}</h3>
+    
+        <br/><br/>
+        
+        <c:choose>
+            <c:when test="${questions.size() > 0}" >
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <td><spring:message code="question.label"/></td>
+                            <td><spring:message code="question.points"/></td>
+                            <td></td>
+                        </tr>
+                    </thead>
+                    <c:forEach items="${questions}" var="question">
+                        <tbody>
+                        <tr>
+                            <td>${question.label}</td>
+                            <td>${question.points}</td>
+                            <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
+                        <%--<ul>--%>
+                            <%--<c:forEach items="${question.answers}" var="answer">--%>
+                                <%--<li>${answer.content}</li>--%>
+                            <%--</c:forEach>--%>
+                        <%--</ul>--%>
+                        </tr>
+                        </tbody>
+                    </c:forEach>
+                </table>
+            </c:when>
 
-    <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
-    <h3><spring:message code="qcm.questions.number"/> : ${questions.size()}</h3>
-
-    <br/><br/>
-    <c:if test="${questions.size() > 0}" >
-        <table>
-            <thead>
-                <tr>
-                    <td><spring:message code="question.label"/></td>
-                    <td><spring:message code="question.points"/></td>
-                    <td></td>
-                </tr>
-            </thead>
-            <c:forEach items="${questions}" var="question">
-                <tbody>
-                <tr>
-                    <td><h3>${question.label}</h3></td>
-                    <td>${question.points}</td>
-                    <td><a href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
-                <%--<ul>--%>
-                    <%--<c:forEach items="${question.answers}" var="answer">--%>
-                        <%--<li>${answer.content}</li>--%>
-                    <%--</c:forEach>--%>
-                <%--</ul>--%>
-                </tr>
-                </tbody>
-            </c:forEach>
-        </table>
-    </c:if>
-    <br/><br/>
-<a href="<c:url value="${qcm.id}/questions/add"/>"><spring:message code="question.create.title"/></a>
+            <c:otherwise>
+                <div class="alert alert-warning">
+                    <spring:message code="question.none"/>
+                </div>
+            </c:otherwise>
+        </c:choose>
+        <br/><br/>
+        
+        <a class="btn btn-success" href="<c:url value="${qcm.id}/questions/add"/>"><spring:message code="question.create.title"/></a>
+    </div>
+</body>
+</html>

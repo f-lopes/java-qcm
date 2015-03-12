@@ -16,9 +16,6 @@
 </head>
 <body>
 
-<sec:authorize access="hasRole('ROLE_ADMIN')" >
-    <%@include file="../menu/adminMenu.jsp"%>
-</sec:authorize>
 
 <div class="container">
 
@@ -29,11 +26,15 @@
             <img src="resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
             <br />
 
-            <c:url var="loginURL" value="/login" />
+            <c:url var="loginURL" value="/secure/login" />
             <a href="${loginURL}" class="btn btn-default btn-lg">Connexion</a>
 
         </p>
 
+    </sec:authorize>
+
+    <sec:authorize access="isAuthenticated()" >
+        <%@include file="../menu/menuByRole.jsp"%>
     </sec:authorize>
 <%--<qcm:url key="user.all"/>--%>
 
@@ -51,6 +52,12 @@
     <form action="login-as-student" method="POST">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <input type="submit" value="login as student"/>
+    </form>
+
+
+    <form action="/logout" method="POST">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        <input type="submit" value="Déconnexion"/>
     </form>
 
 </div>

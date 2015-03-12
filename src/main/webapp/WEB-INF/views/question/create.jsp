@@ -12,15 +12,17 @@
 <html>
 <head>
     <title></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+    <div class="container">
 
-<h1><spring:message code="question.create.title"/></h1>
+        <h1><spring:message code="question.create.title"/></h1>
 
-<!-- Flash -->
-<div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
+        <!-- Flash -->
+        <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
 
-<%@include file="questionForm.jsp"%>
-
+        <%@include file="questionForm.jsp"%>
+    </div>
 </body>
 </html>

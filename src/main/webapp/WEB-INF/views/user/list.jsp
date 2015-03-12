@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html ng-app="qcmUsersApp">
 <head>
@@ -21,37 +22,56 @@
 
     <link rel="stylesheet" href="<c:url value='/resources/css/angular-toggle-switch.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/css/loading-bar.css'/>"/>
+
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body ng-controller="UserListController">
 
-<h1>Users list</h1>
-<spring:message code="users.filter"/>
-<input ng-model="usernameQuery" type="text"/>
-<input type="hidden"id="usersURL" value="<c:url value='/users/json?showAdminUsers=' />"/>
+    <div class="container">
 
-<table>
-    <thead>
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>First name</td>
-        <td>Email</td>
-        <td>Type</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="user in users | filter:usernameQuery">
-        <td>{{user.id}}</td>
-        <td>{{user.lastName}}</td>
-        <td>{{user.firstName}}</td>
-        <td>{{user.email}}</td>
-        <td>{{user.roles[0].name}}</td>
-    </tr>
-    </tbody>
-</table>
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
 
-<toggle-switch ng-click="showAdmin()" ng-model="switchStatus" knob-label="Admins/teachers" style="max-height: 20%"/>
+        <h1><spring:message code="users.list" /> </h1>
 
+
+        <div class="row">
+            <div class="col-md-8">
+                <input ng-model="usernameQuery" type="text" placeholder="<spring:message code="users.filter"/>" class="form-control"/>
+                <input type="hidden"id="usersURL" value="<c:url value='/users/json?showAdminUsers=' />"/>
+            </div>
+            <div class="col-md-2">
+                <toggle-switch ng-click="showAdmin()" ng-model="switchStatus" knob-label="Admins/teachers" style="height: 25px"/>
+            </div>
+            <div class="col-md-2">
+                <p><a href="<c:url value="/users/add"/>" class="btn btn-success"><spring:message code="user.add.title"/></a></p>
+            </div>
+        </div>
+        
+        <br />
+
+        <table class="table">
+            <thead>
+            <tr>
+                <td>Name</td>
+                <td>First name</td>
+                <td>Email</td>
+                <td>Type</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in users | filter:usernameQuery">
+                <td>{{user.lastName}}</td>
+                <td>{{user.firstName}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.roles[0].name}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+    </div>
 
 </body>
 </html>
