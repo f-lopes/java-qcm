@@ -182,7 +182,7 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
+	public String createEvaluationView(Model model) {
 		model.addAttribute("createEvaluationForm", new CreateEvaluationForm());
 		model.addAttribute("grades", gradeService.getAll());
 		model.addAttribute("qcmList", qcmService.getAll());

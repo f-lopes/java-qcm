@@ -50,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and()
 				.exceptionHandling().accessDeniedPage("/access-denied").and()
-			.formLogin()
+			.formLogin().loginPage("/secure/login").loginProcessingUrl("/login").usernameParameter("login").passwordParameter("password")
 				.and().
-				logout().logoutUrl("/logout");
+				logout().logoutUrl("/logout").logoutSuccessUrl("/");
 	}
 
 	@Bean

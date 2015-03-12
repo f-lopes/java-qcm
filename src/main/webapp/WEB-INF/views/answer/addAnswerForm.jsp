@@ -6,8 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<c:url var="addQcmURL" value="/qcm/${qcmId}/questions/${questionId}/answers/add"/>
-<form:form method="POST" action="${addQcmURL}" commandName="addAnswerForm">
+<c:url var="addAnswerURL" value="/qcm/${qcmId}/questions/${questionId}/answers/add"/>
+<form:form method="POST" action="${addAnswerURL}" commandName="addAnswerForm">
   <form:errors path="" />
   <div id="answersForm"
     <form:hidden path="questionId"/>

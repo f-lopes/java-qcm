@@ -50,7 +50,7 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/access-denied", method = RequestMethod.POST)
+	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
 	public String accessDenied() {
 
 		return ACCESS_DENIED_VIEW;
