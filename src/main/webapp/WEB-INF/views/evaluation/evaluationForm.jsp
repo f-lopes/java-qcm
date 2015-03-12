@@ -60,5 +60,4 @@
   <div class="form-group">
     <input type="submit" class="btn btn-primary" value="<spring:message code="evaluation.create.title"/>"/>
   </div>
-  </table>
 </form:form>

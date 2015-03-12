@@ -69,10 +69,13 @@ public class QcmController {
 		return Arrays.asList("1", "2", "3");
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
-	public String qcmList(Model model) {
-		model.addAttribute("qcmList", qcmService.getAll());
 
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	public String qcmListTeacher(Model model, @CurrentUser Teacher teacher) {
+		if(teacher != null)
+			model.addAttribute("qcmList", qcmService.getQcmByTeacher(teacher));
+		else
+			model.addAttribute("qcmList", qcmService.getAll());
 		return ALL_QCM_VIEW;
 	}
 
