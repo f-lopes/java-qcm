@@ -223,7 +223,7 @@ public class QcmController {
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.POST)
-	public String saveAnswerForQuestion(Model model, @PathVariable("id") String qcmId,
+	public String saveAnswerForQuestion(@PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId,
 									   @Valid
 									   AddAnswersForm addAnswersForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -247,8 +247,7 @@ public class QcmController {
 	}
 
 	private String getAnswersForQuestionURL(String qcmId, String questionId) {
-		return new StringBuilder("/")
-				.append("/qcm/")
+		return new StringBuilder("/qcm/")
 				.append(qcmId)
 				.append("/questions/")
 				.append(questionId)
@@ -256,8 +255,7 @@ public class QcmController {
 	}
 
 	private String getAddAnswerForQuestionURL(String qcmId, String questionId) {
-		return new StringBuilder("/")
-				.append("/qcm/")
+		return new StringBuilder("/qcm/")
 				.append(qcmId)
 				.append("/questions/")
 				.append(questionId)

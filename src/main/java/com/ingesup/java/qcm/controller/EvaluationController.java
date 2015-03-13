@@ -12,9 +12,8 @@ import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
+import com.ingesup.java.qcm.validation.CreateEvaluationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.PropertiesEditor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
@@ -26,8 +25,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -69,9 +66,7 @@ public class EvaluationController {
 
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder) {
-		DateFormat dateFormat = new SimpleDateFormat("dd/mm/yyyy");
-		dateFormat.setLenient(false);
-		webDataBinder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+		webDataBinder.addValidators(new CreateEvaluationFormValidator());
 	}
 
     @Secured(value = "ROLE_STUDENT")
@@ -206,10 +201,10 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, @CurrentUser Teacher teacher,
-								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult,
+								   @CurrentUser Teacher teacher,
+								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-
 			return CREATE_EVALUATION_VIEW;
 		}
 
