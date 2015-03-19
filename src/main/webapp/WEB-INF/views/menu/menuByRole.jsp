@@ -33,6 +33,11 @@
                     </a>
                 </li>
             </ul>
+            <c:url var="logoutURL" value="/logout" />
+            <form action="${logoutURL}" method="POST" class="navbar-form navbar-right">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="submit" value="<spring:message code="deconnexion"/>" class="btn btn-default"/>
+            </form>
         </div>
     </div>
 </nav>
