@@ -16,15 +16,17 @@
 <head>
     <title><spring:message code="evaluations.available"/></title>
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="<c:url value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
 </head>
 <body>
+
 
     <div class="container">
 
         <sec:authorize access="isAuthenticated()" >
             <%@include file="../menu/menuByRole.jsp"%>
         </sec:authorize>
-
+        
         <h1><spring:message code="evaluations.available"/></h1>
 
 
@@ -33,11 +35,23 @@
         </sec:authorize>
 
         <sec:authorize access="hasRole('ROLE_ADMIN')">
-            <spring:message code="evaluations.by-grade"/> : <br/>
-            <c:forEach items="${grades}" var="grade">
-                <a href="<c:url value="/evaluations/by-grade?grade=${grade.name}"/>">${grade.name}</a> <br/>
-            </c:forEach>
+            <select id="grade" class="form-control">
+                <option value="all"><spring:message code="evaluations.by-grade"/></option>
+                <c:forEach items="${grades}" var="grade">
+                    <c:choose>
+                        <c:when test="${grade.name eq selected_grade}">
+                            <option value="${grade.name}" selected>${grade.name}</option>
+                        </c:when>
+                        <c:otherwise>
+                            <option value="${grade.name}" >${grade.name}</option>
+                        </c:otherwise>
+                    </c:choose>
+
+                </c:forEach>
+            </select>
         </sec:authorize>
+        
+        <br />
         
         <c:choose>
             <c:when test="${fn:length(evaluations) gt 0}">
@@ -87,8 +101,18 @@
 
         </c:choose>
 
-
     </div>
+
+    <c:url var="url_evals" value=""/>
+    <span style="display: none;" id="url_racine">${url_evals}</span>
+    <script>
+        $("#grade").change(function(){
+            var value = $(this).val();
+            var url =  $("#url_racine").val() + "/evaluations/all";
+            if(value != "all") url = $("#url_racine").val() + "/evaluations/by-grade?grade=" + value;
+            document.location.href = url;
+        });
+    </script>
 
 </body>
 </html>

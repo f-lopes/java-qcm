@@ -26,11 +26,14 @@
                     <a href="<c:url value="?lang=fr"/>">
                         <img src="<c:url value="/resources/img/fr.png"/>" alt="fr"/>
                     </a>
-                    <a href="<c:url value="?lang=gb"/>">
-                        <img src="<c:url value="/resources/img/gb.png"/>" alt="gb"/>
+                    <a href="<c:url value="?lang=en"/>">
+                        <img src="<c:url value="/resources/img/en.png"/>" alt="en"/>
                     </a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- Flash -->
+<div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>

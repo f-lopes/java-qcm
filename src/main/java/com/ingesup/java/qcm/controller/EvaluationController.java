@@ -122,13 +122,15 @@ public class EvaluationController {
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
 	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade, @RequestParam(required = false) boolean onlyAvailables) {
+        model.addAttribute("grades", gradeService.getAll());
 		if (onlyAvailables) {
 			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
-		} else {
-			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
-		}
+        } else {
+            model.addAttribute("selected_grade", grade);
+            model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
+        }
 
-		model.addAttribute("grades", gradeService.getAll());
+        model.addAttribute("grades", gradeService.getAll());
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -149,8 +151,8 @@ public class EvaluationController {
 			model.addAttribute("averageMark", averageMarkByEvaluation);
 			model.addAttribute("evaluations", finishedEvaluations);
 			return EVALUATIONS_RESULTS;
-		} else {
-			model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
+        } else {
+            model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
 		}
 
 		return ALL_EVALUATIONS_VIEW;

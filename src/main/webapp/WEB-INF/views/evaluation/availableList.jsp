@@ -15,72 +15,88 @@
 <html>
 <head>
     <title><spring:message code="evaluations.available"/></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
-<h1><spring:message code="evaluations.available"/></h1>
+    
+    <div class="container">
 
-<c:choose>
-  <c:when test="${fn:length(availableEvaluations) gt 0}">
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
+        
+        <h1><spring:message code="evaluations.available"/></h1>
 
-    <table>
-      <thead>
-      <tr>
-        <td><spring:message code="evaluation.startDate"/></td>
-        <td><spring:message code="evaluation.endDate"/></td>
-        <td><spring:message code="course"/></td>
-        <td><spring:message code="action"/></td>
-      </tr>
-      </thead>
-      <tbody>
-      <c:forEach items="${availableEvaluations}" var="availableEvaluation">
-        <c:url var="takeEvaluationUrl" value="evaluations/take"/>
-        <tr>
-          <td>
-              <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.startDate}" />
-          </td>
-          <td>
-              <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.endDate}" />
-          </td>
-          <td>
-            ${availableEvaluation.key.course.name}
-          </td>
-            <td>
+        <c:choose>
+          <c:when test="${fn:length(availableEvaluations) gt 0}">
 
-                <sec:authorize access="hasRole('ROLE_ADMIN')" >
-                    <form method="post" action="<c:url value="/evaluations/delete" />">
-                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
-                        <input type="submit" value="<spring:message code='evaluation.delete'/>" />
-                    </form>
-                </sec:authorize>
 
-                <sec:authorize access="hasRole('ROLE_STUDENT')" >
-                    <c:if test="${availableEvaluation.value == null}">
-                        <form method="get" action="${takeEvaluationUrl}">
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
-                            <input type="submit" value="<spring:message code='evaluation.take'/>" />
-                        </form>
-                    </c:if>
-                    <c:if test="${availableEvaluation.value != null}">
-                        <i><fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.value.date}" /></i>
-                         - <b><spring:message code="mark"/></b> ${availableEvaluation.value.mark}
-                    </c:if>
-                </sec:authorize>
+              <sec:authorize access="isAuthenticated()" >
+                  <%@include file="../menu/menuByRole.jsp"%>
+              </sec:authorize>
 
-            </td>
-        </tr>
-      </c:forEach>
-      </tbody>
-    </table>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <td><spring:message code="evaluation.startDate"/></td>
+                <td><spring:message code="evaluation.endDate"/></td>
+                <td><spring:message code="course"/></td>
+                <td><spring:message code="action"/></td>
+              </tr>
+              </thead>
+              <tbody>
+              <c:forEach items="${availableEvaluations}" var="availableEvaluation">
+                <c:url var="takeEvaluationUrl" value="evaluations/take"/>
+                <tr>
+                  <td>
+                      <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.startDate}" />
+                  </td>
+                  <td>
+                      <fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.key.endDate}" />
+                  </td>
+                  <td>
+                    ${availableEvaluation.key.course.name}
+                  </td>
+                    <td>
 
-  </c:when>
+                        <sec:authorize access="hasRole('ROLE_ADMIN')" >
+                            <form method="post" action="<c:url value="/evaluations/delete" />">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
+                                <input type="submit" value="<spring:message code='evaluation.delete'/>" />
+                            </form>
+                        </sec:authorize>
 
-  <c:otherwise>
-    <spring:message code="no.evaluation.found"/>
-  </c:otherwise>
+                        <sec:authorize access="hasRole('ROLE_STUDENT')" >
+                            <c:if test="${availableEvaluation.value == null}">
+                                <form method="get" action="${takeEvaluationUrl}">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <input type="hidden" name="evaluationId" value="${availableEvaluation.key.id}"/>
+                                    <input type="submit" value="<spring:message code='evaluation.take'/>" />
+                                </form>
+                            </c:if>
+                            <c:if test="${availableEvaluation.value != null}">
+                                <i><fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.value.date}" /></i>
+                                 - <b><spring:message code="mark"/></b> ${availableEvaluation.value.mark}
+                            </c:if>
+                        </sec:authorize>
 
-</c:choose>
+                    </td>
+                </tr>
+              </c:forEach>
+              </tbody>
+            </table>
+
+          </c:when>
+
+          <c:otherwise>
+              <div class="alert alert-danger">
+                  <spring:message code="no.evaluation.found"/>
+              </div>
+          </c:otherwise>
+
+        </c:choose>
+    </div>
 </body>
 </html>

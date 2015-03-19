@@ -14,6 +14,7 @@
       <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
       <title><spring:message code="qcm.create.title"/></title>
       <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+      <link rel="stylesheet" href="<c:url value='/resources/jquery/jquery-ui.css'/>"/>
   </head>
   <body>
     <div class="container">
@@ -32,15 +33,18 @@
 
     <script type="application/javascript">
         $(function() {
+            
             $("#startDate").datepicker({
-                dateFormat: "dd/mm/yy"
-            })
-        });
-        $(function() {
+                dateFormat: "dd/mm/yy",
+                minDate: new Date()
+            });
+
             $("#endDate").datepicker({
-                dateFormat: "dd/mm/yy"
+                dateFormat: "dd/mm/yy",
+                minDate: new Date()
             })
         });
+        
     </script>
   </body>
 </html>
