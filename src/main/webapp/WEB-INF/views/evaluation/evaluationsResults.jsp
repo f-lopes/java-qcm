@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -34,8 +35,12 @@
             <tbody>
             <c:forEach items="${evaluations}" var="availableEvaluation">
                 <tr>
-                    <td>${availableEvaluation.startDate}</td>
-                    <td>${availableEvaluation.endDate}</td>
+                    <td>
+                        <fmt:formatDate value="${availableEvaluation.startDate}" pattern="dd/MM/yyyy"/>
+                    </td>
+                    <td>
+                        <fmt:formatDate value="${availableEvaluation.endDate}" pattern="dd/MM/yyyy"/>
+                    </td>
                     <td>${availableEvaluation.course.name}</td>
                     <c:choose>
                         <c:when test="${averageMark.get(availableEvaluation) != 'NaN'}">

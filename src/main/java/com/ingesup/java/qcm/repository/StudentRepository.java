@@ -12,8 +12,5 @@ public interface StudentRepository extends BaseRepository<Student, String> {
 
     public Student findByEmail(String email);
 
-//	@Query("SELECT S FROM Student S WHERE S.id = ")
-//	public List<Student> findByEvaluation(Evaluation evaluation);
-
 	public List<Student> findByGrade(Grade grade);
 }

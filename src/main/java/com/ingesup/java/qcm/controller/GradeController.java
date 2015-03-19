@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping(value = "/grades")
-@Secured(value = "{ROLE_ADMIN, ROLE_TEACHER}")
+@Secured(value = {"ROLE_ADMIN", "ROLE_TEACHER"})
 public class GradeController {
 
 	private static final String ALL_GRADES_VIEW = "grades/list";

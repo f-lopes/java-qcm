@@ -1,6 +1,6 @@
 package com.ingesup.java.qcm.form;
 
-import javax.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created by lopes_f on 1/29/2015.
@@ -8,10 +8,10 @@ import javax.validation.constraints.NotNull;
  */
 public class AddAnswersForm {
 
-	@NotNull
+	@NotEmpty
 	private String questionId;
 
-	@NotNull
+	@NotEmpty
 	private String content;
 
 	private int answerRate;

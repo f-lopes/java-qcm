@@ -12,6 +12,7 @@ import com.ingesup.java.qcm.service.EvaluationService;
 import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
+import com.ingesup.java.qcm.validation.CreateEvaluationFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -19,10 +20,8 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -64,6 +63,11 @@ public class EvaluationController {
         this.courseService = courseService;
         this.messageSource = messageSource;
     }
+
+	@InitBinder("createEvaluationForm")
+	public void initBinder(WebDataBinder webDataBinder) {
+		webDataBinder.addValidators(new CreateEvaluationFormValidator());
+	}
 
     @Secured(value = "ROLE_STUDENT")
 	@RequestMapping(method = RequestMethod.GET)
@@ -117,16 +121,16 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
-	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade) {
+	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade, @RequestParam(required = false) boolean onlyAvailables) {
+        model.addAttribute("grades", gradeService.getAll());
+		if (onlyAvailables) {
+			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
+        } else {
+            model.addAttribute("selected_grade", grade);
+            model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
+        }
 
         model.addAttribute("grades", gradeService.getAll());
-        
-		if (grade == null) {
-			model.addAttribute("evaluations", evaluationService.getAll());
-		} else {
-            model.addAttribute("selected_grade", grade);
-			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
-		}
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -147,9 +151,17 @@ public class EvaluationController {
 			model.addAttribute("averageMark", averageMarkByEvaluation);
 			model.addAttribute("evaluations", finishedEvaluations);
 			return EVALUATIONS_RESULTS;
-		} else {
-			model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
+        } else {
+            model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
 		}
+
+		return ALL_EVALUATIONS_VIEW;
+	}
+
+	@Secured(value = "ROLE_TEACHER")
+	@RequestMapping(value = "/proposed-evaluations-by-grade", method = RequestMethod.GET)
+	public String evaluationsByTeacherForGrade(Model model, @RequestParam("grade") String gradeName, @CurrentUser Teacher teacher) {
+		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacherForGrade(teacher, gradeName));
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -198,12 +210,11 @@ public class EvaluationController {
 		return CREATE_EVALUATION_VIEW;
 	}
 
-	@Secured("ROLE_TEACHER")
+	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, @CurrentUser Teacher teacher,
-								   BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
+								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-
 			return CREATE_EVALUATION_VIEW;
 		}
 

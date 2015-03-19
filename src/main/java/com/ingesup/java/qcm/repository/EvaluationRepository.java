@@ -19,6 +19,8 @@ public interface EvaluationRepository extends BaseRepository<Evaluation, String>
 
 	public List<Evaluation> findByTeacher(Teacher teacher);
 
+	public List<Evaluation> findByTeacherAndGrade(Teacher teacher, Grade grade);
+
 	public List<Evaluation> findByGrade(Grade grade);
 
 	public Evaluation findFirstByTeacher(Teacher teacher);

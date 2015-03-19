@@ -9,7 +9,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<form:form method="POST" action="create" commandName="createEvaluationForm">
+<c:url var="createEvaluationURL" value="/evaluations/create"/>
+
+<form:form method="POST" action="${createEvaluationURL}" commandName="createEvaluationForm">
   <form:errors path="" cssClass="error" />
   <div class="form-group">
     <form:label path="evaluationName"><spring:message code="evaluation.name"/></form:label>

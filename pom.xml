@@ -31,6 +31,7 @@
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<hibernate-ehcache.version>4.3.7.Final</hibernate-ehcache.version>
+        <hikari-cp.version>2.3.2</hikari-cp.version>
 
 		<jstl.version>1.2</jstl.version>
 		<javax.el.version>2.2</javax.el.version>
@@ -93,6 +94,13 @@
 			<artifactId>hibernate-ehcache</artifactId>
 			<version>${hibernate-ehcache.version}</version>
 		</dependency>
+
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP-java6</artifactId>
+            <version>${hikari-cp.version}</version>
+            <scope>compile</scope>
+        </dependency>
 
 		<!-- Jstl -->
 		<dependency>

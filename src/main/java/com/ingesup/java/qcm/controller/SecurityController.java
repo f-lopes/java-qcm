@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 /**
  * Created by lopes_f on 1/8/2015.
  * <florian.lopes@outlook.com>
-		*/
+ */
 @Controller
 @RequestMapping(value = "/secure", method = RequestMethod.GET)
 public class SecurityController {

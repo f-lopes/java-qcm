@@ -9,8 +9,8 @@ import java.util.Set;
 @Entity
 @Table(name = "question")
 public class Question extends BaseEntity {
-    private int points;
-    private String label;
+
+	private String label;
 
     @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "question_id")
@@ -19,20 +19,12 @@ public class Question extends BaseEntity {
     @ManyToOne
     private Qcm qcm;
 
-	public Question(Qcm qcm, String label) {
+	public Question(Qcm qcm, String label, int points) {
 		this.qcm = qcm;
 		this.label = label;
 	}
 
     public Question() {
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public String getLabel() {

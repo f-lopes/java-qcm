@@ -19,14 +19,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,18 +63,14 @@ public class QcmController {
 		this.answerService = answerService;
 	}
 
-	@ModelAttribute("questionsPoints")
-	private List<String> populateModelPoints() {
-		return Arrays.asList("1", "2", "3");
-	}
-
-
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String qcmListTeacher(Model model, @CurrentUser Teacher teacher) {
-		if(teacher != null)
+		if(teacher != null) {
 			model.addAttribute("qcmList", qcmService.getQcmByTeacher(teacher));
-		else
+		} else {
 			model.addAttribute("qcmList", qcmService.getAll());
+		}
+
 		return ALL_QCM_VIEW;
 	}
 
@@ -115,7 +110,7 @@ public class QcmController {
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));
 
 		Qcm addedQcm = qcmService.getAll().get(qcmService.getAll().size()-1);
-		return "redirect:" + getQuestionsForQcmUrl(addedQcm.getId());
+		return "redirect:" + getQuestionsForQcmURL(addedQcm.getId());
 	}
 
 	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
@@ -153,7 +148,7 @@ public class QcmController {
 
 			model.addAttribute("flash", MessageUtil.returnDanger("qcm.create.error"));
 
-			return "redirect:" + getQuestionsForQcmUrl(qcmId);
+			return "redirect:" + getQuestionsForQcmURL(qcmId);
 		}
 		questionsForm.setQcmService(qcmService);
 		questionService.add(questionsForm.getQuestion());
@@ -161,7 +156,7 @@ public class QcmController {
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("question.create.success", null, LocaleContextHolder.getLocale())));
 
-		return "redirect:" + getQuestionsForQcmUrl(qcmId);
+		return "redirect:" + getQuestionsForQcmURL(qcmId);
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}", method = RequestMethod.GET)
@@ -190,7 +185,7 @@ public class QcmController {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
 
-			return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 		}
 
 		if (qcmId.equals(question.getQcm().getId())) {
@@ -212,7 +207,7 @@ public class QcmController {
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 					messageSource.getMessage("question.not.found", null, LocaleContextHolder.getLocale())));
 
-			return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 		}
 
 		model.addAttribute("qcmId", qcmId);
@@ -223,7 +218,7 @@ public class QcmController {
 	}
 
 	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.POST)
-	public String saveAnswerForQuestion(Model model, @PathVariable("id") String qcmId,
+	public String saveAnswerForQuestion(@PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId,
 									   @Valid
 									   AddAnswersForm addAnswersForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
@@ -231,7 +226,7 @@ public class QcmController {
 			// handle errors
 			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.error"));
 
-			return "redirect:" + getAddAnswerForQuestionUrl(qcmId, questionId);
+			return "redirect:" + getAddAnswerForQuestionURL(qcmId, questionId);
 		}
 
 		Answer answer = new Answer(addAnswersForm.getContent(), questionService.get(questionId), addAnswersForm.getAnswerRate());
@@ -239,28 +234,22 @@ public class QcmController {
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnDanger("answer.create.success"));
 
-		return "redirect:" + getAnswersForQuestionUrl(qcmId, questionId);
+		return "redirect:" + getAnswersForQuestionURL(qcmId, questionId);
 	}
 
-	private String getQuestionsForQcmUrl(String qcmId) {
+	private String getQuestionsForQcmURL(String qcmId) {
 		return "/qcm/" + qcmId;
 	}
 
-	private String getAnswersForQuestionUrl(String qcmId, String questionId) {
-		return new StringBuilder("/")
-				.append("/qcm/")
-				.append(qcmId)
-				.append("/questions/")
-				.append(questionId)
-				.append("/answers/add").toString();
+	private String getAnswersForQuestionURL(String qcmId, String questionId) {
+		return MvcUriComponentsBuilder
+				.fromMethodName(QcmController.class, "questionAnswers",null, qcmId, questionId, null)
+				.build().toUriString();
 	}
 
-	private String getAddAnswerForQuestionUrl(String qcmId, String questionId) {
-		return new StringBuilder("/")
-				.append("/qcm/")
-				.append(qcmId)
-				.append("/questions/")
-				.append(questionId)
-				.append("/answers").toString();
+	private String getAddAnswerForQuestionURL(String qcmId, String questionId) {
+		return MvcUriComponentsBuilder
+				.fromMethodName(this.getClass(), "addAnswerForQuestion", null, qcmId, questionId, null)
+				.toUriString();
 	}
 }

@@ -9,11 +9,6 @@
     <form:input path="label" class="form-control" placeholder="${placeholderLabel}"/>
   </div>
     
-  <div class="form-group">
-    <form:label path="points"><spring:message code="question.create.points"/></form:label>
-    <form:select cssClass="form-control" path="points" items="${questionsPoints}"></form:select>
-  </div>
-
   <spring:message code="question.create.validate" var="validateForm"/>
   <input type="submit" value="${validateForm}" class="btn btn-primary" />
 

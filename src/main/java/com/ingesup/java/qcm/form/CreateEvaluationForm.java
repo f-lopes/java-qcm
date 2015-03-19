@@ -8,7 +8,6 @@ import com.ingesup.java.qcm.entity.Qcm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.validation.constraints.NotNull;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,22 +23,16 @@ public class CreateEvaluationForm {
 
 	private DateFormat dateFormatter;
 
-	@NotNull
 	private String evaluationName;
 
-	@NotNull
 	private Date startDate;
 
-	@NotNull
 	private Date endDate;
 
-	@NotNull
 	private Qcm evaluationQcm;
 
-	@NotNull
 	private Grade grade;
 
-	@NotNull
 	private Course course;
 
 	public CreateEvaluationForm() {
