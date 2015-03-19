@@ -1,6 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: lopes_f
@@ -8,6 +6,11 @@
   Time: 3:48 PM
   To change this template use File | Settings | File Templates.
 --%>
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
 <head>
@@ -24,11 +27,12 @@
         <br/><br/>
         
         <c:choose>
-            <c:when test="${questions.size() > 0}" >
+            <c:when test="${fn:length(questions) gt 0}" >
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <td><spring:message code="question.label"/></td>
+                            <td><spring:message code="question.points"/></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -36,6 +40,7 @@
                         <tbody>
                         <tr>
                             <td>${question.label}</td>
+                            <%--<td>${question.points}</td>--%>
                             <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
                         <%--<ul>--%>
                             <%--<c:forEach items="${question.answers}" var="answer">--%>
