@@ -18,6 +18,9 @@
 <body>
     <div class="container">
 
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
         <h1><spring:message code="qcm.list"/></h1>
 
         <p><a href="<c:url value="/qcm/create"/>" class="btn btn-success"><spring:message code="qcm.create"/></a></p>

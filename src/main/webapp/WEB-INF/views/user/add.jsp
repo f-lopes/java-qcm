@@ -19,16 +19,18 @@
   <body>
 
     <div class="container">
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
 
-      <h1><spring:message code="user.add.title"/></h1>
+        <h1><spring:message code="user.add.title"/></h1>
 
-      <!-- Flash -->
-      <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
+        <!-- Flash -->
+        <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
 
-      <%@include file="userForm.jsp"%>
+        <%@include file="userForm.jsp"%>
 
     </div>
-
     <script type="application/javascript" src="<c:url value='/resources/js/user/addUser.js'/>"></script>
   </body>
 </html>

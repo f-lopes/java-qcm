@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="<c:url value='/resources/css/angular-toggle-switch.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/resources/css/loading-bar.css'/>"/>
 
+
     <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body ng-controller="UserListController">

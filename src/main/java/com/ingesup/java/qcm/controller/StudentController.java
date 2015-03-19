@@ -63,7 +63,8 @@ public class StudentController {
 		}
 
 		model.addAttribute("grades", gradeService.getAll());
-		model.addAttribute("students", students);
+        model.addAttribute("selected_grade", grade);
+        model.addAttribute("students", students);
 
 		return ALL_STUDENTS_VIEW;
 	}

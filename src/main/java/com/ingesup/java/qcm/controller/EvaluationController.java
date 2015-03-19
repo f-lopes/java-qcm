@@ -119,9 +119,12 @@ public class EvaluationController {
 	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
 	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade) {
 
+        model.addAttribute("grades", gradeService.getAll());
+        
 		if (grade == null) {
 			model.addAttribute("evaluations", evaluationService.getAll());
 		} else {
+            model.addAttribute("selected_grade", grade);
 			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
 		}
 
