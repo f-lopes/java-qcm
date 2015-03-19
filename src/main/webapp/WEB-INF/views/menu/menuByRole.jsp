@@ -26,6 +26,8 @@
                     <a href="<c:url value="?lang=fr"/>">
                         <img src="<c:url value="/resources/img/fr.png"/>" alt="fr"/>
                     </a>
+                </li>
+                <li>
                     <a href="<c:url value="?lang=en"/>">
                         <img src="<c:url value="/resources/img/en.png"/>" alt="en"/>
                     </a>
