@@ -19,14 +19,13 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -64,18 +63,14 @@ public class QcmController {
 		this.answerService = answerService;
 	}
 
-	@ModelAttribute("questionsPoints")
-	private List<String> populateModelPoints() {
-		return Arrays.asList("1", "2", "3");
-	}
-
-
 	@RequestMapping(value = "/all", method = RequestMethod.GET)
 	public String qcmListTeacher(Model model, @CurrentUser Teacher teacher) {
-		if(teacher != null)
+		if(teacher != null) {
 			model.addAttribute("qcmList", qcmService.getQcmByTeacher(teacher));
-		else
+		} else {
 			model.addAttribute("qcmList", qcmService.getAll());
+		}
+
 		return ALL_QCM_VIEW;
 	}
 
@@ -247,18 +242,14 @@ public class QcmController {
 	}
 
 	private String getAnswersForQuestionURL(String qcmId, String questionId) {
-		return new StringBuilder("/qcm/")
-				.append(qcmId)
-				.append("/questions/")
-				.append(questionId)
-				.append("/answers").toString();
+		return MvcUriComponentsBuilder
+				.fromMethodName(QcmController.class, "questionAnswers",null, qcmId, questionId, null)
+				.build().toUriString();
 	}
 
 	private String getAddAnswerForQuestionURL(String qcmId, String questionId) {
-		return new StringBuilder("/qcm/")
-				.append(qcmId)
-				.append("/questions/")
-				.append(questionId)
-				.append("/answers").toString();
+		return MvcUriComponentsBuilder
+				.fromMethodName(this.getClass(), "addAnswerForQuestion", null, qcmId, questionId, null)
+				.toUriString();
 	}
 }

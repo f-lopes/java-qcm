@@ -10,6 +10,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
 <head>
@@ -55,8 +56,12 @@
                     <tbody>
                     <c:forEach items="${evaluations}" var="availableEvaluation">
                         <tr>
-                            <td>${availableEvaluation.startDate}</td>
-                            <td>${availableEvaluation.endDate}</td>
+                            <td>
+                                <fmt:formatDate value="${availableEvaluation.startDate}" pattern="dd/MM/yyyy"/>
+                            </td>
+                            <td>
+                                <fmt:formatDate value="${availableEvaluation.endDate}" pattern="dd/MM/yyyy"/>
+                            </td>
                             <td>${availableEvaluation.course.name}</td>
                             <td>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')" >

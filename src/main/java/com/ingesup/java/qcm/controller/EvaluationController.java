@@ -64,7 +64,7 @@ public class EvaluationController {
         this.messageSource = messageSource;
     }
 
-	@InitBinder
+	@InitBinder("createEvaluationForm")
 	public void initBinder(WebDataBinder webDataBinder) {
 		webDataBinder.addValidators(new CreateEvaluationFormValidator());
 	}
@@ -121,13 +121,14 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_ADMIN")
 	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
-	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade) {
-
-		if (grade == null) {
-			model.addAttribute("evaluations", evaluationService.getAll());
-		} else {
+	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade, @RequestParam(required = false) boolean onlyAvailables) {
+		if (onlyAvailables) {
 			model.addAttribute("evaluations", evaluationService.getAvailableEvaluationsByGrade(gradeService.getGradeByName(grade)));
+		} else {
+			model.addAttribute("evaluations", evaluationService.getEvaluationsByGrade(gradeService.getGradeByName(grade)));
 		}
+
+		model.addAttribute("grades", gradeService.getAll());
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -151,6 +152,14 @@ public class EvaluationController {
 		} else {
 			model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacher(teacher));
 		}
+
+		return ALL_EVALUATIONS_VIEW;
+	}
+
+	@Secured(value = "ROLE_TEACHER")
+	@RequestMapping(value = "/proposed-evaluations-by-grade", method = RequestMethod.GET)
+	public String evaluationsByTeacherForGrade(Model model, @RequestParam("grade") String gradeName, @CurrentUser Teacher teacher) {
+		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacherForGrade(teacher, gradeName));
 
 		return ALL_EVALUATIONS_VIEW;
 	}
@@ -201,8 +210,7 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult,
-								   @CurrentUser Teacher teacher,
+	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
 								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
 			return CREATE_EVALUATION_VIEW;

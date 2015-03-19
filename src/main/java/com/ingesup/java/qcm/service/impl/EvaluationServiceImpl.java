@@ -22,14 +22,16 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	private final EvaluationStudentRepository evaluationStudentRepository;
 	private final AnswerRepository answerRepository;
 	private final CourseRepository courseRepository;
+	private final GradeRepository gradeRepository;
 
 	@Autowired
 	public EvaluationServiceImpl(EvaluationRepository evaluationRepository, EvaluationStudentRepository evaluationStudentRepository,
-								 AnswerRepository answerRepository, CourseRepository courseRepository) {
+								 AnswerRepository answerRepository, CourseRepository courseRepository, GradeRepository gradeRepository) {
 		this.evaluationRepository = evaluationRepository;
 		this.evaluationStudentRepository = evaluationStudentRepository;
 		this.answerRepository = answerRepository;
 		this.courseRepository = courseRepository;
+		this.gradeRepository = gradeRepository;
 	}
 
 	@Override
@@ -77,6 +79,11 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	@Override
 	public List<Evaluation> getEvaluationsByTeacher(Teacher teacher) {
 		return evaluationRepository.findByTeacher(teacher);
+	}
+
+	@Override
+	public List<Evaluation> getEvaluationsByTeacherForGrade(Teacher teacher, String gradeName) {
+		return evaluationRepository.findByTeacherAndGrade(teacher, gradeRepository.findFirstByName(gradeName));
 	}
 
 	@Override

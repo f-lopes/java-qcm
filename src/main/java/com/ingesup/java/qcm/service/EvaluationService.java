@@ -24,6 +24,8 @@ public interface EvaluationService extends BaseService<Evaluation, String> {
 
 	public List<Evaluation> getEvaluationsByTeacher(Teacher teacher);
 
+	public List<Evaluation> getEvaluationsByTeacherForGrade(Teacher teacher, String gradeName);
+
 	public List<Evaluation> getEvaluationsByGrade(Grade grade);
 
 	public float getAverageMarkForEvaluation(Evaluation evaluation);
