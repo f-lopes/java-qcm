@@ -25,9 +25,6 @@
 
         <h1><spring:message code="user.add.title"/></h1>
 
-        <!-- Flash -->
-        <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
-
         <%@include file="userForm.jsp"%>
 
     </div>

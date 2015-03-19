@@ -29,7 +29,6 @@
                     <thead>
                         <tr>
                             <td><spring:message code="question.label"/></td>
-                            <td><spring:message code="question.points"/></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -37,7 +36,6 @@
                         <tbody>
                         <tr>
                             <td>${question.label}</td>
-                            <td>${question.points}</td>
                             <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
                         <%--<ul>--%>
                             <%--<c:forEach items="${question.answers}" var="answer">--%>
