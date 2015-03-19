@@ -101,14 +101,15 @@
 
         </c:choose>
 
-
     </div>
 
+    <c:url var="url_evals" value=""/>
+    <span style="display: none;" id="url_racine">${url_evals}</span>
     <script>
         $("#grade").change(function(){
             var value = $(this).val();
-            var url = "/evaluations/all";
-            if(value != "all") url = "/evaluations/by-grade?grade=" + value;
+            var url =  $("#url_racine").val() + "/evaluations/all";
+            if(value != "all") url = $("#url_racine").val() + "/evaluations/by-grade?grade=" + value;
             document.location.href = url;
         });
     </script>
