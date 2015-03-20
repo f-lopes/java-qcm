@@ -6,7 +6,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
@@ -15,8 +17,10 @@ import java.util.List;
  * Created by lopes_f on 1/23/2015.
  * <florian.lopes@outlook.com>
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = JavaQcmApplication.class)
+@RunWith (SpringJUnit4ClassRunner.class)
+@ActiveProfiles (value = "test")
+@SpringApplicationConfiguration (classes = JavaQcmApplication.class)
+@Sql (scripts = "src/test/resources/sql/test-data.sql" )
 public class CacheTests {
 
 	@Autowired

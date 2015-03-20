@@ -20,6 +20,6 @@ import java.lang.annotation.Target;
 @RunWith (SpringJUnit4ClassRunner.class)
 @ActiveProfiles (value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-@Sql(scripts = "sql/test-data.sql")
+@Sql(scripts = "resources/sql/test-data.sql")
 public @interface RepositoryTest {
 }

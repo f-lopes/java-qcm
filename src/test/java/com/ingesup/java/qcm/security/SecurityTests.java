@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JavaQcmApplication.class})
-@Sql(scripts = "/sql/test-data.sql")
+@Sql(scripts = "/src/test/resources/sql/test-data.sql" )
 @WebAppConfiguration
 public class SecurityTests {
 
