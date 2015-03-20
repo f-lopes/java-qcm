@@ -15,6 +15,11 @@
 </head>
 <body>
 <div class="container">
+    <p style="text-align:center;">
+
+        <img src="../../resources/img/hipsterlogogenerator_1420731148543.png" class="img-rounded" />
+    </p>
+    
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <form action="<c:url value="/login"/>" method="POST" class="form">
