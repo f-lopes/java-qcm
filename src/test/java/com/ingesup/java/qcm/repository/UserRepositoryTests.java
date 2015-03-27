@@ -16,10 +16,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by lopes_f on 1/21/2015.
  * <florian.lopes@outlook.com>
  */
-@RunWith (SpringJUnit4ClassRunner.class)
-@ActiveProfiles (value = "test")
-@SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-@Sql (scripts = "src/test/resources/sql/test-data.sql" )
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles(value = "test")
+@SpringApplicationConfiguration(classes = JavaQcmApplication.class)
+@Sql(scripts = "/sql/test-data.sql")
 public class UserRepositoryTests {
 
 	@Autowired

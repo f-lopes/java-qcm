@@ -28,7 +28,7 @@ import java.util.List;
 @RunWith (SpringJUnit4ClassRunner.class)
 @ActiveProfiles (value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-@Sql (scripts = "src/test/resources/sql/test-data.sql" )
+@Sql (scripts = "/sql/test-data.sql" )
 public class EvaluationStudentRepositoryTests {
 
 	@Autowired

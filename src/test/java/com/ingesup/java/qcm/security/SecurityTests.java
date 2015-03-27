@@ -38,11 +38,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {JavaQcmApplication.class})
-@Sql(scripts = "/src/test/resources/sql/test-data.sql" )
+@Sql(scripts = "/sql/test-data.sql" )
 @WebAppConfiguration
 public class SecurityTests {
 
-    private static final String LOGIN_URL = "http://localhost/login";
+    private static final String LOGIN_URL = "http://localhost/secure/login";
 
     private static final String ALL_USERS_URL = ApplicationUrls.User.ALL.getUrl();
 	private static final String AVAILABLE_EVALUATIONS_URL = ApplicationUrls.Evaluation.AVAILABLE.getUrl();

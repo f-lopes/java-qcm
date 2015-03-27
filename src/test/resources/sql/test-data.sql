@@ -119,7 +119,7 @@ ALTER TABLE student ADD FOREIGN KEY (grade_id) REFERENCES grade (id);
 ALTER TABLE student ADD FOREIGN KEY (student_id) REFERENCES user (id);
 CREATE INDEX FK_j0r0ce460fg07mg08xhgdgyaw ON student (grade_id);
 ALTER TABLE teacher ADD FOREIGN KEY (teacher_id) REFERENCES user (id);
-CREATE UNIQUE INDEX UK_ob8kqyqqgmefl0aco34akdtpe ON user (email);
+-- CREATE UNIQUE INDEX UK_ob8kqyqqgmefl0aco34akdtpe ON user (email);
 ALTER TABLE user_roles ADD FOREIGN KEY (role_id) REFERENCES role (id);
 ALTER TABLE user_roles ADD FOREIGN KEY (user_id) REFERENCES user (id);
 CREATE INDEX FK_5q4rc4fh1on6567qk69uesvyf ON user_roles (role_id);

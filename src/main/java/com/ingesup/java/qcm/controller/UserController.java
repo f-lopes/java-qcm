@@ -117,7 +117,7 @@ public class UserController {
 
 		addUserFromForm(addUserForm);
 
-		redirectAttributes.addFlashAttribute(MessageUtil.returnSuccess(
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("user.add.success", null, LocaleContextHolder.getLocale())));
 
 		return ControllerUtil.redirect(ALL_USERS_URL);

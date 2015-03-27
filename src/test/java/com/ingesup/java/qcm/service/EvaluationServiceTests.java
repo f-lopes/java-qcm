@@ -95,11 +95,4 @@ public class EvaluationServiceTests {
 		boolean hasStudentTakenEvaluation = evaluationService.hasStudentTakenEvaluation(student.getId(), evaluation.getId());
 		Assert.assertTrue(hasStudentTakenEvaluation);
 	}
-
-	@Test
-	public void shouldTakeEvaluation() {
-//		EvaluationStudent evaluationStudent = evaluationService.takeEvaluation()
-
-		Assert.fail("Not implemented");
-	}
 }

@@ -1,7 +1,6 @@
 package com.ingesup.java.qcm.repository;
 
 import com.ingesup.java.qcm.JavaQcmApplication;
-import com.ingesup.java.qcm.RepositoryTest;
 import com.ingesup.java.qcm.entity.Evaluation;
 import com.ingesup.java.qcm.entity.Grade;
 import com.ingesup.java.qcm.entity.Student;
