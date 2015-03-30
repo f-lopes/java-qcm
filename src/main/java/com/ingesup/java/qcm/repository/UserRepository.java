@@ -8,5 +8,5 @@ import com.ingesup.java.qcm.entity.User;
  */
 public interface UserRepository extends BaseRepository<User, String> {
 
-	public User findByEmail(String email);
+	User findByEmail(String email);
 }

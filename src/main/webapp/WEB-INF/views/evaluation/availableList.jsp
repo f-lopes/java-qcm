@@ -31,11 +31,6 @@
         <c:choose>
           <c:when test="${fn:length(availableEvaluations) gt 0}">
 
-
-              <sec:authorize access="isAuthenticated()" >
-                  <%@include file="../menu/menuByRole.jsp"%>
-              </sec:authorize>
-
             <table class="table table-striped">
               <thead>
               <tr>

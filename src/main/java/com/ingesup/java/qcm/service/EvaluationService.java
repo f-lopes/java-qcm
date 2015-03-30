@@ -12,31 +12,31 @@ import java.util.Set;
  */
 public interface EvaluationService extends BaseService<Evaluation, String> {
 
-	public int takeEvaluation(String evaluationId, String qcmId, Student student, Set<String> answersIds, Date takenDate);
+	int takeEvaluation(String evaluationId, String qcmId, Student student, Set<String> answersIds, Date takenDate);
 
-	public List<EvaluationStudent> getTakenEvaluationsForStudent(Student student);
+	List<EvaluationStudent> getTakenEvaluationsForStudent(Student student);
 
-	public List<Evaluation> getAvailableEvaluationsByGrade(Grade grade);
+	List<Evaluation> getAvailableEvaluationsByGrade(Grade grade);
 
-	public boolean hasStudentTakenEvaluation(String studentId, String evaluationId);
+	boolean hasStudentTakenEvaluation(String studentId, String evaluationId);
 
-	public EvaluationStudent getTakenEvaluation(String evaluationId, String studentId);
+	EvaluationStudent getTakenEvaluation(String evaluationId, String studentId);
 
-	public List<Evaluation> getEvaluationsByTeacher(Teacher teacher);
+	List<Evaluation> getEvaluationsByTeacher(Teacher teacher);
 
-	public List<Evaluation> getEvaluationsByTeacherForGrade(Teacher teacher, String gradeName);
+	List<Evaluation> getEvaluationsByTeacherForGrade(Teacher teacher, String gradeName);
 
-	public List<Evaluation> getEvaluationsByGrade(Grade grade);
+	List<Evaluation> getEvaluationsByGrade(Grade grade);
 
-	public float getAverageMarkForEvaluation(Evaluation evaluation);
+	float getAverageMarkForEvaluation(Evaluation evaluation);
 
-	public Evaluation getFirstEvaluationByTeacher(Teacher teacher);
+	Evaluation getFirstEvaluationByTeacher(Teacher teacher);
 
-	public List<Evaluation> getFinishedEvaluationsByTeacher(Teacher teacher);
+	List<Evaluation> getFinishedEvaluationsByTeacher(Teacher teacher);
 
-	public List<EvaluationStudent> getStudentsResultsByEvaluation(Evaluation evaluation);
+	List<EvaluationStudent> getStudentsResultsByEvaluation(Evaluation evaluation);
 
-    public boolean hasStudentsTakenEvaluation(String evaluationId);
+    boolean hasStudentsTakenEvaluation(String evaluationId);
 
-	public List<Evaluation> getEvaluationsByCourseId(String courseId);
+	List<Evaluation> getEvaluationsByCourseId(String courseId);
 }

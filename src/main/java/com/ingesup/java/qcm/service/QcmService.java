@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface QcmService extends BaseService<Qcm, String> {
 
-    public List<Qcm> getQcmByTeacher(Teacher teacher);
+    List<Qcm> getQcmByTeacher(Teacher teacher);
 }

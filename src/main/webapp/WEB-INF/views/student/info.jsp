@@ -20,6 +20,7 @@
         <sec:authorize access="isAuthenticated()" >
             <%@include file="../menu/menuByRole.jsp"%>
         </sec:authorize>
+
         <h2><spring:message code="student.profile"/> ${currentUser.firstName}!</h2>
         <br/>
         <h4><spring:message code="student.details"/></h4>
@@ -27,6 +28,7 @@
             <li><spring:message code="student.firstname"/> ${currentUser.firstName}</li>
             <li><spring:message code="student.lastname"/> ${currentUser.lastName}</li>
             <li><spring:message code="student.email"/> ${currentUser.email}</li>
+            <li><spring:message code="evaluation.selected.grade"/> ${currentUser.grade}</li>
         </ul>
     </div>
 </body>

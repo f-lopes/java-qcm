@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface StudentRepository extends BaseRepository<Student, String> {
 
-    public Student findByEmail(String email);
+    Student findByEmail(String email);
 
-	public List<Student> findByGrade(Grade grade);
+	List<Student> findByGrade(Grade grade);
 }

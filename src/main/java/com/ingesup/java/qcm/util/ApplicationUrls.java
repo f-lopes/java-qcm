@@ -17,7 +17,7 @@ public enum ApplicationUrls {
 		USER("/{id}"),
 		ADD_USER("/add");
 
-		private String value;
+		private final String value;
 
 		User(String value) {
 			this.value = value;
@@ -48,7 +48,7 @@ public enum ApplicationUrls {
 		AVAILABLE(""),
 		PROPOSED("/proposed-evaluations");
 
-		private String value;
+		private final String value;
 
 		Evaluation(String value) {
 			this.value = value;

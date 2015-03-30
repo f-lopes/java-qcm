@@ -22,12 +22,12 @@ import java.util.Set;
 @EnableConfigurationProperties(value = {QcmDatabaseProperties.class, QcmAdministrationProperties.class})
 public class DatabaseLoader {
 
-	private UserService userService;
-	private GradeService gradeService;
-	private CourseService courseService;
-	private RoleService roleService;
-	private QcmDatabaseProperties databaseProperties;
-	private QcmAdministrationProperties administrationProperties;
+	private final UserService userService;
+	private final GradeService gradeService;
+	private final CourseService courseService;
+	private final RoleService roleService;
+	private final QcmDatabaseProperties databaseProperties;
+	private final QcmAdministrationProperties administrationProperties;
 
 	@Autowired
 	public DatabaseLoader(UserService userService, GradeService gradeService,

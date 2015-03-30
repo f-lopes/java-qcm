@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class EvaluationBuilder implements Builder<Evaluation> {
 
-	private Evaluation evaluation;
+	private final Evaluation evaluation;
 
 	public EvaluationBuilder() {
 		this.evaluation = new Evaluation();

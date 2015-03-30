@@ -10,19 +10,19 @@ import java.util.List;
  */
 public interface BaseService <T, I> {
 
-	public List<T> getAll();
+	List<T> getAll();
 
-	public T add(T entity);
+	T add(T entity);
 
-	public Iterable<T> add(Iterable<T> entities);
+	Iterable<T> add(Iterable<T> entities);
 
-	public T get(I primaryKey);
+	T get(I primaryKey);
 
-	public void removeEntity(T entity);
+	void removeEntity(T entity);
 
-	public void remove(I primaryKey);
+	void remove(I primaryKey);
 
-	public T update(T entity);
+	T update(T entity);
 
-	public BaseRepository getRepository();
+	BaseRepository getRepository();
 }

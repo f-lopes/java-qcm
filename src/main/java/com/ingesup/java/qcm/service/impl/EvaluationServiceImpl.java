@@ -48,8 +48,8 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 			evaluationMark += answerRepository.findOne(answerId).getAnswerRate();
 		}
 
-		// TODO if mark > 20 => 20
 		evaluationMark = ((evaluationMark * 20) / evaluation.getQcm().getQuestions().size());
+		evaluationMark = evaluationMark > 20 ? 20 : evaluationMark;
 		EvaluationStudent evaluationStudent = new EvaluationStudent(evaluation, student, evaluationMark, takenDate);
 		evaluationStudentRepository.save(evaluationStudent);
 

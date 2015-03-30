@@ -83,7 +83,6 @@ public class AddUserForm {
 	}
 
 	public Teacher getTeacher() {
-		Teacher teacher = new Teacher(firstName, name, email, password);
-		return teacher;
+		return new Teacher(firstName, name, email, password);
 	}
 }

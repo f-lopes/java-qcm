@@ -13,7 +13,7 @@ public interface GradeService extends BaseService<Grade, String> {
 
 	@Cacheable("gradesCache")
 	@Override
-	public List<Grade> getAll();
+	List<Grade> getAll();
 
-	public Grade getGradeByName(String name);
+	Grade getGradeByName(String name);
 }

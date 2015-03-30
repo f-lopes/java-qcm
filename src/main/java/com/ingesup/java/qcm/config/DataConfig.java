@@ -34,7 +34,7 @@ public class DataConfig {
 		return dataSource;
 	}
 
-	public Properties dataSourceProperties() {
+	private Properties dataSourceProperties() {
 		final Properties dataSourceProperties = new Properties();
 		dataSourceProperties.put("url", properties.getUrl());
 		dataSourceProperties.put("user", properties.getUsername());
@@ -58,7 +58,7 @@ public class DataConfig {
 		return dataSource;
 	}
 
-	public Properties testDataSourceProperties() {
+	private Properties testDataSourceProperties() {
 		final Properties dataSourceProperties = new Properties();
 		dataSourceProperties.put("url", properties.getUrl());
 		dataSourceProperties.put("user", properties.getUsername());

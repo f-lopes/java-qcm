@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface QuestionService extends BaseService<Question, String> {
 
-	public List<Question> getQuestionsByQcmId(String qcmId);
+	List<Question> getQuestionsByQcmId(String qcmId);
 
-	public List<Question> getQuestionsByQcm(Qcm qcm);
+	List<Question> getQuestionsByQcm(Qcm qcm);
 }

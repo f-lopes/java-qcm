@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface QcmRepository extends BaseRepository<Qcm, String> {
 
-    public List<Qcm> findByTeacher(Teacher teacher);
+    List<Qcm> findByTeacher(Teacher teacher);
 }

@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface QuestionRepository extends BaseRepository<Question, String> {
 
-	public List<Question> findByQcm(Qcm qcm);
+	List<Question> findByQcm(Qcm qcm);
 }

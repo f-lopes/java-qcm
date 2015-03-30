@@ -78,17 +78,16 @@
 
     </c:choose>
         
-        
 </div>
 
 
-<c:url var="url_evals" value=""/>
-<input type="hidden" id="url_racine" value="${url_evals}" />
+<c:url var="studentsURL" value="/student/all"/>
+<input type="hidden" id="url_racine" value="${studentsURL}" />
 <script>
     $("#grade").change(function(){
         var value = $(this).val();
-        var url = $("#url_racine").val() + "/student/all";
-        if(value != "all") url = $("#url_racine").val() + "/student/all?grade=" + value;
+        var url = $("#url_racine").val();
+        if(value != "all") url = $("#url_racine").val() + "?grade=" + value;
         document.location.href = url;
     });
 </script>

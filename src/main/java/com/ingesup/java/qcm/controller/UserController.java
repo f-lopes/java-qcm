@@ -3,8 +3,6 @@ package com.ingesup.java.qcm.controller;
 import com.ingesup.java.qcm.entity.*;
 import com.ingesup.java.qcm.form.AddUserForm;
 import com.ingesup.java.qcm.service.GradeService;
-import com.ingesup.java.qcm.service.StudentService;
-import com.ingesup.java.qcm.service.TeacherService;
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.ApplicationUrls;
 import com.ingesup.java.qcm.util.ControllerUtil;
@@ -46,18 +44,12 @@ public class UserController {
 	private final UserService userService;
 	private final GradeService gradeService;
 	private final MessageSource messageSource;
-	private final TeacherService teacherService;
-	private final StudentService studentService;
 
 	@Autowired
-	public UserController(UserService userService, GradeService gradeService,
-						  MessageSource messageSource, TeacherService teacherService,
-						  StudentService studentService) {
+	public UserController(UserService userService, GradeService gradeService, MessageSource messageSource) {
 		this.userService = userService;
 		this.gradeService = gradeService;
 		this.messageSource = messageSource;
-		this.teacherService = teacherService;
-		this.studentService = studentService;
 	}
 
 	private List<Grade> getGrades() {

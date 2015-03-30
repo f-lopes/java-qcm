@@ -15,18 +15,18 @@ import java.util.List;
 public interface EvaluationRepository extends BaseRepository<Evaluation, String> {
 
 	@Query("SELECT E FROM Evaluation E WHERE (NOW() BETWEEN E.startDate AND E.endDate) AND E.grade = ?1")
-	public List<Evaluation> findAvailableByGrade(Grade grade);
+	List<Evaluation> findAvailableByGrade(Grade grade);
 
-	public List<Evaluation> findByTeacher(Teacher teacher);
+	List<Evaluation> findByTeacher(Teacher teacher);
 
-	public List<Evaluation> findByTeacherAndGrade(Teacher teacher, Grade grade);
+	List<Evaluation> findByTeacherAndGrade(Teacher teacher, Grade grade);
 
-	public List<Evaluation> findByGrade(Grade grade);
+	List<Evaluation> findByGrade(Grade grade);
 
-	public Evaluation findFirstByTeacher(Teacher teacher);
+	Evaluation findFirstByTeacher(Teacher teacher);
 
 	@Query("SELECT E FROM Evaluation E WHERE (NOW() > E.endDate) AND E.teacher = ?1")
-	public List<Evaluation> findFinishedEvaluationsByTeacher(Teacher teacher);
+	List<Evaluation> findFinishedEvaluationsByTeacher(Teacher teacher);
 
-	public List<Evaluation> findByCourse(Course course);
+	List<Evaluation> findByCourse(Course course);
 }

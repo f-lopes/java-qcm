@@ -15,7 +15,7 @@ public interface UserService extends BaseService<User, String> {
 	@Override
 	List<User> getAll();
 
-	public List<User> getAllNonAdminUsers();
+	List<User> getAllNonAdminUsers();
 
-	public User getByEmail(String email);
+	User getByEmail(String email);
 }

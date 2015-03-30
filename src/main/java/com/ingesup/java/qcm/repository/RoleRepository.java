@@ -8,5 +8,5 @@ import com.ingesup.java.qcm.entity.Role;
  */
 public interface RoleRepository extends BaseRepository<Role, String> {
 
-	public Role findByName(String name);
+	Role findByName(String name);
 }

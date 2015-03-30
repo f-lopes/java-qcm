@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface EvaluationStudentRepository extends BaseRepository<EvaluationStudent, EvaluationStudentPk> {
 
-    public List<EvaluationStudent> findByStudent(Student student);
+    List<EvaluationStudent> findByStudent(Student student);
 
-	public List<EvaluationStudent> findByEvaluation(Evaluation evaluation);
+	List<EvaluationStudent> findByEvaluation(Evaluation evaluation);
 }
