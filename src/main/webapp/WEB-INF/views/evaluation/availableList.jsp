@@ -73,7 +73,7 @@
                             </c:if>
                             <c:if test="${availableEvaluation.value != null}">
                                 <i><fmt:formatDate pattern="yyyy-MM-dd" value="${availableEvaluation.value.date}" /></i>
-                                 - <b><spring:message code="mark"/></b> ${availableEvaluation.value.mark}
+                                 - <b><spring:message code="mark"/></b> ${availableEvaluation.value.mark}/20
                             </c:if>
                         </sec:authorize>
 

@@ -84,9 +84,4 @@ public class EvaluationRepositoryTests {
 		Assert.assertEquals(availableEvaluations.size(), 1);
 		Assert.assertEquals(availableEvaluations.get(0), evaluation);
 	}
-
-/*	@Test
-	public void shouldTakeEvaluation() {
-		Assert.fail("Not implemented");
-	}*/
 }

@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: lopes_f
@@ -28,10 +29,13 @@
 
                 <ul>
                     <c:forEach var="result" items="${results}">
-                        <li>${result.evaluation.course.name} :  <c:out value="${result.mark}"/></li>
+                        <li>
+                            ${result.evaluation.course.name} : <c:out value="${result.mark}"/> -
+                                <fmt:formatDate pattern="yyyy-MM-dd" value="${result.mark}" /> -
+                            ${result.evaluation.teacher.name} ${result.evaluation.teacher.firstName}
+                        </li>
                     </c:forEach>
                 </ul>
-
                 <spring:message code="student.average"/> : ${average}
 
             </c:when>
