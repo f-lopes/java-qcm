@@ -11,6 +11,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -19,6 +20,12 @@
 </head>
 <body>
     <div class="container">
+
+
+        <sec:authorize access="isAuthenticated()" >
+            <%@include file="../menu/menuByRole.jsp"%>
+        </sec:authorize>
+        
         <h1>QCM</h1>
     
         <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
@@ -32,7 +39,6 @@
                     <thead>
                         <tr>
                             <td><spring:message code="question.label"/></td>
-                            <td><spring:message code="question.points"/></td>
                             <td></td>
                         </tr>
                     </thead>
@@ -40,7 +46,6 @@
                         <tbody>
                         <tr>
                             <td>${question.label}</td>
-                            <%--<td>${question.points}</td>--%>
                             <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
                         <%--<ul>--%>
                             <%--<c:forEach items="${question.answers}" var="answer">--%>

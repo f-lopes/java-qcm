@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: lopes_f
@@ -16,6 +17,11 @@
 <body>
 
 <div class="container">
+
+
+    <sec:authorize access="isAuthenticated()" >
+        <%@include file="../menu/menuByRole.jsp"%>
+    </sec:authorize>
     
     <h1><spring:message code="answer.list.title"/></h1>
     <c:if test="${answers.size() > 0}">

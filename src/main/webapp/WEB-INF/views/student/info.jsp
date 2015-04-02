@@ -28,7 +28,7 @@
             <li><spring:message code="student.firstname"/> ${currentUser.firstName}</li>
             <li><spring:message code="student.lastname"/> ${currentUser.lastName}</li>
             <li><spring:message code="student.email"/> ${currentUser.email}</li>
-            <li><spring:message code="evaluation.selected.grade"/> ${currentUser.grade}</li>
+            <li><spring:message code="evaluation.selected.grade"/> ${currentUser.grade.name}</li>
         </ul>
     </div>
 </body>
