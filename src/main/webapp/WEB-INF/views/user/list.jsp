@@ -58,6 +58,7 @@
                 <td>First name</td>
                 <td>Email</td>
                 <td>Type</td>
+                <td></td>
             </tr>
             </thead>
             <tbody>
@@ -66,6 +67,7 @@
                 <td>{{user.firstName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.roles[0].name}}</td>
+                <td id="user-{{user.id}}"></td>
             </tr>
             </tbody>
         </table>
