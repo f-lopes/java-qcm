@@ -19,6 +19,11 @@
   <body>
     <div class="container">
 
+
+      <sec:authorize access="isAuthenticated()" >
+          <%@include file="../menu/menuByRole.jsp"%>
+      </sec:authorize>
+
       <h1><spring:message code="evaluation.create.title"/></h1>
 
       <!-- Flash -->
