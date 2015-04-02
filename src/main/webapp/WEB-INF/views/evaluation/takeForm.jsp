@@ -14,7 +14,13 @@
   <form:hidden path="evalId"/>
   <c:forEach items="${qcm.questions}" var="question">
     <h3><spring:message code="qcm.view.question"/> : ${question.label}</h3>
-    <form:radiobuttons path="selectedAnswers" items="${question.answers}" itemValue="id" itemLabel="content" delimiter="<br/>"/>
+    <c:set var="answerCounter" value="0"/>
+    <c:forEach items="${question.answers}" var="answer">
+      ${answer.content}
+      <input name="selectedAnswers[${answerCounter}]" type="radio" value="${answer.id}" />
+      <c:set var="answerCounter" value="${answerCounter + 1}"/>
+    </c:forEach>
+    <%--<form:radiobuttons path="selectedAnswers" items="${question.answers}" itemValue="id" itemLabel="content" delimiter="<br/>"/>--%>
   </c:forEach>
   <br/><br/>
   <spring:message code="qcm.view.validate" var="validate"/>
