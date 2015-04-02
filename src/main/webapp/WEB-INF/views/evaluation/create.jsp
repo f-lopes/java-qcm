@@ -35,12 +35,12 @@
         $(function() {
             
             $("#startDate").datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "dd/mm/yyyy",
                 minDate: new Date()
             });
 
             $("#endDate").datepicker({
-                dateFormat: "dd/mm/yy",
+                dateFormat: "dd/mm/yyyy",
                 minDate: new Date()
             })
         });
