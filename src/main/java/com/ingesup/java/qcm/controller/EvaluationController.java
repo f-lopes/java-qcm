@@ -38,6 +38,7 @@ public class EvaluationController {
 	private static final String ALL_EVALUATIONS_URL = "/evaluations/all";
 	private static final String PROPOSED_EVALUATIONS_URL = "/evaluations/proposed-evaluations";
 	private static final String AVAILABLE_EVALUATIONS_URL = "/evaluations";
+	private static final String CREATE_EVALUATION_URL = "/evaluations/create";
 
 	private static final String ALL_EVALUATIONS_VIEW = "evaluation/list";
 	private static final String AVAILABLE_EVALUATIONS_VIEW = "evaluation/availableList";
@@ -215,7 +216,7 @@ public class EvaluationController {
 	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
 								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			return CREATE_EVALUATION_VIEW;
+			return "redirect:" + CREATE_EVALUATION_URL;
 		}
 
 		Evaluation evaluation = createEvaluationForm.getEvaluation();

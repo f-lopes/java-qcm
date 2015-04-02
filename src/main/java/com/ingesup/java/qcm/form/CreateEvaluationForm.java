@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -87,20 +85,6 @@ public class CreateEvaluationForm {
 	}
 
 	public Evaluation getEvaluation() {
-		if (dateFormatter == null) {
-			// Date format : dd/mm/yy
-			dateFormatter = new SimpleDateFormat("dd/mm/yy");
-		}
-		String frenchDateFormat = dateFormatter.format(startDate);
-		try {
-			startDate = dateFormatter.parse(frenchDateFormat);
-			frenchDateFormat = dateFormatter.format(endDate);
-			endDate = dateFormatter.parse(frenchDateFormat);
-		}
-		catch (ParseException e) {
-			logger.error(String.format("Failed to format date {%s}", startDate), e);
-		}
-
 		Evaluation evaluation = new EvaluationBuilder()
 				.startDate(startDate)
 				.endDate(endDate)
