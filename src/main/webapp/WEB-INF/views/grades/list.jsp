@@ -10,26 +10,35 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <title><spring:message code="grades.list"/></title>
 </head>
 <body>
 
+<sec:authorize access="isAuthenticated()">
+    <%@include file="../menu/menuByRole.jsp" %>
+</sec:authorize>
+
 <h1><spring:message code="grades.list"/></h1>
-<c:if test="${answers.size() > 0}">
-  <table>
-    <thead>
-    <tr>
-      <td>Name</td>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${grades}" var="grade">
-      <tr>
-        <td>${grade.name}</td>
-      </tr>
-    </c:forEach>
-    </tbody>
-  </table>
+<c:if test="${grades.size() > 0}">
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>See users</td>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${grades}" var="grade">
+            <tr>
+                <td>${grade.name}</td>
+                <td>
+                    <a href="<c:url value="/student/all?grade=${grade.name}"/>"><spring:message code="students.list"/></a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </c:if>
 <br/><br/>
 

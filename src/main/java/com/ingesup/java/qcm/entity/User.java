@@ -76,6 +76,32 @@ public class User implements UserDetails {
 		return isAdmin;
 	}
 
+	public boolean isTeacher() {
+		boolean isTeacher = false;
+
+		for (Role role : roles) {
+			if (RoleEnum.ROLE_TEACHER.name().equals(role.getName())) {
+				isTeacher = true;
+				break;
+			}
+		}
+
+		return isTeacher;
+	}
+
+	public boolean isStudent() {
+		boolean isStudent = false;
+
+		for (Role role : roles) {
+			if (RoleEnum.ROLE_STUDENT.name().equals(role.getName())) {
+				isStudent = true;
+				break;
+			}
+		}
+
+		return isStudent;
+	}
+
 	public List<String> getRolesAsString(){
 		List<String> rolesAsString = new ArrayList<>();
 

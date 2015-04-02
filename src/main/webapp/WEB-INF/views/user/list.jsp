@@ -60,9 +60,20 @@
                 <td>Type</td>
             </tr>
             </thead>
+
             <tbody>
             <tr ng-repeat="user in users | filter:usernameQuery">
-                <td>{{user.lastName}}</td>
+                <td>
+                    <c:choose>
+                        <c:when test="${user.roles[0].name eq 'ROLE_STUDENT'}">
+                            <c:url var="studentBaseURL" value="/student/${user.id}"/>
+                            <a href="${studentBaseURL}">{{user.lastName}}</a>
+                        </c:when>
+                        <c:otherwise>
+                            {{user.lastName}}
+                        </c:otherwise>
+                    </c:choose>
+                </td>
                 <td>{{user.firstName}}</td>
                 <td>{{user.email}}</td>
                 <td>{{user.roles[0].name}}</td>

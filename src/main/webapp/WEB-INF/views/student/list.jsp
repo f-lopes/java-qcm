@@ -14,7 +14,7 @@
 <html ng-app="qcmUsersApp">
 <head>
     <title><spring:message code="students.list"/></title>
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="<c:url value='/resources/js/lib/jquery-2.1.3.min.js'/>"></script>
 </head>
 <body >
