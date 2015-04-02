@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: lopes_f
@@ -15,32 +16,36 @@
 </head>
 <body>
 
-<sec:authorize access="isAuthenticated()">
-    <%@include file="../menu/menuByRole.jsp" %>
-</sec:authorize>
 
-<h1><spring:message code="grades.list"/></h1>
-<c:if test="${grades.size() > 0}">
-    <table>
-        <thead>
-        <tr>
-            <td>Name</td>
-            <td>See users</td>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach items="${grades}" var="grade">
+<div class="container">
+    <sec:authorize access="isAuthenticated()">
+        <%@include file="../menu/menuByRole.jsp" %>
+    </sec:authorize>
+
+    <h1><spring:message code="grades.list"/></h1>
+    <c:if test="${grades.size() > 0}">
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>${grade.name}</td>
-                <td>
-                    <a href="<c:url value="/student/all?grade=${grade.name}"/>"><spring:message code="students.list"/></a>
-                </td>
+                <td>Name</td>
+                <td>See users</td>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-</c:if>
-<br/><br/>
+            </thead>
+            <tbody>
+            <c:forEach items="${grades}" var="grade">
+                <tr>
+                    <td>${grade.name}</td>
+                    <td>
+                        <a href="<c:url value="/student/all?grade=${grade.name}"/>"><spring:message
+                                code="students.list"/></a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+    <br/><br/>
 
+</div>
 </body>
 </html>

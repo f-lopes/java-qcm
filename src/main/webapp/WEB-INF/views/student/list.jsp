@@ -71,7 +71,7 @@
         </c:when>
 
         <c:otherwise>
-            <div class="alert alert-danger">
+            <div class="alert alert-warning">
                 <spring:message code="no.student.found"/>
             </div>
         </c:otherwise>
