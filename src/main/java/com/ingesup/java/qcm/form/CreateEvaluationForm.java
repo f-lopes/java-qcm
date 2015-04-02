@@ -88,8 +88,8 @@ public class CreateEvaluationForm {
 
 	public Evaluation getEvaluation() {
 		if (dateFormatter == null) {
-			// Date format : dd/mm/yyyy
-			dateFormatter = new SimpleDateFormat("dd/mm/yyyy");
+			// Date format : dd/mm/yy
+			dateFormatter = new SimpleDateFormat("dd/mm/yy");
 		}
 		String frenchDateFormat = dateFormatter.format(startDate);
 		try {
