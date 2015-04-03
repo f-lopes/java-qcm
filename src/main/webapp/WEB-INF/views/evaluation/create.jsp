@@ -26,9 +26,6 @@
 
       <h1><spring:message code="evaluation.create.title"/></h1>
 
-      <!-- Flash -->
-      <div style="width:1000px; margin:auto;" class="alert alert-${flash.status}">${flash.text}</div>
-
       <%@include file="evaluationForm.jsp"%>
 
     </div>

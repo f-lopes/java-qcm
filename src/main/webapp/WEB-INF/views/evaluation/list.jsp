@@ -62,7 +62,9 @@
                         <td><spring:message code="evaluation.startDate"/></td>
                         <td><spring:message code="evaluation.endDate"/></td>
                         <td><spring:message code="course"/></td>
-                        <td><spring:message code="qcm.name"/></td>
+                        <sec:authorize access="hasRole('ROLE_TEACHER')" >
+                            <td><spring:message code="qcm.name"/></td>
+                        </sec:authorize>
                         <sec:authorize access="hasRole('ROLE_ADMIN')" >
                             <td><spring:message code="action"/></td>
                         </sec:authorize>

@@ -27,10 +27,12 @@ public class CreateEvaluationFormValidator implements Validator{
 		ValidationUtils.rejectIfEmpty(errors, "startDate", "validation.evaluation.startDate.mandatory");
 		ValidationUtils.rejectIfEmpty(errors, "endDate", "validation.evaluation.startDate.mandatory");
 
-		if (createEvaluationForm.getStartDate().before(new Date())) {
-			errors.rejectValue("startDate", "validation.evaluation.startDate.after.today");
-		} else if (createEvaluationForm.getStartDate().after(createEvaluationForm.getEndDate())) {
-			errors.rejectValue("endDate", "validation.evaluation.endDate.afterStartDate");
+		if (createEvaluationForm.getStartDate() != null) {
+			if (createEvaluationForm.getStartDate().before(new Date())) {
+				errors.rejectValue("startDate", "validation.evaluation.startDate.after.today");
+			} else if (createEvaluationForm.getStartDate().after(createEvaluationForm.getEndDate())) {
+				errors.rejectValue("endDate", "validation.evaluation.endDate.afterStartDate");
+			}
 		}
 	}
 }

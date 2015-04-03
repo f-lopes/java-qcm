@@ -213,9 +213,11 @@ public class EvaluationController {
 
 	@Secured(value = "ROLE_TEACHER")
 	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	public String createEvaluation(@Valid CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
+	public String createEvaluation(@Valid @ModelAttribute CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
 								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
+					messageSource.getMessage("evaluation.create.error", null, LocaleContextHolder.getLocale())));
 			return "redirect:" + CREATE_EVALUATION_URL;
 		}
 

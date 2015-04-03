@@ -89,6 +89,7 @@ public class CreateEvaluationForm {
 				.startDate(startDate)
 				.endDate(endDate)
 				.grade(grade)
+				.qcm(evaluationQcm)
 				.course(course).build();
 
 		return evaluation;
