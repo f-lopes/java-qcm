@@ -32,7 +32,7 @@
                         <li>
                             ${result.evaluation.course.name} : <c:out value="${result.mark}"/> -
                                 <fmt:formatDate pattern="yyyy-MM-dd" value="${result.date}" /> -
-                            ${result.evaluation.teacher.name} ${result.evaluation.teacher.firstName}
+                            ${result.evaluation.teacher.lastName} ${result.evaluation.teacher.firstName}
                         </li>
                     </c:forEach>
                 </ul>

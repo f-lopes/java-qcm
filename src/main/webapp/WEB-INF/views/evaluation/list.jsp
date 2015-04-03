@@ -27,7 +27,7 @@
             <%@include file="../menu/menuByRole.jsp"%>
         </sec:authorize>
         
-        <h1><spring:message code="evaluations.available"/></h1>
+        <h1><spring:message code="evaluations"/></h1>
 
 
         <sec:authorize access="hasRole('ROLE_TEACHER')">
@@ -62,6 +62,7 @@
                         <td><spring:message code="evaluation.startDate"/></td>
                         <td><spring:message code="evaluation.endDate"/></td>
                         <td><spring:message code="course"/></td>
+                        <td><spring:message code="qcm.name"/></td>
                         <sec:authorize access="hasRole('ROLE_ADMIN')" >
                             <td><spring:message code="action"/></td>
                         </sec:authorize>
@@ -77,6 +78,14 @@
                                 <fmt:formatDate value="${availableEvaluation.endDate}" pattern="dd/MM/yyyy"/>
                             </td>
                             <td>${availableEvaluation.course.name}</td>
+
+                            <td>
+                                <sec:authorize access="hasRole('ROLE_TEACHER')" >
+                                    <c:url var="qcmURL" value="/qcm/${availableEvaluation.qcm.id}" />
+                                    <a href="${qcmURL}">${availableEvaluation.qcm.name}</a>
+                                </sec:authorize>
+                            </td>
+
                             <td>
                                 <sec:authorize access="hasRole('ROLE_ADMIN')" >
                                     <form method="post" action="<c:url value="/evaluations/delete" />">

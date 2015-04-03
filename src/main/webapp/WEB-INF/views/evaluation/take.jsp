@@ -7,18 +7,30 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 
 <html>
 <head>
-  <title>QCM</title>
+    <title>QCM</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-  <h1>QCM</h1>
+<div class="container">
 
-  <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
-  <h3><spring:message code="qcm.questions.number"/> : ${qcm.questions.size()}</h3>
+    <sec:authorize access="isAuthenticated()">
+        <%@include file="../menu/menuByRole.jsp" %>
+    </sec:authorize>
 
-  <br/><br/>
-  <%@include file="takeForm.jsp"%>
+    <h1>QCM</h1>
+
+    <h3><spring:message code="qcm.name"/> : ${qcm.name}</h3>
+
+    <h3><spring:message code="qcm.questions.number"/> : ${qcm.questions.size()}</h3>
+
+    <br/><br/>
+    <%@include file="takeForm.jsp" %>
+
+</div>
 </body>
 </html>

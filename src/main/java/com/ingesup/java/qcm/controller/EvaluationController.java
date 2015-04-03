@@ -246,8 +246,9 @@ public class EvaluationController {
 			if (evaluation.getQcm() == null) {
 				redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
 						messageSource.getMessage("error", null, LocaleContextHolder.getLocale())));
+				return "redirect:" + VIEW_EVALUATION_VIEW;
 			}
-			
+
 			model.addAttribute("qcm", evaluation.getQcm());
 			model.addAttribute("validateQcmForm", new ValidateQcmForm(evaluation.getId(), evaluation.getQcm().getId()));
 			return TAKE_EVALUATION_VIEW;
