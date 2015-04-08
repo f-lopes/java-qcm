@@ -5,8 +5,8 @@ import com.ingesup.java.qcm.entity.Qcm;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.entity.Teacher;
 import com.ingesup.java.qcm.form.AddAnswersForm;
-import com.ingesup.java.qcm.form.AddQuestionsForm;
 import com.ingesup.java.qcm.form.QcmForm;
+import com.ingesup.java.qcm.form.QuestionForm;
 import com.ingesup.java.qcm.security.CurrentUser;
 import com.ingesup.java.qcm.service.AnswerService;
 import com.ingesup.java.qcm.service.QcmService;
@@ -47,6 +47,7 @@ public class QcmController {
 	private static final String QCM_QUESTIONS_VIEW = "/question/list";
 	private static final String QCM_QUESTION_ANSWERS_VIEW = "/answer/list";
 	private static final String ADD_QUESTION_VIEW = "question/create";
+	private static final String EDIT_QUESTION_VIEW = "question/edit";
 	private static final String ADD_ANSWER_VIEW = "answer/add";
 
 	private final QcmService qcmService;
@@ -134,14 +135,14 @@ public class QcmController {
 	@RequestMapping(value = "/{qcmId}/questions/add", method = RequestMethod.GET)
 	public String addQuestion(Model model, @PathVariable String qcmId) {
 
-		model.addAttribute("addQuestionForm", new AddQuestionsForm(qcmId));
+		model.addAttribute("addQuestionForm", new QuestionForm(qcmId));
 
 		return ADD_QUESTION_VIEW;
 	}
 
 	@RequestMapping(value = "/{qcmId}/questions/create", method = RequestMethod.POST)
 	public String saveQuestion(Model model, @PathVariable String qcmId,
-							   @Valid AddQuestionsForm questionsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+							   @Valid QuestionForm questionsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
 		if (bindingResult.hasErrors()) {
 			// handle errors
@@ -155,6 +156,41 @@ public class QcmController {
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("question.create.success", null, LocaleContextHolder.getLocale())));
+
+		return "redirect:" + getQuestionsForQcmURL(qcmId);
+	}
+
+	@RequestMapping(value = "/{qcmId}/questions/edit/{questionId}", method = RequestMethod.GET)
+	public String editQuestion(Model model, @PathVariable String qcmId, @PathVariable String questionId, RedirectAttributes redirectAttributes) {
+		final Question question = questionService.get(questionId);
+		if (question == null) {
+			redirectAttributes.addFlashAttribute("flash", MessageUtil.returnWarning(
+					messageSource.getMessage("qcm.not.found", null, LocaleContextHolder.getLocale())));
+
+			return "redirect:" + getQuestionsForQcmURL(qcmId);
+		}
+		// TODO link to editQuestion
+
+		model.addAttribute("questionForm", QuestionForm.fromQuestion(question));
+		
+		return EDIT_QUESTION_VIEW;
+	}
+
+	@RequestMapping(value = "/{qcmId}/questions/edit", method = RequestMethod.POST)
+	public String handleEditQuestion(Model model, @Valid QuestionForm questionsForm, BindingResult bindingResult,
+									 @PathVariable String qcmId, RedirectAttributes redirectAttributes) {
+		if (bindingResult.hasErrors()) {
+			// handle errors
+			model.addAttribute("flash", MessageUtil.returnDanger("qcm.create.error"));
+
+			return "redirect:" + getQuestionsForQcmURL(qcmId);
+		}
+
+		questionsForm.setQcmService(qcmService);
+		questionService.update(questionsForm.getQuestion());
+
+		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
+				messageSource.getMessage("question.edit.success", null, LocaleContextHolder.getLocale())));
 
 		return "redirect:" + getQuestionsForQcmURL(qcmId);
 	}

@@ -1,6 +1,8 @@
 package com.ingesup.java.qcm.validation;
 
 import com.ingesup.java.qcm.form.CreateEvaluationForm;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -12,6 +14,8 @@ import java.util.Date;
  * <florian.lopes@outlook.com>
  */
 public class CreateEvaluationFormValidator implements Validator{
+
+	private static final Logger logger = LoggerFactory.getLogger(CreateEvaluationFormValidator.class);
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -33,6 +37,10 @@ public class CreateEvaluationFormValidator implements Validator{
 			} else if (createEvaluationForm.getStartDate().after(createEvaluationForm.getEndDate())) {
 				errors.rejectValue("endDate", "validation.evaluation.endDate.afterStartDate");
 			}
+		}
+
+		if (logger.isDebugEnabled()) {
+			logger.debug("Validating CreateEvaluationForm ... {} errors ", errors.getErrorCount());
 		}
 	}
 }

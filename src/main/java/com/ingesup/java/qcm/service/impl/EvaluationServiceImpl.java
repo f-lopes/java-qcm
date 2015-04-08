@@ -3,6 +3,8 @@ package com.ingesup.java.qcm.service.impl;
 import com.ingesup.java.qcm.entity.*;
 import com.ingesup.java.qcm.repository.*;
 import com.ingesup.java.qcm.service.EvaluationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ import java.util.Set;
  */
 @Service
 public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> implements EvaluationService {
+
+	private static final Logger logger = LoggerFactory.getLogger(EvaluationServiceImpl.class);
+	private static final boolean debug = logger.isDebugEnabled();
 
 	private final EvaluationRepository evaluationRepository;
 	private final EvaluationStudentRepository evaluationStudentRepository;
@@ -41,6 +46,10 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
 	@Override
 	public int takeEvaluation(String evaluationId, String qcmId, Student student, Set<String> answersIds, Date takenDate) {
+		if (debug) {
+			logger.debug("Taking evaluation {} for student {} and qcm {}", evaluationId, student.getEmail(), qcmId);
+		}
+
 		Evaluation evaluation = evaluationRepository.findOne(evaluationId);
 		int evaluationMark = 0;
 
@@ -50,6 +59,11 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 
 		evaluationMark = ((evaluationMark * 20) / evaluation.getQcm().getQuestions().size());
 		evaluationMark = evaluationMark > 20 ? 20 : evaluationMark;
+
+		if (debug) {
+			logger.debug("Student obtained {}", evaluationMark);
+		}
+
 		EvaluationStudent evaluationStudent = new EvaluationStudent(evaluation, student, evaluationMark, takenDate);
 		evaluationStudentRepository.save(evaluationStudent);
 

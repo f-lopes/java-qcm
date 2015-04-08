@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by lopes_f on 1/15/2015.
  * <florian.lopes@outlook.com>
  */
-public class AddQuestionsForm {
+public class QuestionForm {
 
-	@Autowired
 	private QcmService qcmService;
 
 	private String qcmId;
@@ -19,11 +18,19 @@ public class AddQuestionsForm {
 
 	private int points;
 
-	public AddQuestionsForm(String qcmId) {
+	public QuestionForm(String qcmId) {
 		this.qcmId = qcmId;
 	}
 
-	public AddQuestionsForm() {
+	public QuestionForm() {
+	}
+
+	public static QuestionForm fromQuestion(Question question) {
+		final QuestionForm questionForm = new QuestionForm();
+		question.setId(question.getId());
+		question.setLabel(question.getLabel());
+
+		return questionForm;
 	}
 
 	public QcmService getQcmService() {
