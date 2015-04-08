@@ -24,7 +24,7 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, String> impleme
     }
 
     @Override
-    public BaseRepository getRepository() {
+    public BaseRepository<Student, String> getRepository() {
         return studentRepository;
     }
 

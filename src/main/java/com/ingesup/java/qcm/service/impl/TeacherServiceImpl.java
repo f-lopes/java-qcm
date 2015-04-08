@@ -22,7 +22,7 @@ public class TeacherServiceImpl extends BaseServiceImpl<Teacher, String> impleme
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Teacher, String> getRepository() {
 		return teacherRepository;
 	}
 }

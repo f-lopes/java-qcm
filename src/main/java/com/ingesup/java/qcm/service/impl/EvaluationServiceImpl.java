@@ -35,7 +35,7 @@ public class EvaluationServiceImpl extends BaseServiceImpl<Evaluation, String> i
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Evaluation, String> getRepository() {
 		return evaluationRepository;
 	}
 

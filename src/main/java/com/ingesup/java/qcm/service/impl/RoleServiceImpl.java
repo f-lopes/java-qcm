@@ -22,7 +22,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, String> implements Ro
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Role, String> getRepository() {
 		return roleRepository;
 	}
 }

@@ -29,7 +29,7 @@ public class QuestionServiceImpl extends BaseServiceImpl<Question, String> imple
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Question, String> getRepository() {
 		return questionRepository;
 	}
 

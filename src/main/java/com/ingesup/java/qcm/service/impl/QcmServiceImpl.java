@@ -25,7 +25,7 @@ public class QcmServiceImpl extends BaseServiceImpl<Qcm, String> implements QcmS
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Qcm, String> getRepository() {
 		return qcmRepository;
 	}
 

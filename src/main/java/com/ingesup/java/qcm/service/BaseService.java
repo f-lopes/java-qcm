@@ -2,13 +2,14 @@ package com.ingesup.java.qcm.service;
 
 import com.ingesup.java.qcm.repository.BaseRepository;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by lopes_f on 1/8/2015.
  * <florian.lopes@outlook.com>
  */
-public interface BaseService <T, I> {
+public interface BaseService <T, I extends Serializable> {
 
 	List<T> getAll();
 
@@ -24,5 +25,5 @@ public interface BaseService <T, I> {
 
 	T update(T entity);
 
-	BaseRepository getRepository();
+	BaseRepository<T, I> getRepository();
 }

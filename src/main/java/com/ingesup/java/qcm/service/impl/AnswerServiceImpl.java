@@ -22,7 +22,7 @@ public class AnswerServiceImpl extends BaseServiceImpl<Answer, String> implement
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Answer, String> getRepository() {
 		return answerRepository;
 	}
 }

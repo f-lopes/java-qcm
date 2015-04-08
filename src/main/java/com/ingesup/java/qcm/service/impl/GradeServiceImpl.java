@@ -22,7 +22,7 @@ public class GradeServiceImpl extends BaseServiceImpl<Grade, String> implements 
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<Grade, String> getRepository() {
 		return gradeRepository;
 	}
 

@@ -37,7 +37,7 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 	}
 
 	@Override
-	public BaseRepository getRepository() {
+	public BaseRepository<User, String> getRepository() {
 		return userRepository;
 	}
 

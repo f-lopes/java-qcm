@@ -5,6 +5,8 @@ Ingesup Java Project : QCM
 - Spring Security
 - Spring Data JPA
 
+HikariCP is used as DataSource, optimized for MySQL
+
 Deployed to Heroku using webapp-runner.
 
 See Procfile

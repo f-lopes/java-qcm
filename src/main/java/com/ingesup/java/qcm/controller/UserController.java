@@ -121,8 +121,7 @@ public class UserController {
 			Student student = addUserForm.getStudent();
 			student.addRole(RoleEnum.ROLE_STUDENT);
 			userService.add(student);
-		}
-		else {
+		} else {
 			Teacher teacher = addUserForm.getTeacher();
 			teacher.addRole(RoleEnum.ROLE_TEACHER);
 			userService.add(teacher);
