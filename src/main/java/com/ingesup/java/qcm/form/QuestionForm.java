@@ -2,6 +2,7 @@ package com.ingesup.java.qcm.form;
 
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.service.QcmService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * <florian.lopes@outlook.com>
  */
 public class QuestionForm {
+
+	private String id;
 
 	private QcmService qcmService;
 
@@ -27,10 +30,21 @@ public class QuestionForm {
 
 	public static QuestionForm fromQuestion(Question question) {
 		final QuestionForm questionForm = new QuestionForm();
-		question.setId(question.getId());
-		question.setLabel(question.getLabel());
+		if (question.getQcm() != null) {
+			questionForm.setQcmId(question.getQcm().getId());
+		}
+		questionForm.setId(question.getId());
+		questionForm.setLabel(question.getLabel());
 
 		return questionForm;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public QcmService getQcmService() {
@@ -58,7 +72,12 @@ public class QuestionForm {
 	}
 
 	public Question getQuestion() {
-		return new Question(qcmService.get(qcmId), label, points);
+		final Question question = new Question(qcmService.get(qcmId), label, points);
+		if (StringUtils.isNotEmpty(id)) {
+			question.setId(id);
+		}
+
+		return question;
 	}
 
 	public int getPoints() {

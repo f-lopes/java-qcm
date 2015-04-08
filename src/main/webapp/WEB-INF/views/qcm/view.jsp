@@ -46,7 +46,8 @@
                         <tbody>
                         <tr>
                             <td>${question.label}</td>
-                            <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.edit"/></a></td>
+                            <td><a class="btn btn-warning" href="<c:url value="/qcm/${qcm.id}/questions/edit/${question.id}"/>"><spring:message code="question.edit"/></a></td>
+                            <td><a class="btn btn-warning" href="<c:url value="${qcm.id}/questions/${question.id}/answers"/>"><spring:message code="question.answers"/></a></td>
                         <%--<ul>--%>
                             <%--<c:forEach items="${question.answers}" var="answer">--%>
                                 <%--<li>${answer.content}</li>--%>

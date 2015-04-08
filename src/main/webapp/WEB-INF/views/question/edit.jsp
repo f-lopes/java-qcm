@@ -22,9 +22,10 @@
             <%@include file="../menu/menuByRole.jsp"%>
         </sec:authorize>
         
-        <h1><spring:message code="question.create.title"/></h1>
+        <h1><spring:message code="question.edit"/></h1>
 
-        <%@include file="questionForm.jsp"%>
+
+        <%@include file="editQuestionForm.jsp"%>
     </div>
 </body>
 </html>

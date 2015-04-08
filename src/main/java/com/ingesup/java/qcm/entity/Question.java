@@ -12,7 +12,7 @@ public class Question extends BaseEntity {
 
 	private String label;
 
-    @OneToMany (cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinColumn(name = "question_id")
     private Set<Answer> answers;
 
