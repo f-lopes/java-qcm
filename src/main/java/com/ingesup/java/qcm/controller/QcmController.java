@@ -105,13 +105,12 @@ public class QcmController {
 
         Qcm qcm = qcmForm.getQcm();
         qcm.setTeacher(teacher);
-		qcmService.add(qcm);
+		qcm = qcmService.add(qcm);
 
 		redirectAttributes.addFlashAttribute("flash", MessageUtil.returnSuccess(
 				messageSource.getMessage("qcm.create.success", null, LocaleContextHolder.getLocale())));
 
-		Qcm addedQcm = qcmService.getAll().get(qcmService.getAll().size()-1);
-		return "redirect:" + getQuestionsForQcmURL(addedQcm.getId());
+		return "redirect:" + getQuestionsForQcmURL(qcm.getId());
 	}
 
 	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
