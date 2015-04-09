@@ -3,7 +3,6 @@ package com.ingesup.java.qcm.form;
 import com.ingesup.java.qcm.entity.Question;
 import com.ingesup.java.qcm.service.QcmService;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Created by lopes_f on 1/15/2015.
