@@ -96,8 +96,4 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addFormatter(new DateFormatter("dd/MM/yyyy"));
 	}
 
-//	@Override
-//	public FormattingConversionService mvcConversionService() {
-//		return formattingConversionService();
-//	}
 }
