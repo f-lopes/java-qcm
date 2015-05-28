@@ -105,7 +105,6 @@ public class SecurityTests {
     }
 
 	@Test
-//	@Ignore
 	public void teacherShouldSeeHisProposedEvaluations() throws Exception {
 		RequestBuilder request = get(PROPOSED_EVALUATIONS_URL)
 				.with(user(teacher));
@@ -119,7 +118,6 @@ public class SecurityTests {
 	}
 
 	@Test
-//	@Ignore
     public void teacherShouldSeeHisFinishedProposedEvaluations() throws Exception {
 		RequestBuilder request = get(PROPOSED_EVALUATIONS_URL + "?finished=true")
 				.with(user(teacher));

@@ -13,7 +13,7 @@ import java.util.Date;
  * Created by lopes_f on 3/12/2015.
  * <florian.lopes@outlook.com>
  */
-public class CreateEvaluationFormValidator implements Validator{
+public class CreateEvaluationFormValidator implements Validator {
 
 	private static final Logger logger = LoggerFactory.getLogger(CreateEvaluationFormValidator.class);
 

@@ -67,7 +67,6 @@ public class StudentControllerTests {
 		when(this.studentRepository.findOne(EXPECTED_STUDENT_ID)).thenReturn(EXPECTED_STUDENT);
 
 		this.studentService = new StudentServiceImpl(this.studentRepository);
-		MockitoAnnotations.initMocks(this);
 
 		this.mockMvc = MockMvcBuilders
 				.standaloneSetup(new StudentController(this.studentService, this.evaluationService, null, new GradeServiceImpl(this.gradeRepository)))
