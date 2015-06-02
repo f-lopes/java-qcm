@@ -8,7 +8,7 @@ import com.ingesup.java.qcm.entity.EvaluationStudentPk;
  */
 public class EvaluationStudentPkBuilder implements Builder<EvaluationStudentPk> {
 
-	private EvaluationStudentPk evaluationStudentPk;
+	private final EvaluationStudentPk evaluationStudentPk;
 
 	public EvaluationStudentPkBuilder() {
 		this.evaluationStudentPk = new EvaluationStudentPk();

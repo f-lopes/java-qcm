@@ -71,7 +71,7 @@ public class QuestionForm {
 	}
 
 	public Question getQuestion() {
-		final Question question = new Question(qcmService.get(qcmId), label, points);
+		final Question question = new Question(qcmService.get(qcmId), label);
 		if (StringUtils.isNotEmpty(id)) {
 			question.setId(id);
 		}

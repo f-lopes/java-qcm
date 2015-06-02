@@ -26,7 +26,7 @@ public class EvaluationDatesValidationTest {
 	private static final String START_DATE_AFTER_TODAY_VALIDATION_CODE = "validation.evaluation.startDate.after.today";
 	private static final String END_DATE_AFTER_START_DATE_VALIDATION_CODE = "validation.evaluation.endDate.afterStartDate";
 
-	private static Validator createEvaluationFormValidator = new CreateEvaluationFormValidator();
+	private static final Validator createEvaluationFormValidator = new CreateEvaluationFormValidator();
 
 	private Calendar calendar;
 

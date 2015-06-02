@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
  * Created by lopes_f on 1/23/2015.
  * <florian.lopes@outlook.com>
  */
+// Don't need cache for now
 /*@EnableCaching
 @Configuration*/
 public class CacheConfig extends CachingConfigurerSupport {

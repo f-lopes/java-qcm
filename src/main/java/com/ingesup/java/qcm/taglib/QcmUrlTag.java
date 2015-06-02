@@ -20,7 +20,7 @@ public class QcmUrlTag extends SimpleTagSupport {
 	private static final String UNDERSCORE = "_";
 	private static final String DOT = ".";
 
-	private Map<String, String> urlsValues = new HashMap<>();
+	private final Map<String, String> urlsValues = new HashMap<>();
 
 	private boolean relative = true;
 	private String key;
@@ -39,9 +39,9 @@ public class QcmUrlTag extends SimpleTagSupport {
 		ServletRequest servletRequest = ((PageContext) getJspContext()).getRequest();
 
 		if (relative) {
-			resolvedUrlStringBuilder.append(servletRequest.getRemoteHost() + urlsValues.get(key));
+			resolvedUrlStringBuilder.append(servletRequest.getRemoteHost()).append(urlsValues.get(key));
 		} else {
-			resolvedUrlStringBuilder.append(servletRequest.getServerName() + ":" + servletRequest.getLocalPort());
+			resolvedUrlStringBuilder.append(servletRequest.getServerName()).append(":").append(servletRequest.getLocalPort());
 		}
 
 		getJspContext().getOut().write(resolvedUrlStringBuilder.toString());

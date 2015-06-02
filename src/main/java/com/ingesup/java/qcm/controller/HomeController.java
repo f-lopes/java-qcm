@@ -1,12 +1,11 @@
 package com.ingesup.java.qcm.controller;
 
+import com.ingesup.java.qcm.service.UserService;
+import com.ingesup.java.qcm.util.SecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.ingesup.java.qcm.service.UserService;
-import com.ingesup.java.qcm.util.SecurityUtil;
 
 /**
  * Created by lopes_f on 1/8/2015.

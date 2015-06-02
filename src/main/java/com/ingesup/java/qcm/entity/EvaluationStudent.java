@@ -45,7 +45,7 @@ public class EvaluationStudent {
 
 	public static class Builder {
 
-		EvaluationStudent evaluationStudent;
+		final EvaluationStudent evaluationStudent;
 
 		public Builder() {
 			this.evaluationStudent = new EvaluationStudent();
