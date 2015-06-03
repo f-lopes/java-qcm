@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -67,7 +66,6 @@ public class StudentControllerTests {
 		when(this.studentRepository.findOne(EXPECTED_STUDENT_ID)).thenReturn(EXPECTED_STUDENT);
 
 		this.studentService = new StudentServiceImpl(this.studentRepository);
-		MockitoAnnotations.initMocks(this);
 
 		this.mockMvc = MockMvcBuilders
 				.standaloneSetup(new StudentController(this.studentService, this.evaluationService, null, new GradeServiceImpl(this.gradeRepository)))

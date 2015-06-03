@@ -6,5 +6,5 @@ package com.ingesup.java.qcm.builder;
  */
 interface Builder<T> {
 
-	public T build();
+	T build();
 }

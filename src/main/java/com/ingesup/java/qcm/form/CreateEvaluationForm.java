@@ -85,13 +85,11 @@ public class CreateEvaluationForm {
 	}
 
 	public Evaluation getEvaluation() {
-		Evaluation evaluation = new EvaluationBuilder()
+		return new EvaluationBuilder()
 				.startDate(startDate)
 				.endDate(endDate)
 				.grade(grade)
 				.qcm(evaluationQcm)
 				.course(course).build();
-
-		return evaluation;
 	}
 }

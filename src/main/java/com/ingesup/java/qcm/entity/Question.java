@@ -19,7 +19,7 @@ public class Question extends BaseEntity {
     @ManyToOne
     private Qcm qcm;
 
-	public Question(Qcm qcm, String label, int points) {
+	public Question(Qcm qcm, String label) {
 		this.qcm = qcm;
 		this.label = label;
 	}

@@ -5,5 +5,5 @@ package com.ingesup.java.qcm.util;
  */
 public interface UrlResolver {
 
-    public String resolveUrl();
+    String resolveUrl();
 }

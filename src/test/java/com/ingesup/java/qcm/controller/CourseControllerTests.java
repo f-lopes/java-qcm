@@ -8,7 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -58,7 +57,6 @@ public class CourseControllerTests {
 		when(this.courseRepository.findOne(EXPECTED_COURSE_ID)).thenReturn(EXPECTED_COURSE);
 
 		this.courseService = new CourseServiceImpl(this.courseRepository);
-		MockitoAnnotations.initMocks(this);
 
 		this.mockMvc = MockMvcBuilders
 				.standaloneSetup(new CourseController(this.courseService, null, null))
