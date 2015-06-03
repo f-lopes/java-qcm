@@ -6,9 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="qcm" uri="/WEB-INF/taglib/qcmurl.tld"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="qcm" uri="/WEB-INF/taglib/profilecondition.tld" %>
 <html>
 <head>
     <title>QCM++</title>
@@ -36,29 +36,29 @@
     <sec:authorize access="isAuthenticated()" >
         <%@include file="../menu/menuByRole.jsp"%>
     </sec:authorize>
-<%--<qcm:url key="user.all"/>--%>
 
+    <qcm:profile value="dev">
+        <form action="login-as-admin" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="login as admin"/>
+        </form>
 
-    <form action="login-as-admin" method="POST">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit" value="login as admin"/>
-    </form>
+        <form action="login-as-teacher" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="login as teacher"/>
+        </form>
 
-    <form action="login-as-teacher" method="POST">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit" value="login as teacher"/>
-    </form>
+        <form action="login-as-student" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="login as student"/>
+        </form>
 
-    <form action="login-as-student" method="POST">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit" value="login as student"/>
-    </form>
-
-    <c:url var="logoutURL" value="/logout" />
-    <form action="${logoutURL}" method="POST">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit" value="Déconnexion"/>
-    </form>
+        <c:url var="logoutURL" value="/logout" />
+        <form action="${logoutURL}" method="POST">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            <input type="submit" value="Déconnexion"/>
+        </form>
+    </qcm:profile>
 
 </div>
 </body>
