@@ -12,7 +12,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Calendar;
@@ -27,7 +26,6 @@ import java.util.List;
 @RunWith (SpringJUnit4ClassRunner.class)
 @ActiveProfiles (value = "test")
 @SpringApplicationConfiguration (classes = JavaQcmApplication.class)
-@Sql (scripts = "/sql/test-data.sql")
 public class EvaluationRepositoryTests {
 
 	@Autowired
@@ -35,9 +33,6 @@ public class EvaluationRepositoryTests {
 
 	@Autowired
 	private EvaluationRepository evaluationRepository;
-
-	@Autowired
-	private EvaluationStudentRepository evaluationStudentRepository;
 
 	@Autowired
 	private GradeRepository gradeRepository;
@@ -49,7 +44,7 @@ public class EvaluationRepositoryTests {
 	@Before
 	public void setUp() {
 		Calendar calendar = new GregorianCalendar();
-		calendar.set(2015, 11, 11);
+		calendar.add(Calendar.DAY_OF_MONTH, 2);
 
 		this.student = new Student("studentName", "studentFirstname", "student@student.fr");
 		this.grade = gradeRepository.save(new Grade("B1"));
@@ -60,19 +55,19 @@ public class EvaluationRepositoryTests {
 		this.evaluation = new Evaluation(new Date(), calendar.getTime());
 		this.evaluation.setGrade(this.grade);
 
-		calendar.set(2014, 11, 11);
+		calendar.add(Calendar.DAY_OF_MONTH,  -10);
 		Evaluation secondEvaluation = new Evaluation();
 		secondEvaluation.setStartDate(calendar.getTime());
-		calendar.set(2014, 11, 22);
+		calendar.add(Calendar.DAY_OF_MONTH,  -5);
 		secondEvaluation.setEndDate(calendar.getTime());
-		secondEvaluation.setGrade(grade);
+		secondEvaluation.setGrade(this.grade);
 
 		Evaluation thirdEvaluation = new Evaluation();
 		BeanUtils.copyProperties(evaluation, thirdEvaluation);
 		thirdEvaluation.setGrade(b2Grade);
 
-		student = userRepository.save(student);
-		evaluation = evaluationRepository.save(evaluation);
+		this.student = userRepository.save(this.student);
+		this.evaluation = evaluationRepository.save(this.evaluation);
 		secondEvaluation = evaluationRepository.save(secondEvaluation);
 		thirdEvaluation = evaluationRepository.save(thirdEvaluation);
 	}

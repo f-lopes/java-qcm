@@ -18,8 +18,8 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public ViewResolver viewResolver() {
-		UrlBasedViewResolver jstlViewResolver = new UrlBasedViewResolver();
+		InternalResourceViewResolver jstlViewResolver = new InternalResourceViewResolver();
 		jstlViewResolver.setViewClass(JstlView.class);
 		jstlViewResolver.setPrefix(VIEW_PREFIX);
 		jstlViewResolver.setSuffix(VIEW_SUFFIX);
