@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -Dspring.profiles.active=heroku -jar target/dependency/webapp-runner.jar --port $PORT target/java-qcm*.war
+web: java $JAVA_OPTS -Dspring.profiles.active=heroku -Dserver.port=$PORT -jar target/java-qcm*.war

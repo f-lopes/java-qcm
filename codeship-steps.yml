@@ -1,0 +1,8 @@
+- name: test
+  tag: master
+  service: java-qcm
+  command: mvn clean test
+- name: build
+  tag: master
+  service: java-qcm
+  command: mvn clean package

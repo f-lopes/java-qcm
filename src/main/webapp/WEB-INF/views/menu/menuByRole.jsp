@@ -11,15 +11,15 @@
                 <li><a href="<c:url value="/"/>"><spring:message code="application.home"/></a></li>
 
                 <sec:authorize access="hasRole('ROLE_ADMIN')">
-                    <%@include file="../menu/adminMenu.jsp" %>
+                    <%@include file="adminMenu.jsp" %>
                 </sec:authorize>
 
                 <sec:authorize access="hasRole('ROLE_TEACHER')">
-                    <%@include file="../menu/teacherMenu.jsp" %>
+                    <%@include file="teacherMenu.jsp" %>
                 </sec:authorize>
 
                 <sec:authorize access="hasRole('ROLE_STUDENT')">
-                    <%@include file="../menu/studentMenu.jsp" %>
+                    <%@include file="studentMenu.jsp" %>
                 </sec:authorize>
 
                 <li>

@@ -52,12 +52,6 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <input type="submit" value="login as student"/>
         </form>
-
-        <c:url var="logoutURL" value="/logout" />
-        <form action="${logoutURL}" method="POST">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-            <input type="submit" value="Déconnexion"/>
-        </form>
     </qcm:profile>
 
 </div>
