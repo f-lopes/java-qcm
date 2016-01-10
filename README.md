@@ -1,6 +1,6 @@
 Ingesup Java Project : QCM
 
-https://codeship.com/projects/120116/status?branch=master
+![](https://codeship.com/projects/120116/status?branch=master "Codeship build status")
 
 - Spring Boot
 - Spring MVC
@@ -9,6 +9,4 @@ https://codeship.com/projects/120116/status?branch=master
 
 HikariCP is used as DataSource, optimized for MySQL
 
-Deployed to Heroku using webapp-runner.
-
-See Procfile
+Deployed to Heroku (see Procfile)
