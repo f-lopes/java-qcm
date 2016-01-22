@@ -1,2 +1,17 @@
 java-qcm:
-  build: docker
+  build:
+    dockerfile_path: Dockerfile.dist
+  links:
+    - mysql
+  environment:
+    - spring.profiles.active=dev
+    - server.port=8080
+mysql:
+  image: mysql
+  ports:
+    - "3306:3306"
+  environment:
+    - MYSQL_ROOT_PASSWORD=t52@U2!&e24
+    - MYSQL_DATABASE=java_qcm
+    - MYSQL_USER=java_qcm
+    - MYSQL_PASSWORD=3dE65A5d

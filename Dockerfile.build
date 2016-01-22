@@ -4,9 +4,12 @@ MAINTAINER Florian Lopes <florian.lopes@outlook.com>
 
 WORKDIR /app
 
-COPY ../pom.xml ./
+COPY pom.xml ./
 
 # Install needed tests dependencies, enable Docker to cache dependencies
+#RUN mvn install clean --fail-never -B -DfailIfNoTests=false
 RUN mvn install clean --fail-never -B -DfailIfNoTests=false
 
-COPY ../ ./
+COPY ./ ./
+
+CMD mvn clean test package

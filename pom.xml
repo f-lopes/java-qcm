@@ -20,24 +20,27 @@
 
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
+		<start-class>com.ingesup.java.qcm.JavaQcmApplication</start-class>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tomcat-webapp-runner.version>7.0.57.2</tomcat-webapp-runner.version>
+    <tomcat-webapp-runner.version>7.0.57.2</tomcat-webapp-runner.version>
 
-        <spring.security.version>3.2.5.RELEASE</spring.security.version>
-        <spring.security-test.version>4.0.0.RC1</spring.security-test.version>
-        <spring.security.taglibs.version>3.2.5.RELEASE</spring.security.taglibs.version>
+    <spring.security.version>3.2.5.RELEASE</spring.security.version>
+    <spring.security-test.version>4.0.0.RC1</spring.security-test.version>
+    <spring.security.taglibs.version>3.2.5.RELEASE</spring.security.taglibs.version>
 
 		<mysql.version>5.1.28</mysql.version>
 		<postgresql.version>9.1-901-1.jdbc4</postgresql.version>
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<commons-lang.version>2.6</commons-lang.version>
 		<hibernate-ehcache.version>4.3.7.Final</hibernate-ehcache.version>
-        <hikari-cp.version>2.3.2</hikari-cp.version>
+    <hikari-cp.version>2.3.2</hikari-cp.version>
 
 		<jstl.version>1.2</jstl.version>
 		<javax.el.version>2.2</javax.el.version>
 		<javax.servlet.jsp.version>2.1</javax.servlet.jsp.version>
 		<java.version>1.8</java.version>
+
+		<surefire.version>2.19.1</surefire.version>
 	</properties>
 
 	<dependencies>
@@ -162,7 +165,19 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>${surefire.version}</version>
+			<!-- Specify Surefire Provider to avoid Maven downloading the world at each Docker build -->
+			<dependencies>
+				<dependency>
+					<groupId>org.apache.maven.surefire</groupId>
+					<artifactId>surefire-junit3</artifactId>
+					<version>${surefire.version}</version>
+				</dependency>
+			</dependencies>
+		</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
