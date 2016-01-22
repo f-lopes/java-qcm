@@ -1,0 +1,9 @@
+FROM maven:3
+
+MAINTAINER Florian Lopes <florian.lopes@outlook.com>
+
+WORKDIR /app
+
+ADD java-qcm.war /app
+
+ENTRYPOINT java -jar java-qcm.war
