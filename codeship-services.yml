@@ -1,4 +1,4 @@
-java-qcm:
+javaqcm:
   build:
     dockerfile_path: Dockerfile.dist
   links:
