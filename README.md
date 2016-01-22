@@ -1,8 +1,6 @@
 Ingesup Java Project : QCM
 
-![Codeship build status](https://codeship.com/projects/120116/status?branch=master)
-
-[![Circle CI](https://circleci.com/gh/f-lopes/java-qcm/tree/master.svg?style=svg)](https://circleci.com/gh/f-lopes/java-qcm/tree/master)
+![Codeship build status](https://codeship.com/projects/126294/status?branch=develop)
 
 - Spring Boot
 - Spring MVC
