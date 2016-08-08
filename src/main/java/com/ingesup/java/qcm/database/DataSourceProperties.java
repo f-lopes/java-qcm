@@ -1,11 +1,13 @@
 package com.ingesup.java.qcm.database;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by lopes_f on 3/12/2015.
  * <florian.lopes@outlook.com>
  */
+@Component
 @ConfigurationProperties(prefix = DataSourceProperties.PREFIX)
 public class DataSourceProperties {
 

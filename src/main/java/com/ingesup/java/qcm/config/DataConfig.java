@@ -4,7 +4,6 @@ import com.ingesup.java.qcm.database.DataSourceProperties;
 import com.ingesup.java.qcm.util.QcmProfile;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,7 +16,6 @@ import java.util.Properties;
  * <florian.lopes@outlook.com>
  */
 @Configuration
-@EnableConfigurationProperties(DataSourceProperties.class)
 public class DataConfig {
 
 	@Autowired
