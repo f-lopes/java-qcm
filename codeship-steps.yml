@@ -1,8 +1,0 @@
-- name: test
-  tag: develop
-  service: javaqcm
-  command: mvn clean test
-- name: build
-  tag: develop
-  service: javaqcm
-  command: mvn clean package

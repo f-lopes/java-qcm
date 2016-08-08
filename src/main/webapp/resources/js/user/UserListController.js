@@ -19,12 +19,6 @@ qcmUsersApp.controller('UserListController', function ($scope, $http) {
     getUsersRequest.url = usersUrl + showAdminUsers;
     $http(getUsersRequest).success(function(data) {
         $scope.users = data;
-
-        $scope.users.forEach(function(item){
-
-                if(item["TYPE_je sais pas quoi"]);
-            
-        });
     });
 
     $scope.showAdmin = function() {
