@@ -1,10 +1,8 @@
 package com.ingesup.java.qcm.controller;
 
 import com.ingesup.java.qcm.util.GitRepositoryState;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -16,12 +14,11 @@ public class GitRepositoryInfoController {
 
     private final GitRepositoryState gitRepositoryState;
 
-    @Autowired
     public GitRepositoryInfoController(GitRepositoryState gitRepositoryState) {
         this.gitRepositoryState = gitRepositoryState;
     }
 
-    @RequestMapping(value = "/git/info", method = RequestMethod.GET)
+    @GetMapping("/git/info")
     @ResponseBody
     public GitRepositoryState getGitRepositoryState() {
         return this.gitRepositoryState;

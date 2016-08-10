@@ -12,16 +12,16 @@ import com.ingesup.java.qcm.service.AnswerService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.service.QuestionService;
 import com.ingesup.java.qcm.util.MessageUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -55,7 +55,6 @@ public class QcmController {
 	private final MessageSource messageSource;
 	private final AnswerService answerService;
 
-	@Autowired
 	public QcmController(QcmService qcmService, QuestionService questionService,
 						 MessageSource messageSource, AnswerService answerService) {
 		this.qcmService = qcmService;
@@ -64,7 +63,7 @@ public class QcmController {
 		this.answerService = answerService;
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@GetMapping("/all")
 	public String qcmListTeacher(Model model, @CurrentUser Teacher teacher) {
 		if(teacher != null) {
 			model.addAttribute("qcmList", qcmService.getQcmByTeacher(teacher));
@@ -75,7 +74,7 @@ public class QcmController {
 		return ALL_QCM_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@GetMapping("/{id}")
 	public String viewQcm(Model model, @PathVariable("id") String qcmId) {
 		Qcm qcm = qcmService.get(qcmId);
 		model.addAttribute("qcm", qcm);
@@ -84,14 +83,14 @@ public class QcmController {
 		return QCM_VIEW;
 	}
 
-	@RequestMapping(value = "create", method = RequestMethod.GET)
+	@GetMapping("create")
 	public String addQcmView(Model model) {
 		model.addAttribute("qcmForm", new QcmForm());
 
 		return ADD_QCM_VIEW;
 	}
 
-	@RequestMapping(value = "create", method = RequestMethod.POST)
+	@PostMapping("create")
 	public String saveQcm(Model model, @Valid QcmForm qcmForm, BindingResult bindingResult,
                           @CurrentUser Teacher teacher, RedirectAttributes redirectAttributes) {
 
@@ -113,7 +112,7 @@ public class QcmController {
 		return "redirect:" + getQuestionsForQcmURL(qcm.getId());
 	}
 
-	@RequestMapping(value = "/{id}/questions", method = RequestMethod.GET)
+	@PostMapping("/{id}/questions")
 	public String viewQcmQuestions(Model model, @PathVariable("id") String qcmId, RedirectAttributes redirectAttributes) {
 		Qcm qcm = qcmService.get(qcmId);
 		List<Question> questions = questionService.getQuestionsByQcm(qcm);
@@ -131,7 +130,7 @@ public class QcmController {
 		return QCM_QUESTIONS_VIEW;
 	}
 
-	@RequestMapping(value = "/{qcmId}/questions/add", method = RequestMethod.GET)
+	@GetMapping("/{qcmId}/questions/add")
 	public String addQuestion(Model model, @PathVariable String qcmId) {
 
 		model.addAttribute("addQuestionForm", new QuestionForm(qcmId));
@@ -139,7 +138,7 @@ public class QcmController {
 		return ADD_QUESTION_VIEW;
 	}
 
-	@RequestMapping(value = "/{qcmId}/questions/create", method = RequestMethod.POST)
+	@PostMapping("/{qcmId}/questions/create")
 	public String saveQuestion(Model model, @PathVariable String qcmId,
 							   @Valid QuestionForm questionsForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
@@ -159,7 +158,7 @@ public class QcmController {
 		return "redirect:" + getQuestionsForQcmURL(qcmId);
 	}
 
-	@RequestMapping(value = "/{qcmId}/questions/edit/{questionId}", method = RequestMethod.GET)
+	@GetMapping("/{qcmId}/questions/edit/{questionId}")
 	public String editQuestion(Model model, @PathVariable String qcmId, @PathVariable String questionId, RedirectAttributes redirectAttributes) {
 		final Question question = questionService.get(questionId);
 		if (question == null) {
@@ -175,7 +174,7 @@ public class QcmController {
 		return EDIT_QUESTION_VIEW;
 	}
 
-	@RequestMapping(value = "/{qcmId}/questions/edit", method = RequestMethod.POST)
+	@PostMapping("/{qcmId}/questions/edit")
 	public String handleEditQuestion(Model model, @Valid QuestionForm questionsForm, BindingResult bindingResult,
 									 @PathVariable String qcmId, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
@@ -194,7 +193,7 @@ public class QcmController {
 		return "redirect:" + getQuestionsForQcmURL(qcmId);
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}", method = RequestMethod.GET)
+	@GetMapping("/{id}/questions/{questionId}")
 	public String viewQcmQuestionAnswers(Model model, @PathVariable("id") String qcmId,
 										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
 		Question question = questionService.get(questionId);
@@ -211,7 +210,7 @@ public class QcmController {
 		return QCM_QUESTION_ANSWERS_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}/answers", method = RequestMethod.GET)
+	@GetMapping("/{id}/questions/{questionId}/answers")
 	public String questionAnswers(Model model, @PathVariable("id") String qcmId,
 										 @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
 		Question question = questionService.get(questionId);
@@ -233,7 +232,7 @@ public class QcmController {
 		return QCM_QUESTION_ANSWERS_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.GET)
+	@GetMapping("/{id}/questions/{questionId}/answers/add")
 	public String addAnswerForQuestion(Model model, @PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId, RedirectAttributes redirectAttributes) {
 		Question question = questionService.get(questionId);
@@ -252,7 +251,7 @@ public class QcmController {
 		return ADD_ANSWER_VIEW;
 	}
 
-	@RequestMapping(value = "/{id}/questions/{questionId}/answers/add", method = RequestMethod.POST)
+	@PostMapping("/{id}/questions/{questionId}/answers/add")
 	public String saveAnswerForQuestion(@PathVariable("id") String qcmId,
 									   @PathVariable("questionId") String questionId,
 									   @Valid

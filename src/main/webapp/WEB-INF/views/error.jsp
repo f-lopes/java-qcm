@@ -10,12 +10,16 @@
 <html>
 <head>
     <title><spring:message code="error" /></title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
 
-<spring:message code="error" />
-<br/>
-<%@include file="menu/menuByRole.jsp"%>
+<div class="container">
+    <%@include file="menu/menuByRole.jsp"%>
+
+    <spring:message code="error" />
+    <br/>
+</div>
 
 </body>
 </html>

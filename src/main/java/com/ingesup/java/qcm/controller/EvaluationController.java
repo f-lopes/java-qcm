@@ -13,7 +13,6 @@ import com.ingesup.java.qcm.service.GradeService;
 import com.ingesup.java.qcm.service.QcmService;
 import com.ingesup.java.qcm.util.MessageUtil;
 import com.ingesup.java.qcm.validation.CreateEvaluationFormValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
@@ -55,7 +54,6 @@ public class EvaluationController {
 	private final CourseService courseService;
 	private final MessageSource messageSource;
 
-    @Autowired
     public EvaluationController(QcmService qcmService, EvaluationService evaluationService,
                                 GradeService gradeService, CourseService courseService, MessageSource messageSource) {
         this.qcmService = qcmService;
@@ -71,7 +69,7 @@ public class EvaluationController {
 	}
 
     @Secured(value = "ROLE_STUDENT")
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	public String availableEvaluationsForStudent(Model model, @CurrentUser Student student) {
 		Map<Evaluation, EvaluationStudent> availablesEvaluationsForStudent = new HashMap<>();
 
@@ -86,7 +84,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@GetMapping("/all")
 	public String evaluations(Model model) {
 		model.addAttribute("grades", gradeService.getAll());
 		model.addAttribute("evaluations", evaluationService.getAll());
@@ -95,7 +93,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
+	@PostMapping("/delete")
 	public String deleteEvaluation(@RequestParam("evaluationId") String evaluationId,
 								   RedirectAttributes redirectAttributes) {
 
@@ -121,7 +119,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/by-grade", method = RequestMethod.GET)
+	@GetMapping("/by-grade")
 	public String evaluationsByGrade(Model model, @RequestParam(required = false) String grade, @RequestParam(required = false) boolean onlyAvailables) {
         model.addAttribute("grades", gradeService.getAll());
 		if (onlyAvailables) {
@@ -137,7 +135,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_TEACHER")
-	@RequestMapping(value = "/proposed-evaluations", method = RequestMethod.GET)
+	@GetMapping("/proposed-evaluations")
 	public String evaluationsByTeacher(Model model, @RequestParam(required = false) boolean finished, @CurrentUser Teacher teacher) {
 
 		if (finished) {
@@ -160,7 +158,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_TEACHER")
-	@RequestMapping(value = "/proposed-evaluations-by-grade", method = RequestMethod.GET)
+	@GetMapping("/proposed-evaluations-by-grade")
 	public String evaluationsByTeacherForGrade(Model model, @RequestParam("grade") String gradeName, @CurrentUser Teacher teacher) {
 		model.addAttribute("evaluations", evaluationService.getEvaluationsByTeacherForGrade(teacher, gradeName));
 
@@ -168,7 +166,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/evaluation-detail/{evaluationId}", method = RequestMethod.GET)
+	@GetMapping("/evaluation-detail/{evaluationId}")
 	public String evaluationDetail(Model model, @PathVariable String evaluationId, RedirectAttributes redirectAttributes) {
 		Evaluation evaluation = evaluationService.get(evaluationId);
 
@@ -186,7 +184,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_STUDENT")
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
+	@GetMapping("/{id}")
 	public String viewEvaluationView(Model model, @PathVariable("id") String evalId, @CurrentUser Student student) {
 		if (evaluationService.hasStudentTakenEvaluation(student.getId(), evalId)) {
 			model.addAttribute("takenEvaluation", evaluationService.getTakenEvaluation(evalId, student.getId()));
@@ -198,7 +196,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_TEACHER")
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@GetMapping("/create")
 	public String createEvaluationView(Model model, @CurrentUser Teacher teacher) {
 		model.addAttribute("createEvaluationForm", new CreateEvaluationForm());
 		model.addAttribute("grades", gradeService.getAll());
@@ -212,7 +210,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_TEACHER")
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
+	@PostMapping("/create")
 	public String createEvaluation(@Valid @ModelAttribute CreateEvaluationForm createEvaluationForm, BindingResult bindingResult, @CurrentUser Teacher teacher,
 								   RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
@@ -232,7 +230,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_STUDENT")
-	@RequestMapping(value = "/take", method = RequestMethod.GET)
+	@GetMapping("/take")
 	public String takeEvaluation(@RequestParam String evaluationId, Model model,
 								 @CurrentUser Student student, RedirectAttributes redirectAttributes) {
 
@@ -263,7 +261,7 @@ public class EvaluationController {
 	}
 
 	@Secured(value = "ROLE_STUDENT")
-	@RequestMapping(value = "/validate", method = RequestMethod.POST)
+	@PostMapping("/validate")
 	public String validateEvaluation(Model model, @Valid ValidateQcmForm validateQcmForm, BindingResult bindingResult,
 									 RedirectAttributes redirectAttributes, @CurrentUser Student student) {
 		if(bindingResult.hasErrors()){

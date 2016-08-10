@@ -18,8 +18,11 @@ public class SecurityUtil {
 	}
 
 	public static void loginUser(User user) {
-		Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
+		if (user == null) {
+			throw new IllegalArgumentException("user cannot be null");
+		}
 
+		Authentication authentication = new UsernamePasswordAuthenticationToken(user, null, user.getRoles());
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	}
 }

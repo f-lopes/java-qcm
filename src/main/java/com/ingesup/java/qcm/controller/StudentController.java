@@ -10,15 +10,14 @@ import com.ingesup.java.qcm.service.StudentService;
 import com.ingesup.java.qcm.util.ControllerUtil;
 import com.ingesup.java.qcm.util.MessageUtil;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,7 +41,6 @@ public class StudentController {
 	private final MessageSource messageSource;
 	private final GradeService gradeService;
 
-	@Autowired
 	public StudentController(StudentService studentService, EvaluationService evaluationService,
 							 MessageSource messageSource, GradeService gradeService) {
 		this.studentService = studentService;
@@ -52,7 +50,7 @@ public class StudentController {
 	}
 
 	@Secured(value = "ROLE_ADMIN")
-	@RequestMapping(value = "/all", method = RequestMethod.GET)
+	@GetMapping("/all")
 	public String allStudents(Model model, @RequestParam(required = false) String grade) {
 		List<Student> students;
 
@@ -70,7 +68,7 @@ public class StudentController {
 	}
 
 	@Secured(value = "ROLE_STUDENT")
-    @RequestMapping(value = "/personal", method = RequestMethod.GET)
+    @GetMapping("/personal")
     public String accountInfo(Model model, @CurrentUser User currentUser) {
         model.addAttribute("currentUser", currentUser);
 
@@ -78,7 +76,7 @@ public class StudentController {
     }
 
 	@Secured(value = "ROLE_STUDENT")
-	@RequestMapping(value = "/marks", method = RequestMethod.GET)
+	@GetMapping("/marks")
 	public String studentMarks(Model model, @CurrentUser Student currentStudent) {
 		List<EvaluationStudent> studentResults = evaluationService.getTakenEvaluationsForStudent(currentStudent);
 		int average = 0;
@@ -97,7 +95,7 @@ public class StudentController {
 	}
 
     @Secured(value = "ROLE_ADMIN")
-    @RequestMapping(value = "/{studentId}", method = RequestMethod.GET)
+    @GetMapping("/{studentId}")
     public String studentDetail(Model model, @PathVariable String studentId, @CurrentUser Student currentStudent,
 								RedirectAttributes redirectAttributes) {
 		Student student = studentService.get(studentId);

@@ -2,10 +2,9 @@ package com.ingesup.java.qcm.controller;
 
 import com.ingesup.java.qcm.service.UserService;
 import com.ingesup.java.qcm.util.SecurityUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * Created by lopes_f on 1/8/2015.
@@ -19,38 +18,37 @@ public class HomeController {
 
 	private final UserService userService;
 
-	@Autowired
 	public HomeController(UserService userService) {
 		this.userService = userService;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping("/")
 	public String home() {
 		return HOME_VIEW;
 	}
 
-	@RequestMapping(value = "/login-as-admin", method = RequestMethod.POST)
+	@PostMapping("/login-as-admin")
 	public String loginAsAdmin() {
 		SecurityUtil.loginUser(userService.getByEmail("admin@admin.fr"));
 
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/login-as-teacher", method = RequestMethod.POST)
+	@PostMapping("/login-as-teacher")
 	public String loginAsTeacher() {
 		SecurityUtil.loginUser(userService.getByEmail("teacher@teacher.fr"));
 
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/login-as-student", method = RequestMethod.POST)
+	@PostMapping("/login-as-student")
 	public String loginAsStudent() {
 		SecurityUtil.loginUser(userService.getByEmail("student@student.fr"));
 
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/access-denied", method = RequestMethod.GET)
+	@GetMapping("/access-denied")
 	public String accessDenied() {
 
 		return ACCESS_DENIED_VIEW;
