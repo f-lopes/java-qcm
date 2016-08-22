@@ -1,5 +1,7 @@
 package com.ingesup.java.qcm.config;
 
+import com.ingesup.java.qcm.handler.GitInfoInterceptor;
+import com.ingesup.java.qcm.util.GitRepositoryState;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -34,6 +36,12 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	private static final String VIEW_PREFIX = "/WEB-INF/views/";
 	private static final String VIEW_SUFFIX = ".jsp";
 
+	final GitRepositoryState gitRepositoryState;
+
+	public WebMvcConfig(GitRepositoryState gitRepositoryState) {
+		this.gitRepositoryState = gitRepositoryState;
+	}
+
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver jstlViewResolver = new InternalResourceViewResolver();
@@ -47,6 +55,11 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean
 	public LocaleResolver localeResolver() {
 		return new CookieLocaleResolver();
+	}
+
+	@Bean
+	public GitInfoInterceptor gitInfoInterceptor() {
+		return new GitInfoInterceptor(this.gitRepositoryState);
 	}
 
 	@Bean
@@ -76,6 +89,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
+		registry.addInterceptor(gitInfoInterceptor());
 	}
 
 	@Override
