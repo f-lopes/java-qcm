@@ -1,7 +1,18 @@
 package com.ingesup.java.qcm.service.impl;
 
-import com.ingesup.java.qcm.entity.*;
-import com.ingesup.java.qcm.repository.*;
+import com.ingesup.java.qcm.entity.Course;
+import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.EvaluationStudent;
+import com.ingesup.java.qcm.entity.EvaluationStudentPk;
+import com.ingesup.java.qcm.entity.Grade;
+import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.Teacher;
+import com.ingesup.java.qcm.repository.AnswerRepository;
+import com.ingesup.java.qcm.repository.BaseRepository;
+import com.ingesup.java.qcm.repository.CourseRepository;
+import com.ingesup.java.qcm.repository.EvaluationRepository;
+import com.ingesup.java.qcm.repository.EvaluationStudentRepository;
+import com.ingesup.java.qcm.repository.GradeRepository;
 import com.ingesup.java.qcm.service.EvaluationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

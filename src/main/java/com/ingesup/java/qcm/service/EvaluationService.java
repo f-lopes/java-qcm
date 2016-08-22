@@ -1,6 +1,10 @@
 package com.ingesup.java.qcm.service;
 
-import com.ingesup.java.qcm.entity.*;
+import com.ingesup.java.qcm.entity.Evaluation;
+import com.ingesup.java.qcm.entity.EvaluationStudent;
+import com.ingesup.java.qcm.entity.Grade;
+import com.ingesup.java.qcm.entity.Student;
+import com.ingesup.java.qcm.entity.Teacher;
 
 import java.util.Date;
 import java.util.List;

@@ -6,6 +6,8 @@ import com.ingesup.java.qcm.repository.BaseRepository;
 import com.ingesup.java.qcm.repository.StudentRepository;
 import com.ingesup.java.qcm.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,4 +34,16 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, String> impleme
 	public List<Student> getStudentsByGrade(Grade grade) {
 		return studentRepository.findByGrade(grade);
 	}
+
+	@Cacheable("students")
+    @Override
+    public List<Student> getAll() {
+        return super.getAll();
+    }
+
+    @CacheEvict("students")
+    @Override
+    public Student add(Student entity) {
+        return super.add(entity);
+    }
 }

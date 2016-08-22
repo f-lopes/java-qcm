@@ -1,7 +1,6 @@
 package com.ingesup.java.qcm.service;
 
 import com.ingesup.java.qcm.entity.User;
-import org.springframework.cache.annotation.Cacheable;
 
 import java.util.List;
 
@@ -10,10 +9,6 @@ import java.util.List;
  * <florian.lopes@outlook.com>
  */
 public interface UserService extends BaseService<User, String> {
-
-	@Cacheable("usersCache")
-	@Override
-	List<User> getAll();
 
 	List<User> getAllNonAdminUsers();
 

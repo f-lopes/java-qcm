@@ -7,6 +7,7 @@ import com.ingesup.java.qcm.repository.RoleRepository;
 import com.ingesup.java.qcm.repository.UserRepository;
 import com.ingesup.java.qcm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -87,5 +88,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, String> implements Us
 		}
 
 		return dbRoles;
+	}
+
+	@Cacheable("users")
+	@Override
+	public List<User> getAll() {
+		return (List<User>) userRepository.findAll();
 	}
 }
