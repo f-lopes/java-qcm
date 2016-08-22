@@ -9,7 +9,7 @@
     <short-name>ProfileConditionTag</short-name>
     <uri></uri>
     <tag>
-        <name>profile</name>
+        <name>profiles</name>
         <tag-class>com.ingesup.java.qcm.taglib.ProfileConditionTag</tag-class>
         <body-content>scriptless</body-content>
         <attribute>

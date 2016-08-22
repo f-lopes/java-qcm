@@ -37,7 +37,7 @@
         <%@include file="../menu/menuByRole.jsp"%>
     </sec:authorize>
 
-    <qcm:profile value="dev">
+    <qcm:profiles value="dev,docker">
         <form action="login-as-admin" method="POST">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <input type="submit" value="login as admin"/>
@@ -52,7 +52,9 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             <input type="submit" value="login as student"/>
         </form>
-    </qcm:profile>
+    </qcm:profiles>
+
+    ${gitCommitId}
 
 </div>
 </body>
